@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios'
 import { message } from 'antd'
+import { hideLoading, showLoading } from './loading'
 
 // 建立 axios 實例
 const instance = axios.create({
@@ -12,6 +13,7 @@ const instance = axios.create({
 // 請求攔截器
 instance.interceptors.request.use(
   config => {
+    showLoading()
     const token = localStorage.getItem('token')
     if (token) {
       config.headers['Authorization'] = 'Token::' + token
@@ -27,22 +29,29 @@ instance.interceptors.request.use(
 )
 
 // 響應攔截器
-instance.interceptors.response.use(response => {
-  const data = response.data
-  debugger
-  if (data.code === 500001) {
-    // 未登入 或 token過期 或 token無效
-    message.error(data.msg)
-    localStorage.removeItem('token')
-    location.href = '/login'
-  } else if (data.code != 0) {
-    // 其他錯
-    message.error(data.msg)
-    return Promise.reject(data)
-  }
+instance.interceptors.response.use(
+  response => {
+    const data = response.data
+    hideLoading()
+    if (data.code === 500001) {
+      // 未登入 或 token過期 或 token無效
+      message.error(data.msg)
+      localStorage.removeItem('token')
+      location.href = '/login'
+    } else if (data.code != 0) {
+      // 其他錯誤
+      message.error(data.msg)
+      return Promise.reject(data)
+    }
 
-  return data.data
-})
+    return data.data
+  },
+  error => {
+    hideLoading()
+    message.error(error.message)
+    return Promise.reject(error.message)
+  }
+)
 
 // 封裝請求方法
 export default {

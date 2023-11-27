@@ -3,3 +3,16 @@
   margin-top: 200px;
   text-align: center;
 }
+
+/* Loading spin rotation */
+.loading {
+  animation: rotate linear 1.5s infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
