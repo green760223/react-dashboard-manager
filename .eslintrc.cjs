@@ -31,9 +31,11 @@ module.exports = {
     'react/jsx-no-target-blank': 'off',
     'no-debugger': 'error',
     'no-var': 'error',
-    'no-console': 'error',
+    'no-console': 'off',
     'react/jsx-no-undef': 'off',
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'off'
+    '@typescript-eslint/no-unused-vars': 'off',
+    'no-extra-semi': 'off',
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 }
