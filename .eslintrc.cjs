@@ -29,7 +29,7 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-no-target-blank': 'off',
-    'no-debugger': 'error',
+    'no-debugger': 'off',
     'no-var': 'error',
     'no-console': 'off',
     'react/jsx-no-undef': 'off',
