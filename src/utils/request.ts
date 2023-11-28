@@ -37,7 +37,7 @@ instance.interceptors.response.use(
       // 未登入 或 token過期 或 token無效
       message.error(data.msg)
       localStorage.removeItem('token')
-      location.href = '/login'
+      // location.href = '/login'
     } else if (data.code != 0) {
       // 其他錯誤
       message.error(data.msg)
@@ -55,11 +55,11 @@ instance.interceptors.response.use(
 
 // 封裝請求方法
 export default {
-  get(url: string, params: any) {
+  get<T>(url: string, params?: object): Promise<T> {
     return instance.get(url, { params })
   },
 
-  post(url: string, params: any) {
+  post<T>(url: string, params: object): Promise<T> {
     return instance.post(url, params)
   }
 }

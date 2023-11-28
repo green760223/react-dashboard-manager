@@ -3,9 +3,13 @@ import { useEffect } from 'react'
 
 function Login() {
   useEffect(() => {
-    request.post('/users/login', {
-      id: '12345'
-    })
+    request
+      .post<string>('/users/login', {
+        id: '12345'
+      })
+      .then(res => {
+        const token = res
+      })
   }, [])
 
   return <div>Login</div>
