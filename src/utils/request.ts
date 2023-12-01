@@ -1,10 +1,13 @@
 import axios, { AxiosError } from 'axios'
 import { message } from 'antd'
 import { hideLoading, showLoading } from './loading'
+import storage from './storage'
+
+console.log(import.meta.env)
 
 // 建立 axios 實例
 const instance = axios.create({
-  baseURL: '/api', // api base_url
+  baseURL: import.meta.env.VITE_BASE_API, // api base_url,
   timeout: 8000, // 請求Time out時間
   timeoutErrorMessage: '請求超時，請稍後再試！',
   withCredentials: true // 允許夾帶cookie
@@ -14,9 +17,15 @@ const instance = axios.create({
 instance.interceptors.request.use(
   config => {
     showLoading()
-    const token = localStorage.getItem('token')
+    const token = storage.get('token')
     if (token) {
       config.headers['Authorization'] = 'Token::' + token
+    }
+
+    if (import.meta.env.VITE_MOCK === 'true') {
+      config.baseURL = import.meta.env.VITE_MOCK_API
+    } else {
+      config.baseURL = import.meta.env.VITE_BASE_API
     }
 
     return {
