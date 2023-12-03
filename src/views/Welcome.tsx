@@ -1,9 +1,12 @@
 import request from '@/utils/request'
 import storage from '@/utils/storage'
 import { Button } from 'antd'
+import { formatMoney, toLocalDate } from '@/utils'
 
 export default function Login() {
   const handleClick = async () => {
+    console.log(formatMoney('1231454548754.58'))
+    console.log(toLocalDate(new Date(), 'yyyy-MM-dd'))
     request.post('/users/login', {})
   }
 
