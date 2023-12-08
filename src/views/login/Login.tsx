@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 import { Button, Form, Input } from 'antd'
-import './index.less'
+import styles from './index.module.less'
 
 function Login() {
   const onFinish = () => {
@@ -9,9 +9,9 @@ function Login() {
 
   return (
     <>
-      <div className='login'>
-        <div className='login-wrapper'>
-          <div className='title'>系統登錄</div>
+      <div className={styles.login}>
+        <div className={styles.loginWrapper}>
+          <div className={styles.title}>系統登錄</div>
           <Form
             name='basic'
             initialValues={{ remember: true }}
