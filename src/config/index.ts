@@ -3,7 +3,7 @@
  */
 
 type ENV = 'dev' | 'stg' | 'prod'
-const env = document.documentElement.dataset.env as ENV
+const env = (document.documentElement.dataset.env as ENV) || 'stg'
 
 const config = {
   dev: {

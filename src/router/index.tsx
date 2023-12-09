@@ -1,5 +1,5 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom'
-import Login from '@/views/login/Login'
+import LoginFC from '@/views/login/Login'
 import Welcome from '@/views/Welcome'
 import Error403 from '@/views/Error403'
 import NotFound from '@/views/NotFound'
@@ -11,7 +11,7 @@ const router = [
   },
   {
     path: '/login',
-    element: <Login />
+    element: <LoginFC />
   },
   {
     path: '*',

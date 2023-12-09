@@ -1,10 +1,21 @@
 import request from '@/utils/request'
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, App } from 'antd'
+import api from '@/api/index'
 import styles from './index.module.less'
+import { Login } from '@/types/api'
+import storage from '@/utils/storage'
 
-function Login() {
-  const onFinish = () => {
-    console.log('values')
+function LoginFC() {
+  const { message, notification, modal } = App.useApp()
+
+  // LoginFC function component
+  const onFinish = async (values: Login.params) => {
+    const data = await api.login(values)
+    console.log('data:', data)
+    storage.set('token', data)
+    message.success('登錄成功')
+    const params = new URLSearchParams(location.search)
+    location.href = params.get('callback') || '/'
   }
 
   return (
@@ -18,8 +29,8 @@ function Login() {
             onFinish={onFinish}
             autoComplete='off'
           >
-            <Form.Item<FieldType>
-              name='username'
+            <Form.Item
+              name='userName'
               rules={[
                 { required: true, message: 'Please input your username!' }
               ]}
@@ -27,8 +38,8 @@ function Login() {
               <Input />
             </Form.Item>
 
-            <Form.Item<FieldType>
-              name='password'
+            <Form.Item
+              name='userPwd'
               rules={[
                 { required: true, message: 'Please input your password!' }
               ]}
@@ -36,8 +47,7 @@ function Login() {
               <Input.Password />
             </Form.Item>
 
-            <Form.Item<FieldType>
-              name='remember'
+            <Form.Item
               valuePropName='checked'
               wrapperCol={{ offset: 8, span: 16 }}
             ></Form.Item>
@@ -54,4 +64,4 @@ function Login() {
   )
 }
 
-export default Login
+export default LoginFC

@@ -1,17 +1,20 @@
 import axios, { AxiosError } from 'axios'
-import { message } from 'antd'
 import { hideLoading, showLoading } from './loading'
 import storage from './storage'
 import env from '@/config'
+import { message } from './AntdGlobal'
+import { Result } from '@/types/api'
 
 console.log(env)
 
 // 建立 axios 實例
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_API, // api base_url,
   timeout: 8000, // 請求Time out時間
   timeoutErrorMessage: '請求超時，請稍後再試！',
-  withCredentials: true // 允許夾帶cookie
+  withCredentials: true, // 允許夾帶cookie
+  headers: {
+    icode: 'DACED4969438024B'
+  }
 })
 
 // 請求攔截器
@@ -41,12 +44,12 @@ instance.interceptors.request.use(
 // 響應攔截器
 instance.interceptors.response.use(
   response => {
-    const data = response.data
+    const data: Result = response.data
     hideLoading()
     if (data.code === 500001) {
       // 未登入 或 token過期 或 token無效
       message.error(data.msg)
-      localStorage.removeItem('token')
+      storage.remove('token')
       // location.href = '/login'
     } else if (data.code != 0) {
       // 其他錯誤
