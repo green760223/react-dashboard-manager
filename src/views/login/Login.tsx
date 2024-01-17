@@ -4,13 +4,22 @@ import api from '@/api/index'
 import styles from './index.module.less'
 import { Login } from '@/types/api'
 import storage from '@/utils/storage'
+import { useState } from 'react'
 
 function LoginFC() {
+  const [loading, setLoading] = useState(false)
+
   const { message, notification, modal } = App.useApp()
 
   // LoginFC function component
   const onFinish = async (values: Login.params) => {
-    const data = await api.login(values)
+    setLoading(true)
+    const data: any = await api.login(values)
+    if (data.code != 0) {
+      return message.error('登錄失敗')
+    }
+
+    setLoading(false)
     console.log('data:', data)
     storage.set('token', data)
     message.success('登錄成功')
@@ -53,7 +62,7 @@ function LoginFC() {
             ></Form.Item>
 
             <Form.Item>
-              <Button type='primary' block htmlType='submit'>
+              <Button type='primary' block htmlType='submit' loading={loading}>
                 登錄
               </Button>
             </Form.Item>

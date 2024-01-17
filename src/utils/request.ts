@@ -4,6 +4,7 @@ import storage from './storage'
 import env from '@/config'
 import { message } from './AntdGlobal'
 import { Result } from '@/types/api'
+import { config } from 'process'
 
 console.log(env)
 
@@ -13,14 +14,17 @@ const instance = axios.create({
   timeoutErrorMessage: '請求超時，請稍後再試！',
   withCredentials: true, // 允許夾帶cookie
   headers: {
-    icode: 'DACED4969438024B'
+    icode: 'F8FE1231CCA0FEA6'
   }
 })
 
 // 請求攔截器
 instance.interceptors.request.use(
   config => {
-    showLoading()
+    if (config.showLoading) {
+      showLoading()
+    }
+
     const token = storage.get('token')
     if (token) {
       config.headers['Authorization'] = 'Token::' + token
@@ -53,8 +57,12 @@ instance.interceptors.response.use(
       // location.href = '/login'
     } else if (data.code != 0) {
       // 其他錯誤
-      message.error(data.msg)
-      return Promise.reject(data)
+      if (response.config.showError === false) {
+        return Promise.resolve(data)
+      } else {
+        message.error(data.msg)
+        return Promise.reject(data)
+      }
     }
 
     return data.data
@@ -66,13 +74,26 @@ instance.interceptors.response.use(
   }
 )
 
+interface IConfig {
+  showLoading?: boolean
+  showError?: boolean
+}
+
 // 封裝請求方法
 export default {
-  get<T>(url: string, params?: object): Promise<T> {
-    return instance.get(url, { params })
+  get<T>(
+    url: string,
+    params?: object,
+    options: IConfig = { showLoading: true, showError: true }
+  ): Promise<T> {
+    return instance.get(url, { params, ...options })
   },
 
-  post<T>(url: string, params: object): Promise<T> {
-    return instance.post(url, params)
+  post<T>(
+    url: string,
+    params?: object,
+    options: IConfig = { showLoading: true, showError: true }
+  ): Promise<T> {
+    return instance.post(url, params, options)
   }
 }
