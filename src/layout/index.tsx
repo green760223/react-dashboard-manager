@@ -4,9 +4,10 @@ import {
   UserOutlined,
   VideoCameraOutlined
 } from '@ant-design/icons'
-import { Layout, Menu, theme, Watermark } from 'antd'
+import { Layout, theme, Watermark } from 'antd'
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
+import Menu from '@/components/Menu'
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -48,17 +49,8 @@ const App: React.FC = () => {
   return (
     <Watermark content='React'>
       <Layout>
-        <Sider
-          breakpoint='lg'
-          collapsedWidth='0'
-          onBreakpoint={broken => {
-            console.log(broken)
-          }}
-          onCollapse={(collapsed, type) => {
-            console.log(collapsed, type)
-          }}
-        >
-          側邊欄
+        <Sider>
+          <Menu />
         </Sider>
         <Layout>
           <Header style={{ padding: 0, background: colorBgContainer }}>
