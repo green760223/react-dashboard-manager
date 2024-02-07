@@ -6,6 +6,7 @@ import {
 } from '@ant-design/icons'
 import { Layout, Menu, theme, Watermark } from 'antd'
 import NavHeader from '@/components/NavHeader'
+import NavFooter from '@/components/NavFooter'
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -76,9 +77,7 @@ const App: React.FC = () => {
               <span>content</span>
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©{new Date().getFullYear()} Created by Ant UED
-          </Footer>
+          <NavFooter />
         </Layout>
       </Layout>
     </Watermark>
