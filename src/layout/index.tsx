@@ -5,6 +5,7 @@ import {
   VideoCameraOutlined
 } from '@ant-design/icons'
 import { Layout, Menu, theme, Watermark } from 'antd'
+import NavHeader from '@/components/NavHeader'
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -60,7 +61,7 @@ const App: React.FC = () => {
         </Sider>
         <Layout>
           <Header style={{ padding: 0, background: colorBgContainer }}>
-            頂部區域
+            <NavHeader />
           </Header>
           <Content style={{ margin: '24px 16px 0' }}>
             <div
