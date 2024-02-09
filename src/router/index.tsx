@@ -1,6 +1,6 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import LoginFC from '@/views/login/Login'
-import Welcome from '@/views/Welcome'
+import Welcome from '@/views/welcome'
 import Error403 from '@/views/Error403'
 import NotFound from '@/views/NotFound'
 import Layout from '@/layout/index'
