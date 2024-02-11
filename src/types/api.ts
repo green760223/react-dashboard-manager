@@ -5,9 +5,27 @@ export interface Result<T = any> {
   msg: string
 }
 
+// Define the login interface
 export namespace Login {
   export interface params {
     userName: string
     userPwd: string
+  }
+}
+
+// Define the user interface
+export namespace User {
+  export interface UserItem {
+    _id: string
+    userId: number
+    userName: string
+    userEmail: string
+    deptId: string
+    deptName: string
+    state: number
+    role: number
+    roleList: string
+    createId: number
+    userImg: string
   }
 }

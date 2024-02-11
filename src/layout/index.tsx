@@ -1,14 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Layout, theme, Watermark } from 'antd'
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import Menu from '@/components/Menu'
 import styles from './index.module.less'
+import api from '@/api'
+import storage from '@/utils/storage'
 
 const { Content, Sider } = Layout
 
 const App: React.FC = () => {
+  useEffect(() => {
+    getUserInfo()
+  }, [])
+
+  const getUserInfo = async () => {
+    const data = await api.getUserInfo()
+    storage.set('userInfo', data)
+    console.log('data', data._id, data.userName)
+  }
+
   return (
     <Watermark content='React'>
       <Layout>

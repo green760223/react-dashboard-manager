@@ -8,23 +8,24 @@ import { useState } from 'react'
 
 function LoginFC() {
   const [loading, setLoading] = useState(false)
-
   const { message, notification, modal } = App.useApp()
 
   // LoginFC function component
   const onFinish = async (values: Login.params) => {
-    setLoading(true)
-    const data: any = await api.login(values)
-    if (data.code != 0) {
-      return message.error('登錄失敗')
+    try {
+      setLoading(true)
+      const data: any = await api.login(values)
+      setLoading(false)
+      storage.set('token', data)
+      message.success('登錄成功')
+      const params = new URLSearchParams(location.search)
+      setTimeout(() => {
+        location.href = params.get('callback') || '/welcome'
+      }, 1000)
+    } catch (error) {
+      // In case the login fails, the loading button got stuck in the loading state
+      setLoading(false)
     }
-
-    setLoading(false)
-    console.log('data:', data)
-    storage.set('token', data)
-    message.success('登錄成功')
-    const params = new URLSearchParams(location.search)
-    location.href = params.get('callback') || '/'
   }
 
   return (

@@ -1,11 +1,16 @@
 import request from '@/utils/request'
-import { Login } from '@/types/api'
+import { Login, User } from '@/types/api'
 
-// API Interface
+// Define the API interface
 export default {
+  // User login
   login(params: Login.params) {
     return request.post('/users/login', params, {
       showLoading: false
     })
+  },
+  // Get user information
+  getUserInfo() {
+    return request.get<User.UserItem>('/users/getUserInfo')
   }
 }
