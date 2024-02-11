@@ -1,12 +1,13 @@
-import request from '@/utils/request'
 import { Button, Form, Input, App } from 'antd'
 import api from '@/api/index'
 import styles from './index.module.less'
 import { Login } from '@/types/api'
-import storage from '@/utils/storage'
 import { useState } from 'react'
+import { useStore } from '@/store'
+import storage from '@/utils/storage'
 
 function LoginFC() {
+  const updateToken = useStore(state => state.updateToken)
   const [loading, setLoading] = useState(false)
   const { message, notification, modal } = App.useApp()
 
@@ -14,9 +15,10 @@ function LoginFC() {
   const onFinish = async (values: Login.params) => {
     try {
       setLoading(true)
-      const data: any = await api.login(values)
+      const data = await api.login(values)
       setLoading(false)
       storage.set('token', data)
+      updateToken(data)
       message.success('登錄成功')
       const params = new URLSearchParams(location.search)
       setTimeout(() => {

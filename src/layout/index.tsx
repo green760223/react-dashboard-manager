@@ -6,19 +6,20 @@ import NavFooter from '@/components/NavFooter'
 import Menu from '@/components/Menu'
 import styles from './index.module.less'
 import api from '@/api'
-import storage from '@/utils/storage'
+import { useStore } from '@/store'
 
 const { Content, Sider } = Layout
 
 const App: React.FC = () => {
+  const updateUserInfo = useStore(state => state.updateUserInfo)
+
   useEffect(() => {
     getUserInfo()
   }, [])
 
   const getUserInfo = async () => {
     const data = await api.getUserInfo()
-    storage.set('userInfo', data)
-    console.log('data', data._id, data.userName)
+    updateUserInfo(data)
   }
 
   return (

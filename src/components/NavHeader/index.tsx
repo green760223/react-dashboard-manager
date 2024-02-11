@@ -3,9 +3,10 @@ import { Breadcrumb, Switch, Dropdown } from 'antd'
 import type { MenuProps } from 'antd'
 import styles from './index.module.less'
 import storage from '@/utils/storage'
+import { useStore } from '@/store'
 
 const NavHeader = () => {
-  const userInfo = storage.get('userInfo')
+  const userInfo = useStore(state => state.userInfo)
 
   const breadList = [
     {
@@ -18,14 +19,21 @@ const NavHeader = () => {
 
   const items: MenuProps['items'] = [
     {
-      key: '1',
+      key: 'email',
       label: '信箱：' + userInfo.userEmail
     },
     {
-      key: '2',
+      key: 'logout',
       label: '退出'
     }
   ]
+
+  const onClick: MenuProps['onClick'] = ({ key }) => {
+    if (key === 'logout') {
+      storage.remove('token')
+      location.href = '/login?callback=/' + encodeURIComponent(location.href)
+    }
+  }
 
   return (
     <div className={styles.navHeader}>
@@ -39,7 +47,7 @@ const NavHeader = () => {
           unCheckedChildren='默認'
           style={{ marginRight: 10 }}
         />
-        <Dropdown menu={{ items }} trigger={['click']}>
+        <Dropdown menu={{ items, onClick }} trigger={['click']}>
           <span className={styles.nickName}>{userInfo.userName}</span>
         </Dropdown>
       </div>

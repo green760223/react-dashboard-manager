@@ -5,7 +5,7 @@ import { Login, User } from '@/types/api'
 export default {
   // User login
   login(params: Login.params) {
-    return request.post('/users/login', params, {
+    return request.post<string>('/users/login', params, {
       showLoading: false
     })
   },
