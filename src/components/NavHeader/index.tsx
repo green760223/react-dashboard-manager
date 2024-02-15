@@ -1,4 +1,4 @@
-import { MenuFoldOutlined } from '@ant-design/icons'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Breadcrumb, Switch, Dropdown } from 'antd'
 import type { MenuProps } from 'antd'
 import styles from './index.module.less'
@@ -6,7 +6,11 @@ import storage from '@/utils/storage'
 import { useStore } from '@/store'
 
 const NavHeader = () => {
-  const userInfo = useStore(state => state.userInfo)
+  const { userInfo, isCollapsed, updateCollapsed } = useStore(state => ({
+    userInfo: state.userInfo,
+    isCollapsed: state.isCollapse,
+    updateCollapsed: state.updateCollapse
+  }))
 
   const breadList = [
     {
@@ -35,10 +39,18 @@ const NavHeader = () => {
     }
   }
 
+  // Toggle the menu collapsed state
+  const toggleCollapsed = () => {
+    updateCollapsed()
+  }
+
   return (
     <div className={styles.navHeader}>
       <div className={styles.left}>
-        <MenuFoldOutlined />
+        <div onClick={toggleCollapsed}>
+          {isCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </div>
+
         <Breadcrumb items={breadList} style={{ marginLeft: 10 }} />
       </div>
       <div className='right'>

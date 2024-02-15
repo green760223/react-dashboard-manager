@@ -11,7 +11,7 @@ import { useStore } from '@/store'
 const { Content, Sider } = Layout
 
 const App: React.FC = () => {
-  const updateUserInfo = useStore(state => state.updateUserInfo)
+  const { updateUserInfo, isCollapse } = useStore()
 
   useEffect(() => {
     getUserInfo()
@@ -25,7 +25,7 @@ const App: React.FC = () => {
   return (
     <Watermark content='React'>
       <Layout>
-        <Sider>
+        <Sider collapsed={isCollapse}>
           <Menu />
         </Sider>
         <Layout>

@@ -6,9 +6,12 @@ import {
   TeamOutlined
 } from '@ant-design/icons'
 import styles from './index.module.less'
+import { useStore } from '@/store'
 
 function SideMenu() {
   const navigate = useNavigate()
+  const isCollapse = useStore(state => state.isCollapse)
+
   const items = [
     {
       key: '1',
@@ -37,13 +40,14 @@ function SideMenu() {
     <div>
       <div className={styles.logo} onClick={handleClickLog}>
         <img src='/imgs/logo.png' alt='' className={styles.img} />
-        <span>倫斯貨運</span>
+        {isCollapse ? '' : <span>倫斯貨運</span>}
       </div>
       <Menu
         defaultSelectedKeys={['1']}
         mode='inline'
         theme='dark'
         items={items}
+        style={{ width: isCollapse ? 80 : 'auto' }}
       />
     </div>
   )

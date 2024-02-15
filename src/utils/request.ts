@@ -14,7 +14,7 @@ const instance = axios.create({
   timeoutErrorMessage: '請求超時，請稍後再試！',
   withCredentials: true, // 允許夾帶cookie
   headers: {
-    icode: 'F8FE1231CCA0FEA6'
+    icode: '775A5C5953C9AEC2'
   }
 })
 

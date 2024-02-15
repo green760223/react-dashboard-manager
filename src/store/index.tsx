@@ -7,8 +7,10 @@ export const useStore = create<{
     userEmail: string
     userName: string
   }
+  isCollapse: boolean
   updateToken: (token: string) => void
   updateUserInfo: (userInfo: User.UserItem) => void
+  updateCollapse: () => void
 }>(set => ({
   token: '',
   userInfo: {
@@ -20,5 +22,12 @@ export const useStore = create<{
   // }
   // 上面寫法與下面寫法相同
   updateUserInfo: (userInfo: User.UserItem) => set({ userInfo }),
-  updateToken: (token: string) => set({ token })
+  updateToken: (token: string) => set({ token }),
+  isCollapse: false,
+  updateCollapse: () =>
+    set(state => {
+      return {
+        isCollapse: !state.isCollapse
+      }
+    })
 }))
