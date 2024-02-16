@@ -8,7 +8,7 @@ import styles from './index.module.less'
 import api from '@/api'
 import { useStore } from '@/store'
 
-const { Content, Sider } = Layout
+const { Sider } = Layout
 
 const App: React.FC = () => {
   const { updateUserInfo, isCollapse } = useStore()
@@ -30,12 +30,10 @@ const App: React.FC = () => {
         </Sider>
         <Layout>
           <NavHeader />
-          <Content className={styles.content}>
-            <div className={styles.wrapper}>
-              <Outlet></Outlet>
-            </div>
-            <NavFooter />
-          </Content>
+          <div className={styles.wrapper}>
+            <Outlet></Outlet>
+          </div>
+          <NavFooter />
         </Layout>
       </Layout>
     </Watermark>
