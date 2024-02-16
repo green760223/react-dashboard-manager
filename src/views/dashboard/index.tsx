@@ -1,9 +1,16 @@
 import { Descriptions, Card, Button } from 'antd'
 import * as echarts from 'echarts'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './index.module.less'
+import { useStore } from '@/store'
+import { formatSate, formatMoney, formatNum } from '@/utils'
+import api from '@/api'
+import { Dashboard } from '@/types/api'
 
-function Dashboard() {
+function DashBoard() {
+  const userInfo = useStore(state => state.userInfo)
+  const [report, setReport] = useState<Dashboard.ReportData>()
+
   useEffect(() => {
     // Line chart
     const lineChartDom = document.getElementById('lineChart')
@@ -149,42 +156,60 @@ function Dashboard() {
     })
   }, [])
 
+  useEffect(() => {
+    getReportData()
+  }, [])
+
+  // Get the report data
+  const getReportData = async () => {
+    const data = await api.getReportData()
+    setReport(data)
+  }
+
   return (
     <div className={styles.dashboard}>
       <div className={styles.userInfo}>
-        <img
-          src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-          alt=''
-          className={styles.userImg}
-        />
+        <img src={userInfo.userImg} alt='User' className={styles.userImg} />
         <Descriptions title='歡迎新同學！'>
-          <Descriptions.Item label='User ID'>Zhou Maomao</Descriptions.Item>
-          <Descriptions.Item label='E-mail'>test@example.com</Descriptions.Item>
-          <Descriptions.Item label='Status'>Live</Descriptions.Item>
-          <Descriptions.Item label='Cellphone'>+123456789</Descriptions.Item>
-          <Descriptions.Item label='Occupation'>Student</Descriptions.Item>
-          <Descriptions.Item label='Departmant'>CSE</Descriptions.Item>
+          <Descriptions.Item label='User ID'>
+            {userInfo.userId}
+          </Descriptions.Item>
+          <Descriptions.Item label='E-mail'>
+            {userInfo.userEmail}
+          </Descriptions.Item>
+          <Descriptions.Item label='Status'>
+            {formatSate(userInfo.state)}
+          </Descriptions.Item>
+          <Descriptions.Item label='Cellphone'>
+            {userInfo.mobile}
+          </Descriptions.Item>
+          <Descriptions.Item label='Occupation'>
+            {userInfo.job}
+          </Descriptions.Item>
+          <Descriptions.Item label='Departmant'>
+            {userInfo.deptName}
+          </Descriptions.Item>
         </Descriptions>
       </div>
       <div className={styles.report}>
         <div className={styles.card}>
           <div className='title'>司機數量</div>
-          <div className={styles.data}>100個</div>
+          <div className={styles.data}>{formatNum(report?.driverCount)}個</div>
         </div>
 
         <div className={styles.card}>
           <div className='title'>總庫存</div>
-          <div className={styles.data}>10000元</div>
+          <div className={styles.data}>{formatMoney(report?.totalMoney)}元</div>
         </div>
 
         <div className={styles.card}>
           <div className='title'>總訂單</div>
-          <div className={styles.data}>2000單</div>
+          <div className={styles.data}>{formatNum(report?.orderCount)}單</div>
         </div>
 
         <div className={styles.card}>
           <div className='title'>開通城市</div>
-          <div className={styles.data}>50座</div>
+          <div className={styles.data}>{formatNum(report?.cityNum)}座</div>
         </div>
       </div>
       <div className={styles.chart}>
@@ -212,4 +237,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default DashBoard

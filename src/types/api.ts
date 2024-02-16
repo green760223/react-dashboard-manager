@@ -1,3 +1,5 @@
+import Dashboard from '@/views/dashboard'
+
 // 接口類型定義
 export interface Result<T = any> {
   code: number
@@ -23,9 +25,21 @@ export namespace User {
     deptId: string
     deptName: string
     state: number
+    mobile: string
+    job: string
     role: number
     roleList: string
     createId: number
     userImg: string
+  }
+}
+
+// Define the dashboard interface
+export namespace Dashboard {
+  export interface ReportData {
+    driverCount: number
+    totalMoney: number
+    orderCount: number
+    cityNum: number
   }
 }

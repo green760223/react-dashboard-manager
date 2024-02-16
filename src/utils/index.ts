@@ -3,9 +3,12 @@
  */
 
 // 格式化金額
-export const formatMoney = (num: number | string) => {
+export const formatMoney = (num?: number | string) => {
+  if (!num) {
+    return '0.00'
+  }
   const a = parseFloat(num.toString())
-  return a.toLocaleString('zh-CN', { style: 'currency', currency: 'CNY' })
+  return a.toLocaleString('zh-CN', { style: 'currency', currency: 'USD' })
 }
 
 // 格式化本地日期
@@ -24,6 +27,16 @@ export const toLocalDate = (date?: Date, rule?: string) => {
   }
 
   return curDate.toLocaleString('zh-CN').replaceAll('/', '-')
+}
+
+// 格式化數字
+export const formatNum = (num?: number | string) => {
+  if (!num) {
+    return 0
+  }
+  const a = num.toString()
+  if (a.indexOf('.') > -1) return a.replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+  return a.replace(/(\d)(?=(\d{3})+$)/g, '$1,')
 }
 
 // 格式化日期
@@ -59,4 +72,19 @@ export const formatDate = (date?: Date | string, rule?: string) => {
     // fmt = fmt.replace(new RegExp(`(${k})`), ('00' + val).substring(val.length))
   }
   return fmt
+}
+
+// 格式化用戶狀態轉換
+export const formatSate = (state: number) => {
+  if (state === 1) {
+    return '在職'
+  }
+
+  if (state === 2) {
+    return '試用期'
+  }
+
+  if (state === 3) {
+    return '離職'
+  }
 }
