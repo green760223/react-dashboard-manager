@@ -1,6 +1,7 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import LoginFC from '@/views/login/Login'
 import Welcome from '@/views/welcome'
+import Dashboard from '@/views/dashboard'
 import Error403 from '@/views/Error403'
 import NotFound from '@/views/NotFound'
 import Layout from '@/layout/index'
@@ -20,6 +21,10 @@ const router = [
       {
         path: '/welcome',
         element: <Welcome />
+      },
+      {
+        path: '/dashboard',
+        element: <Dashboard />
       }
     ]
   },
