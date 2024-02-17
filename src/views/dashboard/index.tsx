@@ -6,16 +6,25 @@ import { useStore } from '@/store'
 import { formatSate, formatMoney, formatNum } from '@/utils'
 import api from '@/api'
 import { Dashboard } from '@/types/api'
+import { useCharts } from '@/hook/useCharts'
 
 function DashBoard() {
   const userInfo = useStore(state => state.userInfo)
   const [report, setReport] = useState<Dashboard.ReportData>()
 
+  // 初始化折線圖
+  const [lineRef, lineChart] = useCharts()
+
+  // 初始化餅圖
+  const [pieRef1, pieChart1] = useCharts()
+  const [pieRef2, pieChart2] = useCharts()
+
+  // 初始化雷達圖
+  const [radarRef, radarChart] = useCharts()
+
   useEffect(() => {
     // Line chart
-    const lineChartDom = document.getElementById('lineChart')
-    const chartInstance = echarts.init(lineChartDom)
-    chartInstance.setOption({
+    lineChart?.setOption({
       tooltip: {
         trigger: 'axis'
       },
@@ -63,9 +72,7 @@ function DashBoard() {
       ]
     })
     // Pie chart City
-    const pieChartCityDom = document.getElementById('pieChartCity')
-    const pieChartCityInstance = echarts.init(pieChartCityDom)
-    pieChartCityInstance.setOption({
+    pieChart1?.setOption({
       title: {
         text: '司機城市分佈',
         left: 'center'
@@ -94,9 +101,7 @@ function DashBoard() {
     })
 
     // Pie chart Age
-    const pieChartAgeDom = document.getElementById('pieChartAge')
-    const pieChartAgeInstance = echarts.init(pieChartAgeDom)
-    pieChartAgeInstance.setOption({
+    pieChart2?.setOption({
       title: {
         text: '司機年齡分佈',
         left: 'center'
@@ -126,19 +131,17 @@ function DashBoard() {
     })
 
     // Radar chart
-    const radarChartDom = document.getElementById('radarChart')
-    const radarChartInstance = echarts.init(radarChartDom)
-    radarChartInstance.setOption({
+    radarChart?.setOption({
       legend: {
         data: ['司機模型診斷']
       },
       radar: {
         indicator: [
           { name: '服務態度', max: 10 },
-          { name: '在線時長', max: 600 },
+          { name: '在線時長', max: 200 },
           { name: '接單率', max: 100 },
           { name: '評分', max: 5 },
-          { name: '關注度', max: 10000 }
+          { name: '關注度', max: 500 }
         ]
       },
       series: [
@@ -147,7 +150,7 @@ function DashBoard() {
           type: 'radar',
           data: [
             {
-              value: [8, 300, 80, 4, 9000],
+              value: [8, 150, 80, 4, 300],
               name: '司機模型診斷'
             }
           ]
@@ -158,13 +161,15 @@ function DashBoard() {
 
   useEffect(() => {
     getReportData()
-  }, [])
+  }, [lineChart, pieChart1, pieChart2, radarChart])
 
   // Get the report data
   const getReportData = async () => {
     const data = await api.getReportData()
     setReport(data)
   }
+
+  console.log('dashboard page')
 
   return (
     <div className={styles.dashboard}>
@@ -217,20 +222,20 @@ function DashBoard() {
           title='訂單和流水走勢圖'
           extra={<Button type='primary'>刷新</Button>}
         >
-          <div id='lineChart' className={styles.itemChart}></div>
+          <div ref={lineRef} className={styles.itemChart}></div>
         </Card>
       </div>
       <div className={styles.chart}>
         <Card title='司機分佈' extra={<Button type='primary'>刷新</Button>}>
           <div className={styles.pieChart}>
-            <div className={styles.itemPie} id='pieChartCity'></div>
-            <div className={styles.itemPie} id='pieChartAge'></div>
+            <div ref={pieRef1} className={styles.itemPie}></div>
+            <div ref={pieRef2} className={styles.itemPie}></div>
           </div>
         </Card>
       </div>
       <div className={styles.chart}>
         <Card title='模型診斷' extra={<Button type='primary'>刷新</Button>}>
-          <div className={styles.itemChart} id='radarChart'></div>
+          <div ref={radarRef} className={styles.itemChart}></div>
         </Card>
       </div>
     </div>

@@ -4,7 +4,6 @@ import storage from './storage'
 import env from '@/config'
 import { message } from './AntdGlobal'
 import { Result } from '@/types/api'
-// import { config } from 'process'
 
 console.log(env)
 
@@ -55,7 +54,7 @@ instance.interceptors.response.use(
       // 未登入 或 token過期 或 token無效
       message.error(data.msg)
       storage.remove('token')
-      // location.href = '/login'
+      location.href = '/login?callback=' + encodeURIComponent(location.href)
     } else if (data.code != 0) {
       // 其他錯誤
       if (response.config.showError === false) {
