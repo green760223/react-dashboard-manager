@@ -24,54 +24,21 @@ function DashBoard() {
 
   useEffect(() => {
     // Line chart
-    lineChart?.setOption({
-      tooltip: {
-        trigger: 'axis'
-      },
-      legend: {
-        data: ['訂單', '流水']
-      },
-      grid: {
-        left: '5%',
-        right: '2%',
-        bottom: '10%'
-      },
-      xAxis: {
-        data: [
-          '1月',
-          '2月',
-          '3月',
-          '4月',
-          '5月',
-          '6月',
-          '7月',
-          '8月',
-          '9月',
-          '10月',
-          '11月',
-          '12月'
-        ]
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          name: '訂單',
-          type: 'line',
-          data: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]
-        },
-        {
-          name: '流水',
-          type: 'line',
-          data: [
-            1000, 2000, 3000, 4000, 2000, 800, 3700, 3200, 1900, 2100, 6110,
-            5120
-          ]
-        }
-      ]
-    })
+    renderLineChart()
+
     // Pie chart City
+    renderPeiChart1()
+    // Pie chart Age
+    renderPeiChart2()
+
+    // Radar chart
+    renderRadarChart()
+  }, [lineChart, pieChart1, pieChart2, radarChart])
+
+  // Render pie chart data 1
+  const renderPeiChart1 = async () => {
+    if (!pieChart1) return
+    const data = await api.getPieCityChartData()
     pieChart1?.setOption({
       title: {
         text: '司機城市分佈',
@@ -89,18 +56,16 @@ function DashBoard() {
           name: '城市分佈',
           type: 'pie',
           radius: '55%',
-          data: [
-            { value: 335, name: '北京' },
-            { value: 310, name: '上海' },
-            { value: 274, name: '廣州' },
-            { value: 235, name: '杭州' },
-            { value: 400, name: '武漢' }
-          ]
+          data: data
         }
       ]
     })
+  }
 
-    // Pie chart Age
+  // Render pie chart data 2
+  const renderPeiChart2 = async () => {
+    if (!pieChart2) return
+    const data = await api.getPieAgeChartData()
     pieChart2?.setOption({
       title: {
         text: '司機年齡分佈',
@@ -119,49 +84,73 @@ function DashBoard() {
           roseType: 'area',
           type: 'pie',
           radius: [50, 150],
-          data: [
-            { value: 30, name: '北京' },
-            { value: 40, name: '上海' },
-            { value: 24, name: '廣州' },
-            { value: 35, name: '杭州' },
-            { value: 45, name: '武漢' }
-          ]
+          data: data
         }
       ]
     })
+  }
 
-    // Radar chart
+  // Render radar chart data
+  const renderRadarChart = async () => {
+    if (!renderRadarChart) return
+    const data = await api.getRadarChartData()
     radarChart?.setOption({
       legend: {
         data: ['司機模型診斷']
       },
       radar: {
-        indicator: [
-          { name: '服務態度', max: 10 },
-          { name: '在線時長', max: 200 },
-          { name: '接單率', max: 100 },
-          { name: '評分', max: 5 },
-          { name: '關注度', max: 500 }
-        ]
+        indicator: data.indicator
       },
       series: [
         {
           name: '模型診斷',
           type: 'radar',
-          data: [
-            {
-              value: [8, 150, 80, 4, 300],
-              name: '司機模型診斷'
-            }
-          ]
+          data: data.data
         }
       ]
     })
-  }, [])
+  }
+
+  // Render line chart data
+  const renderLineChart = async () => {
+    if (!lineChart) return
+    const data = await api.getLineChartData()
+    lineChart?.setOption({
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['訂單', '流水']
+      },
+      grid: {
+        left: '5%',
+        right: '2%',
+        bottom: '10%'
+      },
+      xAxis: {
+        data: data.label
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '訂單',
+          type: 'line',
+          data: data.order
+        },
+        {
+          name: '流水',
+          type: 'line',
+          data: data.money
+        }
+      ]
+    })
+  }
 
   useEffect(() => {
     getReportData()
-  }, [lineChart, pieChart1, pieChart2, radarChart])
+  }, [])
 
   // Get the report data
   const getReportData = async () => {

@@ -9,6 +9,7 @@ export default {
       showLoading: false
     })
   },
+
   // Get user information
   getUserInfo() {
     return request.get<User.UserItem>('/users/getUserInfo')
@@ -17,5 +18,25 @@ export default {
   // Get the report data
   getReportData() {
     return request.get<Dashboard.ReportData>('/order/dashboard/getReportData')
+  },
+
+  // Get the line chart data
+  getLineChartData() {
+    return request.get<Dashboard.LineData>('/order/dashboard/getLineData')
+  },
+
+  // Get the pie chart data for the city
+  getPieCityChartData() {
+    return request.get<Dashboard.PieData[]>('/order/dashboard/getPieCityData')
+  },
+
+  // Get the pie chart data for the age
+  getPieAgeChartData() {
+    return request.get<Dashboard.PieData[]>('/order/dashboard/getPieAgeData')
+  },
+
+  // Get the radar chart data
+  getRadarChartData() {
+    return request.get<Dashboard.RadarData>('/order/dashboard/getRadarData')
   }
 }
