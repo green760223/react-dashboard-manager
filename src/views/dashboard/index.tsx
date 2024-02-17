@@ -158,7 +158,11 @@ function DashBoard() {
     setReport(data)
   }
 
-  console.log('dashboard page')
+  // Refresh the pie chart
+  const handleRefresh = () => {
+    renderPeiChart1()
+    renderPeiChart2()
+  }
 
   return (
     <div className={styles.dashboard}>
@@ -209,13 +213,24 @@ function DashBoard() {
       <div className={styles.chart}>
         <Card
           title='訂單和流水走勢圖'
-          extra={<Button type='primary'>刷新</Button>}
+          extra={
+            <Button type='primary' onClick={renderLineChart}>
+              刷新
+            </Button>
+          }
         >
           <div ref={lineRef} className={styles.itemChart}></div>
         </Card>
       </div>
       <div className={styles.chart}>
-        <Card title='司機分佈' extra={<Button type='primary'>刷新</Button>}>
+        <Card
+          title='司機分佈'
+          extra={
+            <Button type='primary' onClick={handleRefresh}>
+              刷新
+            </Button>
+          }
+        >
           <div className={styles.pieChart}>
             <div ref={pieRef1} className={styles.itemPie}></div>
             <div ref={pieRef2} className={styles.itemPie}></div>
@@ -223,7 +238,14 @@ function DashBoard() {
         </Card>
       </div>
       <div className={styles.chart}>
-        <Card title='模型診斷' extra={<Button type='primary'>刷新</Button>}>
+        <Card
+          title='模型診斷'
+          extra={
+            <Button type='primary' onClick={renderRadarChart}>
+              刷新
+            </Button>
+          }
+        >
           <div ref={radarRef} className={styles.itemChart}></div>
         </Card>
       </div>
