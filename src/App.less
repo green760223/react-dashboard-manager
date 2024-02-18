@@ -1,0 +1,53 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.welcome {
+  font-size: 30px;
+  margin-top: 200px;
+  text-align: center;
+}
+
+/* Loading spin rotation */
+.loading {
+  animation: rotate linear 1.5s infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.search-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  color: #000;
+}
+
+.search-form + .base-table {
+  margin-top: 20px;
+}
+
+.base-table {
+  background-color: #fff;
+  border-radius: 5px;
+  color: #000;
+
+  .header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px 5px 0 0;
+    padding: 15px;
+
+    .action button {
+      margin-left: 15px;
+    }
+  }
+}
