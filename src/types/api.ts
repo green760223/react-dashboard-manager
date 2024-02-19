@@ -17,10 +17,15 @@ export interface ResultData<T = any> {
   }
 }
 
+export interface PageParams {
+  pageNum: number
+  pageSize: number
+}
+
 // Define the login interface
 export namespace Login {
   // Define the login parameter interface
-  export interface params {
+  export interface Params {
     userName: string
     userPwd: string
   }
@@ -29,7 +34,7 @@ export namespace Login {
 // Define the user interface
 export namespace User {
   // Define the user list interface
-  export interface params {
+  export interface Params extends PageParams {
     userId?: number
     userName?: string
     state?: number

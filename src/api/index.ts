@@ -4,7 +4,7 @@ import { Dashboard, Login, ResultData, User } from '@/types/api'
 // Define the API interface
 export default {
   // User login
-  login(params: Login.params) {
+  login(params: Login.Params) {
     return request.post<string>('/users/login', params, {
       showLoading: false
     })
@@ -41,7 +41,7 @@ export default {
   },
 
   // Get the user list
-  getUserList() {
-    return request.get<ResultData<User.UserItem>>('/users/list')
+  getUserList(params: User.Params) {
+    return request.get<ResultData<User.UserItem>>('/users/list', params)
   }
 }
