@@ -7,8 +7,19 @@ export interface Result<T = any> {
   msg: string
 }
 
+// 定義分頁類型
+export interface ResultData<T = any> {
+  list: T[]
+  page: {
+    pageNum: number
+    pageSize: number
+    total: number | 0
+  }
+}
+
 // Define the login interface
 export namespace Login {
+  // Define the login parameter interface
   export interface params {
     userName: string
     userPwd: string
@@ -17,6 +28,14 @@ export namespace Login {
 
 // Define the user interface
 export namespace User {
+  // Define the user list interface
+  export interface params {
+    userId?: number
+    userName?: string
+    state?: number
+  }
+
+  // Define the user item interface
   export interface UserItem {
     _id: string
     userId: number
@@ -36,6 +55,7 @@ export namespace User {
 
 // Define the dashboard interface
 export namespace Dashboard {
+  // Define the report data interface
   export interface ReportData {
     driverCount: number
     totalMoney: number
@@ -43,17 +63,20 @@ export namespace Dashboard {
     cityNum: number
   }
 
+  // Define the line chart data interface
   export interface LineData {
     label: string[]
     order: number[]
     money: number[]
   }
 
+  // Define the pie chart data interface
   export interface PieData {
     value: number
     name: string
   }
 
+  // Define the radar chart data interface
   export interface RadarData {
     indicator: Array<{ name: string; max: number }>
     data: {

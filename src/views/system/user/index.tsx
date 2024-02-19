@@ -1,25 +1,22 @@
 import { User } from '@/types/api'
-import { Button, Table, Form, Input, Select, Space } from 'antd'
+import { Button, Table, Form, Input, Select, Space, Checkbox } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
+import { useEffect, useState } from 'react'
+import api from '@/api'
+import { format } from 'path'
+import { formatDate } from '@/utils'
 
 function UserList() {
-  const dataSource = [
-    {
-      _id: '',
-      userId: 0,
-      userName: '',
-      userEmail: '',
-      deptId: '',
-      deptName: '',
-      state: 0,
-      mobile: '',
-      job: '',
-      role: 0,
-      roleList: '',
-      createId: 0,
-      userImg: ''
-    }
-  ]
+  const [data, setData] = useState<User.UserItem[]>([])
+
+  useEffect(() => {
+    getUserList()
+  }, [])
+
+  const getUserList = async () => {
+    const data = await api.getUserList()
+    setData(data.list)
+  }
 
   const columns: ColumnsType<User.UserItem> = [
     {
@@ -40,17 +37,35 @@ function UserList() {
     {
       title: '用戶角色',
       dataIndex: 'address',
-      key: 'address'
+      key: 'address',
+      render(role: number) {
+        return {
+          0: '超級管理員',
+          1: '管理員',
+          2: '體驗管理員',
+          3: '普通用戶'
+        }[role]
+      }
     },
     {
       title: '用戶狀態',
       dataIndex: 'state',
-      key: 'state'
+      key: 'state',
+      render(state: number) {
+        return {
+          1: '在職',
+          2: '離職',
+          3: '試用期'
+        }[state]
+      }
     },
     {
       title: '註冊時間',
       dataIndex: 'createTime',
-      key: 'createTime'
+      key: 'createTime',
+      render(createTime: string) {
+        return formatDate(createTime)
+      }
     },
     {
       title: '操作',
@@ -107,7 +122,12 @@ function UserList() {
             </Button>
           </div>
         </div>
-        <Table dataSource={dataSource} columns={columns} />
+        <Table
+          bordered
+          rowSelection={{ type: 'checkbox' }}
+          dataSource={data}
+          columns={columns}
+        />
       </div>
     </div>
   )

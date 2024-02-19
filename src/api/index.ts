@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import { Dashboard, Login, User } from '@/types/api'
+import { Dashboard, Login, ResultData, User } from '@/types/api'
 
 // Define the API interface
 export default {
@@ -38,5 +38,10 @@ export default {
   // Get the radar chart data
   getRadarChartData() {
     return request.get<Dashboard.RadarData>('/order/dashboard/getRadarData')
+  },
+
+  // Get the user list
+  getUserList() {
+    return request.get<ResultData<User.UserItem>>('/users/list')
   }
 }
