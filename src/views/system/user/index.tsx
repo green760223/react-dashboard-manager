@@ -4,6 +4,7 @@ import type { ColumnsType } from 'antd/es/table'
 import { useEffect, useState } from 'react'
 import api from '@/api'
 import { formatDate } from '@/utils'
+import CreateUser from './CreateUser'
 
 function UserList() {
   const [form] = Form.useForm()
@@ -142,8 +143,8 @@ function UserList() {
           <Select style={{ width: 120 }}>
             <Select.Option value={0}>所有</Select.Option>
             <Select.Option value={1}>在職</Select.Option>
-            <Select.Option value={2}>試用期</Select.Option>
-            <Select.Option value={3}>離職</Select.Option>
+            <Select.Option value={2}>離職</Select.Option>
+            <Select.Option value={3}>試用期</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item name='search' label='搜尋'>
@@ -187,6 +188,7 @@ function UserList() {
           }}
         />
       </div>
+      <CreateUser />
     </div>
   )
 }
