@@ -56,6 +56,17 @@ export namespace User {
     createId: number
     userImg: string
   }
+
+  export interface CreateParams {
+    userName: string
+    userEmail: string
+    mobile?: string
+    deptId: string
+    job?: string
+    state?: number
+    roleList?: string[]
+    userImg?: string
+  }
 }
 
 // Define the dashboard interface

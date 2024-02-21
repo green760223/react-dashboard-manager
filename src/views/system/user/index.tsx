@@ -1,13 +1,17 @@
 import { PageParams, User } from '@/types/api'
 import { Button, Table, Form, Input, Select, Space } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import api from '@/api'
 import { formatDate } from '@/utils'
 import CreateUser from './CreateUser'
+import { IAction } from '@/types/modal'
 
 function UserList() {
   const [form] = Form.useForm()
+  const userRef = useRef<{
+    open: (type: IAction, data?: User.UserItem) => void
+  }>()
   const [total, setTotal] = useState(0)
   const [pagination, setPagination] = useState({
     current: 1,
@@ -57,6 +61,11 @@ function UserList() {
   // Reset the form
   const handleReset = () => {
     form.resetFields()
+  }
+
+  // Create user
+  const handleCreate = () => {
+    userRef.current?.open('create')
   }
 
   const columns: ColumnsType<User.UserItem> = [
@@ -162,7 +171,9 @@ function UserList() {
         <div className='header-wrapper'>
           <div className='title'>用戶列表</div>
           <div className='action'>
-            <Button type='primary'>新增</Button>
+            <Button type='primary' onClick={handleCreate}>
+              新增
+            </Button>
             <Button type='primary' danger>
               批量刪除
             </Button>
@@ -188,7 +199,15 @@ function UserList() {
           }}
         />
       </div>
-      <CreateUser />
+      <CreateUser
+        mRef={userRef}
+        update={() => {
+          getUserList({
+            pageNum: 1,
+            pageSize: pagination.pageSize
+          })
+        }}
+      />
     </div>
   )
 }

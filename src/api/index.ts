@@ -43,5 +43,10 @@ export default {
   // Get the user list
   getUserList(params: User.Params) {
     return request.get<ResultData<User.UserItem>>('/users/list', params)
+  },
+
+  // Create a user
+  createUser(params: User.CreateParams) {
+    return request.post('/users/create', params)
   }
 }
