@@ -8,54 +8,53 @@ import CreateUser from './CreateUser'
 import { IAction } from '@/types/modal'
 import { Modal } from 'antd'
 import { message } from '@/utils/AntdGlobal'
+import { useAntdTable } from 'ahooks'
 
 function UserList() {
   const [form] = Form.useForm()
   const userRef = useRef<{
     open: (type: IAction, data?: User.UserItem) => void
   }>()
-  const [total, setTotal] = useState(0)
   const [userIds, setUserIds] = useState<number[]>([])
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 10
+
+  const getTableData = (
+    {
+      current,
+      pageSize
+    }: {
+      current: number
+      pageSize: number
+    },
+    formData: User.Params
+  ) => {
+    return api
+      .getUserList({
+        ...formData,
+        pageNum: current,
+        pageSize: pageSize
+      })
+      .then(data => {
+        return {
+          list: data.list,
+          total: data.page.total
+        }
+      })
+  }
+
+  // Get the user list
+  const { tableProps, search } = useAntdTable(getTableData, {
+    form,
+    defaultPageSize: 10
   })
-  const [data, setData] = useState<User.UserItem[]>([])
 
-  useEffect(() => {
-    getUserList({
-      pageNum: pagination.current,
-      pageSize: pagination.pageSize
-    })
-  }, [pagination.current, pagination.pageSize])
+  // const handleSearch = () => {
+  //   search.submit()
+  // }
 
-  // Get user list
-  const getUserList = async (params: PageParams) => {
-    const values = form.getFieldsValue()
-    const data = await api.getUserList({
-      ...values,
-      pageNum: params.pageNum,
-      pageSize: params.pageSize || pagination.pageSize
-    })
-
-    setData(data.list)
-    setTotal(data.page.total)
-    setPagination({
-      current: data.page.pageNum,
-      pageSize: data.page.pageSize
-    })
-  }
-
-  const handleSearch = () => {
-    getUserList({
-      pageNum: 1
-    })
-  }
-
-  // Reset the form
-  const handleReset = () => {
-    form.resetFields()
-  }
+  // // Reset the form
+  // const handleReset = () => {
+  //   search.reset()
+  // }
 
   // Create user
   const handleCreate = () => {
@@ -86,10 +85,10 @@ function UserList() {
       })
       message.success('刪除成功')
       setUserIds([])
-      getUserList({
-        pageNum: 1
-      })
-    } catch (error) {}
+      search.reset()
+    } catch (error) {
+      message.error('刪除失敗')
+    }
   }
 
   // Batch delete users confirmation
@@ -199,10 +198,10 @@ function UserList() {
         </Form.Item>
         <Form.Item name='search' label='搜尋'>
           <Space>
-            <Button type='primary' onClick={handleSearch}>
+            <Button type='primary' onClick={search.submit}>
               搜尋
             </Button>
-            <Button type='default' onClick={handleReset}>
+            <Button type='default' onClick={search.reset}>
               重置
             </Button>
           </Space>
@@ -230,28 +229,14 @@ function UserList() {
               setUserIds(selectedRowKeys as number[])
             }
           }}
-          dataSource={data}
           columns={columns}
-          pagination={{
-            position: ['bottomRight'],
-            current: pagination.current,
-            pageSize: pagination.pageSize,
-            total: total,
-            showQuickJumper: true,
-            showSizeChanger: true,
-            showTotal: total => `共 ${total} 筆數據`,
-            onChange: (page, pageSize) => {
-              setPagination({ current: page, pageSize })
-            }
-          }}
+          {...tableProps}
         />
       </div>
       <CreateUser
         mRef={userRef}
         update={() => {
-          getUserList({
-            pageNum: 1
-          })
+          search.reset()
         }}
       />
     </div>

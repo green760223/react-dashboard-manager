@@ -5,8 +5,9 @@ import { useImperativeHandle, useState } from 'react'
 import storage from '@/utils/storage'
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface'
 import type { UploadChangeParam } from 'antd/es/upload'
-import { IAction } from '@/types/modal'
+import { IAction, IModalProp } from '@/types/modal'
 import api from '@/api'
+import { User } from '@/types/api'
 
 const CreateUser = (props: IModalProp) => {
   const [form] = Form.useForm()
