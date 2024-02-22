@@ -1,7 +1,7 @@
-import { PageParams, User } from '@/types/api'
+import { User } from '@/types/api'
 import { Button, Table, Form, Input, Select, Space } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import api from '@/api'
 import { formatDate } from '@/utils'
 import CreateUser from './CreateUser'
@@ -46,15 +46,6 @@ function UserList() {
     form,
     defaultPageSize: 10
   })
-
-  // const handleSearch = () => {
-  //   search.submit()
-  // }
-
-  // // Reset the form
-  // const handleReset = () => {
-  //   search.reset()
-  // }
 
   // Create user
   const handleCreate = () => {
