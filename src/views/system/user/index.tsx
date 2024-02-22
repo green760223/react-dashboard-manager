@@ -34,17 +34,9 @@ function UserList() {
       pageNum: params.pageNum,
       pageSize: params.pageSize
     })
-    const list = Array.from({ length: 50 })
-      .fill({})
-      .map((item: any) => {
-        item = {
-          ...data.list[0]
-        }
-        item.userId = Math.random()
-        return item
-      })
-    setData(list)
-    setTotal(list.length)
+
+    setData(data.list)
+    setTotal(data.list.length)
     setPagination({
       current: data.page.pageNum,
       pageSize: data.page.pageSize
@@ -66,6 +58,11 @@ function UserList() {
   // Create user
   const handleCreate = () => {
     userRef.current?.open('create')
+  }
+
+  // Edit user
+  const handleEdit = (record: User.UserItem) => {
+    userRef.current?.open('edit', record)
   }
 
   const columns: ColumnsType<User.UserItem> = [
@@ -119,12 +116,13 @@ function UserList() {
     },
     {
       title: '操作',
-      dataIndex: 'address',
       key: 'address',
-      render() {
+      render(record) {
         return (
           <Space>
-            <Button type='text'>編輯</Button>
+            <Button type='text' onClick={() => handleEdit(record)}>
+              編輯
+            </Button>
             <Button type='text' danger>
               刪除
             </Button>

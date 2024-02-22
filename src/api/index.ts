@@ -48,5 +48,10 @@ export default {
   // Create a user
   createUser(params: User.CreateParams) {
     return request.post('/users/create', params)
+  },
+
+  // Edit a user
+  editUser(params: User.CreateParams) {
+    return request.post('/users/edit', params)
   }
 }

@@ -8,7 +8,7 @@ import type { UploadChangeParam } from 'antd/es/upload'
 import { IAction } from '@/types/modal'
 import api from '@/api'
 
-const CreateUser = (props: IModalProp): any => {
+const CreateUser = (props: IModalProp) => {
   const [form] = Form.useForm()
   const [img, setImg] = useState('')
   const [loading, setLoading] = useState(false)
@@ -26,6 +26,11 @@ const CreateUser = (props: IModalProp): any => {
   const open = (type: IAction, data?: User.UserItem) => {
     setVisible(true)
     setAction(type)
+
+    if (type === 'edit' && data) {
+      form.setFieldsValue(data)
+      setImg(data.userImg)
+    }
   }
 
   // 提交表單
@@ -37,11 +42,15 @@ const CreateUser = (props: IModalProp): any => {
         userImg: img
       }
       if (action === 'create') {
-        const data = await api.createUser(params)
+        await api.createUser(params)
         message.success('创建成功')
-        handleCancel()
         props.update()
+      } else {
+        await api.editUser(params)
+        message.success('更新成功')
       }
+      handleCancel()
+      props.update()
     }
   }
 
@@ -99,6 +108,9 @@ const CreateUser = (props: IModalProp): any => {
       cancelText='取消'
     >
       <Form form={form} labelCol={{ span: 4 }} labelAlign='right'>
+        <Form.Item name='userId' hidden>
+          <Input></Input>
+        </Form.Item>
         <Form.Item
           label='用戶名稱'
           name='userName'
