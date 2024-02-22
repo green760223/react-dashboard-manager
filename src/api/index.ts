@@ -53,5 +53,10 @@ export default {
   // Edit a user
   editUser(params: User.CreateParams) {
     return request.post('/users/edit', params)
+  },
+
+  // Delete a user and batch delete users
+  delUser(params: { userIds: number[] }) {
+    return request.post('/users/delete', params)
   }
 }

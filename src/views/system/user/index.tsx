@@ -6,6 +6,8 @@ import api from '@/api'
 import { formatDate } from '@/utils'
 import CreateUser from './CreateUser'
 import { IAction } from '@/types/modal'
+import { Modal } from 'antd'
+import { message } from '@/utils/AntdGlobal'
 
 function UserList() {
   const [form] = Form.useForm()
@@ -13,6 +15,7 @@ function UserList() {
     open: (type: IAction, data?: User.UserItem) => void
   }>()
   const [total, setTotal] = useState(0)
+  const [userIds, setUserIds] = useState<number[]>([])
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10
@@ -63,6 +66,48 @@ function UserList() {
   // Edit user
   const handleEdit = (record: User.UserItem) => {
     userRef.current?.open('edit', record)
+  }
+
+  // Delete user
+  const handleDel = (userId: number) => {
+    Modal.confirm({
+      title: '刪除確認',
+      content: <span>確認刪除該用戶嗎？</span>,
+      onOk: () => {
+        handleUserDelSubmit([userId])
+      }
+    })
+  }
+
+  // Delete a user
+  const handleUserDelSubmit = async (ids: number[]) => {
+    try {
+      await api.delUser({
+        userIds: ids
+      })
+      message.success('刪除成功')
+      setUserIds([])
+      getUserList({
+        pageNum: 1,
+        pageSize: pagination.pageSize
+      })
+    } catch (error) {}
+  }
+
+  // Batch delete users confirmation
+  const handlePatchConfirm = () => {
+    if (userIds.length === 0) {
+      message.error('請選擇需要刪除的用戶')
+      return
+    }
+
+    Modal.confirm({
+      title: '刪除確認',
+      content: <span>確認刪除該批用戶嗎？</span>,
+      onOk: () => {
+        handleUserDelSubmit(userIds)
+      }
+    })
   }
 
   const columns: ColumnsType<User.UserItem> = [
@@ -117,13 +162,13 @@ function UserList() {
     {
       title: '操作',
       key: 'address',
-      render(record) {
+      render(record: User.UserItem) {
         return (
           <Space>
             <Button type='text' onClick={() => handleEdit(record)}>
               編輯
             </Button>
-            <Button type='text' danger>
+            <Button type='text' danger onClick={() => handleDel(record.userId)}>
               刪除
             </Button>
           </Space>
@@ -172,7 +217,7 @@ function UserList() {
             <Button type='primary' onClick={handleCreate}>
               新增
             </Button>
-            <Button type='primary' danger>
+            <Button type='primary' danger onClick={handlePatchConfirm}>
               批量刪除
             </Button>
           </div>
@@ -180,7 +225,13 @@ function UserList() {
         <Table
           bordered
           rowKey='userId'
-          rowSelection={{ type: 'checkbox' }}
+          rowSelection={{
+            type: 'checkbox',
+            selectedRowKeys: userIds,
+            onChange: (selectedRowKeys: React.Key[]) => {
+              setUserIds(selectedRowKeys as number[])
+            }
+          }}
           dataSource={data}
           columns={columns}
           pagination={{
