@@ -35,11 +35,11 @@ function UserList() {
     const data = await api.getUserList({
       ...values,
       pageNum: params.pageNum,
-      pageSize: params.pageSize
+      pageSize: params.pageSize || pagination.pageSize
     })
 
     setData(data.list)
-    setTotal(data.list.length)
+    setTotal(data.page.total)
     setPagination({
       current: data.page.pageNum,
       pageSize: data.page.pageSize
@@ -48,8 +48,7 @@ function UserList() {
 
   const handleSearch = () => {
     getUserList({
-      pageNum: 1,
-      pageSize: pagination.pageSize
+      pageNum: 1
     })
   }
 
@@ -88,8 +87,7 @@ function UserList() {
       message.success('刪除成功')
       setUserIds([])
       getUserList({
-        pageNum: 1,
-        pageSize: pagination.pageSize
+        pageNum: 1
       })
     } catch (error) {}
   }
@@ -252,8 +250,7 @@ function UserList() {
         mRef={userRef}
         update={() => {
           getUserList({
-            pageNum: 1,
-            pageSize: pagination.pageSize
+            pageNum: 1
           })
         }}
       />

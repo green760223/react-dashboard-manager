@@ -43,8 +43,7 @@ const CreateUser = (props: IModalProp) => {
       }
       if (action === 'create') {
         await api.createUser(params)
-        message.success('创建成功')
-        props.update()
+        message.success('創建成功')
       } else {
         await api.editUser(params)
         message.success('更新成功')
@@ -57,6 +56,7 @@ const CreateUser = (props: IModalProp) => {
   //
   const handleCancel = () => {
     setVisible(false)
+    setImg('')
     form.resetFields()
   }
 
@@ -114,18 +114,42 @@ const CreateUser = (props: IModalProp) => {
         <Form.Item
           label='用戶名稱'
           name='userName'
-          rules={[{ required: true, message: '請輸入用戶名稱' }]}
+          rules={[
+            { required: true, message: '請輸入用戶名稱' },
+            {
+              min: 3,
+              max: 12,
+              message: '用戶名稱最小3個字符，最大12字符'
+            }
+          ]}
         >
           <Input placeholder='請輸入用戶名稱'></Input>
         </Form.Item>
         <Form.Item
           label='用戶信箱'
           name='userEmail'
-          rules={[{ required: true, message: '請輸入用戶信箱' }]}
+          rules={[
+            { required: true, message: '請輸入用戶信箱' },
+            { type: 'email', message: '請輸入正確的信箱格式' },
+            {
+              pattern: /^\w+@mars.com$/,
+              message: '請輸入格式為mars.com結尾的信箱'
+            }
+          ]}
         >
-          <Input placeholder='請輸入用戶信箱'></Input>
+          <Input
+            placeholder='請輸入用戶信箱'
+            disabled={action === 'edit'}
+          ></Input>
         </Form.Item>
-        <Form.Item label='手機' name='mobile'>
+        <Form.Item
+          label='手機'
+          name='mobile'
+          rules={[
+            { len: 11, message: '請輸入11位手機號' },
+            { pattern: /1[1-9]\d{9}/, message: '請輸入為1開頭的手機號' }
+          ]}
+        >
           <Input type='number' placeholder='請輸入手機'></Input>
         </Form.Item>
         <Form.Item label='部門' name='deptId'>
