@@ -98,6 +98,15 @@ const CreateUser = (props: IModalProp) => {
     }
   }
 
+  // 上傳圖片格式處理
+  const normFile = (e: any) => {
+    console.log('Upload event:', e)
+    if (Array.isArray(e)) {
+      return e
+    }
+    return e && e.fileList
+  }
+
   return (
     <Modal
       title='創建用戶'
@@ -169,17 +178,22 @@ const CreateUser = (props: IModalProp) => {
         <Form.Item label='角色' name='roleList'>
           <Input placeholder='請輸入角色'></Input>
         </Form.Item>
-        <Form.Item label='用戶頭像' name='profile'>
+        <Form.Item
+          label='用戶頭像'
+          name='profile'
+          valuePropName='fileList'
+          getValueFromEvent={normFile}
+        >
           <Upload
             listType='picture-circle'
             showUploadList={false}
+            action='/api/users/upload'
+            beforeUpload={beforeUpload}
+            onChange={handleChange}
             headers={{
               Authorization: 'Bearer ' + storage.get('token'),
               icode: '775A5C5953C9AEC2'
             }}
-            action='/api/users/upload'
-            beforeUpload={beforeUpload}
-            onChange={handleChange}
           >
             {img ? (
               <img
@@ -190,7 +204,7 @@ const CreateUser = (props: IModalProp) => {
             ) : (
               <div>
                 {loading ? <LoadingOutlined /> : <PlusOutlined />}
-                <div style={{ marginTop: 5 }}>上傳頭像</div>
+                <div style={{ marginTop: 8 }}>上傳頭像</div>
               </div>
             )}
           </Upload>
