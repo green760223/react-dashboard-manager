@@ -31,7 +31,7 @@ export namespace Login {
   }
 }
 
-// Define the user interface
+// Define the user management interface
 export namespace User {
   // Define the user list interface
   export interface Params extends PageParams {
@@ -70,6 +70,23 @@ export namespace User {
 
   export interface EditParams extends CreateParams {
     userId: number
+  }
+}
+
+// Define the department management interface
+export namespace Dept {
+  export interface Params {
+    deptName?: string
+  }
+
+  export interface DeptItem {
+    _id: string
+    createTime: string
+    updateTime: string
+    deptName: string
+    parentId: string
+    userName: string
+    children: DeptItem[]
   }
 }
 

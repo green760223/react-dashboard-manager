@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import { Dashboard, Login, ResultData, User } from '@/types/api'
+import { Dashboard, Login, ResultData, User, Dept } from '@/types/api'
 
 // Define the API interface
 export default {
@@ -58,5 +58,21 @@ export default {
   // Delete a user and batch delete users
   delUser(params: { userIds: number[] }) {
     return request.post('/users/delete', params)
+  },
+
+  // Deaprtment management
+  // Get the department list
+  getDeptList(params?: Dept.Params) {
+    return request.get<Dept.DeptItem[]>('/dept/list', params)
+  },
+
+  // Create a department
+  createDept(params: Dept.DeptItem) {
+    return request.post('/dept/create', params)
+  },
+
+  // Edit a department
+  editDept(params: Dept.DeptItem) {
+    return request.post('/dept/edit', params)
   }
 }

@@ -27,6 +27,11 @@ function SideMenu() {
           key: '3',
           label: '用戶管理',
           icon: <TeamOutlined />
+        },
+        {
+          key: '4',
+          label: '部門管理',
+          icon: <TeamOutlined />
         }
       ]
     }
@@ -44,6 +49,7 @@ function SideMenu() {
       </div>
       <Menu
         defaultSelectedKeys={['1']}
+        defaultOpenKeys={['2']}
         mode='inline'
         theme='dark'
         items={items}

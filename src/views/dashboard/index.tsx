@@ -1,5 +1,4 @@
 import { Descriptions, Card, Button } from 'antd'
-import * as echarts from 'echarts'
 import { useEffect, useState } from 'react'
 import styles from './index.module.less'
 import { useStore } from '@/store'

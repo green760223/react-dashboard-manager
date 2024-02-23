@@ -109,7 +109,7 @@ const CreateUser = (props: IModalProp) => {
 
   return (
     <Modal
-      title='創建用戶'
+      title={action === 'create' ? '創建用戶' : '編輯用戶'}
       width={800}
       open={visible}
       onOk={handleSubmit}
