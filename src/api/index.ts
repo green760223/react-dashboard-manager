@@ -45,6 +45,11 @@ export default {
     return request.get<ResultData<User.UserItem>>('/users/list', params)
   },
 
+  // Get all users list
+  getAllUserList() {
+    return request.get<User.UserItem[]>('/users/all/list')
+  },
+
   // Create a user
   createUser(params: User.CreateParams) {
     return request.post('/users/create', params)
@@ -67,12 +72,17 @@ export default {
   },
 
   // Create a department
-  createDept(params: Dept.DeptItem) {
+  createDept(params: Dept.CreateParams) {
     return request.post('/dept/create', params)
   },
 
   // Edit a department
-  editDept(params: Dept.DeptItem) {
+  editDept(params: Dept.EditParams) {
     return request.post('/dept/edit', params)
+  },
+
+  // Delete a department
+  deleteDept(params: Dept.DelParams) {
+    return request.post('/dept/delete', params)
   }
 }
