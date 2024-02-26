@@ -5,7 +5,6 @@ import { Dept, User } from '@/types/api'
 import { useForm } from 'antd/es/form/Form'
 import api from '@/api'
 import { message } from '@/utils/AntdGlobal'
-import { get } from 'http'
 
 function CreateDept(props: IModalProp) {
   const [form] = useForm()
@@ -97,9 +96,6 @@ function CreateDept(props: IModalProp) {
                 </Select.Option>
               )
             })}
-            <Select.Option value='Jack' key={'Jack'}>
-              Jack
-            </Select.Option>
           </Select>
         </Form.Item>
       </Form>

@@ -104,6 +104,32 @@ export namespace Dept {
   }
 }
 
+// Define the menu management interface
+export namespace Menu {
+  export interface Params {
+    menuName: string
+    menuState: number
+  }
+
+  export interface CreateParams {
+    menuName: string
+    icon?: string
+    menuType: string // 1: menu, 2: button, 3: page
+    menuState: number // 1: enable, 0: disable
+    menuCode?: string
+    parentId?: string
+    path?: string
+    component?: string
+  }
+
+  export interface MenuItem extends CreateParams {
+    _id: string
+    createTime: string
+    children?: MenuItem[]
+    button?: MenuItem[]
+  }
+}
+
 // Define the dashboard interface
 export namespace Dashboard {
   // Define the report data interface

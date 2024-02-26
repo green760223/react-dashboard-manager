@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import { Dashboard, Login, ResultData, User, Dept } from '@/types/api'
+import { Dashboard, Login, ResultData, User, Dept, Menu } from '@/types/api'
 
 // Define the API interface
 export default {
@@ -84,5 +84,10 @@ export default {
   // Delete a department
   deleteDept(params: Dept.DelParams) {
     return request.post('/dept/delete', params)
+  },
+
+  // Menu management
+  getMenuList(params?: Menu.Params) {
+    return request.get<Menu.MenuItem[]>('/menu/list', params)
   }
 }
