@@ -64,11 +64,8 @@ export const formatDate = (date?: Date | string, rule?: string) => {
   }
 
   for (const k in O) {
-    const val = O[k].toString()
-    fmt = fmt.replace(
-      new RegExp(`(${k})`),
-      O[k] > 9 ? O[k].toString() : '0' + O[k].toString()
-    )
+    // const val = O[k].toString()
+    fmt = fmt.replace(new RegExp(`(${k})`), O[k] > 9 ? O[k].toString() : '0' + O[k].toString())
     // fmt = fmt.replace(new RegExp(`(${k})`), ('00' + val).substring(val.length))
   }
   return fmt

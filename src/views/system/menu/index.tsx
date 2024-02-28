@@ -35,6 +35,7 @@ function MenuList() {
   // Edit department
   const handleEdit = (record: Menu.MenuItem) => {
     // deptRef.current?.open('edit', record)
+    record
   }
 
   // Create a sub department

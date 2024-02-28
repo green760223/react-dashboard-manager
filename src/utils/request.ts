@@ -5,7 +5,7 @@ import env from '@/config'
 import { message } from './AntdGlobal'
 import { Result } from '@/types/api'
 
-console.log(env)
+console.log('config')
 
 // 建立 axios 實例
 const instance = axios.create({
@@ -81,19 +81,11 @@ interface IConfig {
 
 // 封裝請求方法
 export default {
-  get<T>(
-    url: string,
-    params?: object,
-    options: IConfig = { showLoading: true, showError: true }
-  ): Promise<T> {
+  get<T>(url: string, params?: object, options: IConfig = { showLoading: true, showError: true }): Promise<T> {
     return instance.get(url, { params, ...options })
   },
 
-  post<T>(
-    url: string,
-    params?: object,
-    options: IConfig = { showLoading: true, showError: true }
-  ): Promise<T> {
+  post<T>(url: string, params?: object, options: IConfig = { showLoading: true, showError: true }): Promise<T> {
     return instance.post(url, params, options)
   }
 }
