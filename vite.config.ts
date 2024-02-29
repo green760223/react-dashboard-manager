@@ -18,7 +18,7 @@ export default defineConfig({
     }
   },
   // Checked if it's in production mode, if it is, set the base path to /react-todo-list/, if not, set it to /.
-  base:
-    process.env.NODE_ENV === 'production' ? '/react-dashboard-manager/' : '/',
+  // base:
+  //   process.env.NODE_ENV === 'production' ? '/react-dashboard-manager/' : '/',
   plugins: [react()]
 })
