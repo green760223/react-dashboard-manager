@@ -2,7 +2,7 @@ module.exports = {
   //使用製表符而不是空格縮進
   useTabs: false,
   //每行最大列，超過則換行
-  printWidth: 120,
+  printWidth: 80,
   //縮進
   tabWidth: 2,
   //結果不需分號

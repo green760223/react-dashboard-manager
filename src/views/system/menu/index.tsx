@@ -163,7 +163,13 @@ function MenuList() {
             </Button>
           </div>
         </div>
-        <Table bordered rowKey='_id' columns={columns} dataSource={data} pagination={false} />
+        <Table
+          bordered
+          rowKey='_id'
+          columns={columns}
+          dataSource={data}
+          pagination={false}
+        />
       </div>
     </div>
   )
