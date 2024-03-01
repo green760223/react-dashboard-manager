@@ -5,7 +5,7 @@ import env from '@/config'
 import { message } from './AntdGlobal'
 import { Result } from '@/types/api'
 
-console.log('config')
+console.log('config', import.meta.env.BASE_URL)
 
 interface IConfig {
   showLoading?: boolean
@@ -37,8 +37,10 @@ instance.interceptors.request.use(
 
     if (env.mock) {
       config.baseURL = env.mockAPI
+      console.log('config.baseURL', config.baseURL)
     } else {
       config.baseURL = env.baseAPI
+      console.log('config.baseURL', config.baseURL)
     }
 
     return {
