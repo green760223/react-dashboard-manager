@@ -120,6 +120,7 @@ export namespace Menu {
     parentId?: string
     path?: string
     component?: string
+    orderBy: number // Ordering
   }
 
   export interface MenuItem extends CreateParams {
@@ -131,6 +132,10 @@ export namespace Menu {
 
   export interface EditParams extends CreateParams {
     _id?: string
+  }
+
+  export interface DelParams {
+    _id: string
   }
 }
 

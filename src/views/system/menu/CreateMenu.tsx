@@ -1,15 +1,7 @@
-import {
-  Modal,
-  Form,
-  TreeSelect,
-  Input,
-  Select,
-  InputNumber,
-  Radio
-} from 'antd'
+import { Modal, Form, TreeSelect, Input, InputNumber, Radio } from 'antd'
 import { IAction, IModalProp } from '@/types/modal'
-import { useEffect, useImperativeHandle, useState } from 'react'
-import { Dept, User, Menu } from '@/types/api'
+import { useImperativeHandle, useState } from 'react'
+import { Menu } from '@/types/api'
 import { useForm } from 'antd/es/form/Form'
 import api from '@/api'
 import { message } from '@/utils/AntdGlobal'
@@ -47,9 +39,9 @@ function CreateMenu(props: IModalProp<Menu.EditParams>) {
     const value = await form.validateFields()
     if (value) {
       if (action === 'create') {
-        await api.createDept(form.getFieldsValue())
+        await api.createMenu(form.getFieldsValue())
       } else {
-        await api.editDept(form.getFieldsValue())
+        await api.editMenu(form.getFieldsValue())
       }
       message.success('操作成功')
       handleCancel()
@@ -83,7 +75,7 @@ function CreateMenu(props: IModalProp<Menu.EditParams>) {
           <Input disabled />
         </Form.Item>
 
-        <Form.Item label='上級部門' name='parentId'>
+        <Form.Item label='上級菜單' name='parentId'>
           <TreeSelect
             placeholder='請選擇上級菜單'
             allowClear
@@ -135,7 +127,7 @@ function CreateMenu(props: IModalProp<Menu.EditParams>) {
 
         <Form.Item
           label='排序'
-          name='component'
+          name='orderBy'
           tooltip={{
             title: '排序值越大越靠後',
             icon: <InfoCircleOutlined rev={undefined} />

@@ -13,7 +13,10 @@ function MenuList() {
   const [form] = useForm()
 
   const menuRef = useRef<{
-    open: (type: IAction, data?: Menu.EditParams | { parentId: string }) => void
+    open: (
+      type: IAction,
+      data?: Menu.EditParams | { parentId?: string; orderBy?: number }
+    ) => void
   }>()
   const [data, setData] = useState<Menu.MenuItem[]>([])
 
@@ -25,7 +28,7 @@ function MenuList() {
 
   // Create department
   const handleCreate = () => {
-    menuRef.current?.open('create')
+    menuRef.current?.open('create', { orderBy: data.length })
   }
 
   // Reset form
@@ -35,8 +38,7 @@ function MenuList() {
 
   // Edit department
   const handleEdit = (record: Menu.MenuItem) => {
-    // menuRef.current?.open('edit', record)
-    record
+    menuRef.current?.open('edit', record)
   }
 
   // Create a sub department
@@ -56,7 +58,7 @@ function MenuList() {
 
   // Delete the department
   const handleDelSubmit = async (_id: string) => {
-    await api.deleteDept({ _id })
+    await api.deleteMenu({ _id })
     message.success('刪除成功')
     getMenuList()
   }
@@ -136,7 +138,12 @@ function MenuList() {
 
   return (
     <div>
-      <Form className='search-form' layout='inline' form={form}>
+      <Form
+        className='search-form'
+        layout='inline'
+        form={form}
+        initialValues={{ menuState: 1 }}
+      >
         <Form.Item label='菜單名稱' name='menuName'>
           <Input placeholder='菜單名稱'></Input>
         </Form.Item>

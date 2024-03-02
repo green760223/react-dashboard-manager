@@ -89,5 +89,20 @@ export default {
   // Menu management
   getMenuList(params?: Menu.Params) {
     return request.get<Menu.MenuItem[]>('/menu/list', params)
+  },
+
+  // Create a menu
+  createMenu(params: Menu.CreateParams) {
+    return request.post('/menu/create', params)
+  },
+
+  // Edit a menu
+  editMenu(params: Menu.EditParams) {
+    return request.post('/menu/edit', params)
+  },
+
+  // Delete a menu
+  deleteMenu(params: Menu.DelParams) {
+    return request.post('/menu/delete', params)
   }
 }
