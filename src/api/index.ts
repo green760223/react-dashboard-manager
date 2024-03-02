@@ -56,7 +56,7 @@ export default {
   },
 
   // Edit a user
-  editUser(params: User.CreateParams) {
+  editUser(params: User.EditParams) {
     return request.post('/users/edit', params)
   },
 

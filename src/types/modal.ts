@@ -3,9 +3,7 @@ import { User } from './api'
 
 export type IAction = 'create' | 'edit' | 'delete'
 
-export interface IModalProp {
-  mRef: MutableRefObject<
-    { open: (type: IAction, data: User.UserItem) => void } | undefined
-  >
+export interface IModalProp<T = User.UserItem> {
+  mRef: MutableRefObject<{ open: (type: IAction, data: T) => void } | undefined>
   update: () => void
 }

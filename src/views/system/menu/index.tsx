@@ -1,18 +1,19 @@
 import { Button, Form, Input, Modal, Select, Space, Table } from 'antd'
 import { useForm } from 'antd/lib/form/Form'
 import { useState, useEffect, useRef } from 'react'
-import { Dept, Menu } from '@/types/api'
+import { Menu } from '@/types/api'
 import { IAction } from '@/types/modal'
 import { ColumnsType } from 'antd/es/table'
 import { formatDate } from '@/utils'
 import { message } from '@/utils/AntdGlobal'
 import api from '@/api'
+import CreateMenu from './CreateMenu'
 
 function MenuList() {
   const [form] = useForm()
 
-  const deptRef = useRef<{
-    open: (type: IAction, data?: Dept.EditParams | { parentId: string }) => void
+  const menuRef = useRef<{
+    open: (type: IAction, data?: Menu.EditParams | { parentId: string }) => void
   }>()
   const [data, setData] = useState<Menu.MenuItem[]>([])
 
@@ -24,7 +25,7 @@ function MenuList() {
 
   // Create department
   const handleCreate = () => {
-    deptRef.current?.open('create')
+    menuRef.current?.open('create')
   }
 
   // Reset form
@@ -34,13 +35,13 @@ function MenuList() {
 
   // Edit department
   const handleEdit = (record: Menu.MenuItem) => {
-    // deptRef.current?.open('edit', record)
+    // menuRef.current?.open('edit', record)
     record
   }
 
   // Create a sub department
   const handleSubCreate = (id: string) => {
-    deptRef.current?.open('create', { parentId: id })
+    menuRef.current?.open('create', { parentId: id })
   }
 
   const handleDelete = async (id: string) => {
@@ -171,6 +172,7 @@ function MenuList() {
           pagination={false}
         />
       </div>
+      <CreateMenu mRef={menuRef} update={getMenuList} />
     </div>
   )
 }

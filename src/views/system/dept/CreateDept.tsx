@@ -6,7 +6,7 @@ import { useForm } from 'antd/es/form/Form'
 import api from '@/api'
 import { message } from '@/utils/AntdGlobal'
 
-function CreateDept(props: IModalProp) {
+function CreateDept(props: IModalProp<Dept.EditParams>) {
   const [form] = useForm()
   const [action, setAction] = useState<IAction>('create')
   const [visible, setVisible] = useState(false)
@@ -31,7 +31,10 @@ function CreateDept(props: IModalProp) {
     return { open }
   })
 
-  const open = (type: IAction, data?: Dept.EditParams | { parentId: string }) => {
+  const open = (
+    type: IAction,
+    data?: Dept.EditParams | { parentId: string }
+  ) => {
     setAction(type)
     setVisible(true)
     getDeptList()
@@ -84,10 +87,18 @@ function CreateDept(props: IModalProp) {
             treeData={depList}
           ></TreeSelect>
         </Form.Item>
-        <Form.Item label='部門名稱' name='deptName' rules={[{ required: true, message: '請輸入部門名稱' }]}>
+        <Form.Item
+          label='部門名稱'
+          name='deptName'
+          rules={[{ required: true, message: '請輸入部門名稱' }]}
+        >
           <Input placeholder='請輸入部門名稱' />
         </Form.Item>
-        <Form.Item label='負責人' name='userName' rules={[{ required: true, message: '請選擇負責人' }]}>
+        <Form.Item
+          label='負責人'
+          name='userName'
+          rules={[{ required: true, message: '請選擇負責人' }]}
+        >
           <Select>
             {userList.map(item => {
               return (

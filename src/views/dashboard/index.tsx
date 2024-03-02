@@ -9,6 +9,7 @@ import { useCharts } from '@/hook/useCharts'
 
 function DashBoard() {
   const userInfo = useStore(state => state.userInfo)
+  console.log('userInfor', userInfo)
   const [report, setReport] = useState<Dashboard.ReportData>()
 
   // 初始化折線圖

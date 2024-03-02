@@ -9,7 +9,6 @@ import storage from '@/utils/storage'
 function LoginFC() {
   const updateToken = useStore(state => state.updateToken)
   const [loading, setLoading] = useState(false)
-  // const { message, notification, modal } = App.useApp()
   const { message } = App.useApp()
 
   // LoginFC function component
@@ -36,16 +35,35 @@ function LoginFC() {
       <div className={styles.login}>
         <div className={styles.loginWrapper}>
           <div className={styles.title}>系統登錄</div>
-          <Form name='basic' initialValues={{ remember: true }} onFinish={onFinish} autoComplete='off'>
-            <Form.Item name='userName' rules={[{ required: true, message: 'Please input your username!' }]}>
+          <Form
+            name='basic'
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            autoComplete='off'
+          >
+            <Form.Item
+              name='userName'
+              rules={[
+                { required: true, message: 'Please input your username!' }
+              ]}
+              initialValue={2996130235}
+            >
               <Input />
             </Form.Item>
 
-            <Form.Item name='userPwd' rules={[{ required: true, message: 'Please input your password!' }]}>
+            <Form.Item
+              name='userPwd'
+              rules={[
+                { required: true, message: 'Please input your password!' }
+              ]}
+            >
               <Input.Password />
             </Form.Item>
 
-            <Form.Item valuePropName='checked' wrapperCol={{ offset: 8, span: 16 }}></Form.Item>
+            <Form.Item
+              valuePropName='checked'
+              wrapperCol={{ offset: 8, span: 16 }}
+            ></Form.Item>
 
             <Form.Item>
               <Button type='primary' block htmlType='submit' loading={loading}>

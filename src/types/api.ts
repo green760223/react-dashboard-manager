@@ -128,6 +128,10 @@ export namespace Menu {
     children?: MenuItem[]
     button?: MenuItem[]
   }
+
+  export interface EditParams extends CreateParams {
+    _id?: string
+  }
 }
 
 // Define the dashboard interface
