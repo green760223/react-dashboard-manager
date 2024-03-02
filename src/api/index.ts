@@ -10,6 +10,13 @@ export default {
     })
   },
 
+  // Get the user permission list
+  getPermissionList() {
+    return request.get<{ buttonList: string[]; menuList: Menu.MenuItem[] }>(
+      '/users/getPermissionList'
+    )
+  },
+
   // Get user information
   getUserInfo() {
     return request.get<User.UserItem>('/users/getUserInfo')
