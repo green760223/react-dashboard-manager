@@ -26,7 +26,7 @@ function MenuList() {
     setData(data)
   }
 
-  // Create department
+  // Create a menu
   const handleCreate = () => {
     menuRef.current?.open('create', { orderBy: data.length })
   }
@@ -36,34 +36,48 @@ function MenuList() {
     form.resetFields()
   }
 
-  // Edit department
+  // Edit menu
   const handleEdit = (record: Menu.MenuItem) => {
     menuRef.current?.open('edit', record)
   }
 
-  // Create a sub department
-  const handleSubCreate = (id: string) => {
-    menuRef.current?.open('create', { parentId: id })
+  // Create a sub menu
+  const handleSubCreate = (record: Menu.MenuItem) => {
+    menuRef.current?.open('create', {
+      parentId: record._id,
+      orderBy: record.children?.length
+    })
   }
 
-  const handleDelete = async (id: string) => {
+  // Delete menu
+  const handleDelete = async (record: Menu.MenuItem) => {
+    let text = ''
+
+    if (record.menuType == '1') {
+      text = '菜單'
+    } else if (record.menuType == '2') {
+      text = '按鈕'
+    } else if (record.menuType == '3') {
+      text = '頁面'
+    }
+
     Modal.confirm({
       title: '確認',
-      content: '確認刪除後數據將無法恢復',
+      content: `確認刪除${text}後數據將無法恢復`,
       onOk() {
-        handleDelSubmit(id)
+        handleDelSubmit(record._id)
       }
     })
   }
 
-  // Delete the department
+  // Delete the menu
   const handleDelSubmit = async (_id: string) => {
     await api.deleteMenu({ _id })
     message.success('刪除成功')
     getMenuList()
   }
 
-  // Get the department list
+  // Get the menu list
   useEffect(() => {
     getMenuList()
   }, [])
@@ -121,13 +135,13 @@ function MenuList() {
       render(_, record) {
         return (
           <Space>
-            <Button type='text' onClick={() => handleSubCreate(record._id)}>
+            <Button type='text' onClick={() => handleSubCreate(record)}>
               新增
             </Button>
             <Button type='text' onClick={() => handleEdit(record)}>
               編輯
             </Button>
-            <Button type='text' onClick={() => handleDelete(record._id)}>
+            <Button type='text' danger onClick={() => handleDelete(record)}>
               刪除
             </Button>
           </Space>

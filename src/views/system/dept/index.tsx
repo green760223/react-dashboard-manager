@@ -107,7 +107,7 @@ function DeptList() {
             <Button type='text' onClick={() => handleEdit(record)}>
               編輯
             </Button>
-            <Button type='text' onClick={() => handleDelete(record._id)}>
+            <Button type='text' danger onClick={() => handleDelete(record._id)}>
               刪除
             </Button>
           </Space>
@@ -140,7 +140,13 @@ function DeptList() {
             </Button>
           </div>
         </div>
-        <Table bordered rowKey='_id' columns={columns} dataSource={data} pagination={false} />
+        <Table
+          bordered
+          rowKey='_id'
+          columns={columns}
+          dataSource={data}
+          pagination={false}
+        />
       </div>
       <CreateDept mRef={deptRef} update={getDeptList} />
     </div>
