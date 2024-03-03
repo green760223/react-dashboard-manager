@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate, useRouteLoaderData } from 'react-router-dom'
+import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
 import { Menu } from 'antd'
 import {
   DesktopOutlined,
@@ -16,8 +16,11 @@ import * as Icons from '@ant-design/icons'
 function SideMenu() {
   const data: any = useRouteLoaderData('layout')
   const [menuList, setMenuList] = useState<MenuItem[]>([])
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([])
   const navigate = useNavigate()
   const isCollapse = useStore(state => state.isCollapse)
+
+  const { pathname } = useLocation()
 
   type MenuItem = Required<MenuProps>['items'][number]
 
@@ -78,11 +81,18 @@ function SideMenu() {
   useEffect(() => {
     const treeMenuList = getTreeMenu(data.menuList)
     setMenuList(treeMenuList)
-    console.log('treeMenuList', treeMenuList)
+    setSelectedKeys([pathname])
   }, [])
 
+  // logo點擊
   const handleClickLog = () => {
     navigate('/welcome')
+  }
+
+  // 菜單點擊
+  const handleClickMenu = ({ key }: { key: string }) => {
+    setSelectedKeys([key])
+    navigate(key)
   }
 
   return (
@@ -92,12 +102,13 @@ function SideMenu() {
         {isCollapse ? '' : <span>倫斯貨運</span>}
       </div>
       <Menu
-        defaultSelectedKeys={['1']}
         defaultOpenKeys={['2']}
         mode='inline'
         theme='dark'
         items={menuList}
         style={{ width: isCollapse ? 80 : 'auto' }}
+        onClick={handleClickMenu}
+        selectedKeys={selectedKeys}
       />
     </div>
   )
