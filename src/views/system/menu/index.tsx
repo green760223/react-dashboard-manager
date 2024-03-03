@@ -113,7 +113,7 @@ function MenuList() {
     {
       title: '路由地址',
       dataIndex: 'path',
-      key: 'menpathuCode'
+      key: 'path'
     },
     {
       title: '組建名稱',

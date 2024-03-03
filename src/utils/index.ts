@@ -2,6 +2,8 @@
  * 工具函數封裝
  */
 
+import { Menu } from '@/types/api'
+
 // 格式化金額
 export const formatMoney = (num?: number | string) => {
   if (!num) {
@@ -65,7 +67,10 @@ export const formatDate = (date?: Date | string, rule?: string) => {
 
   for (const k in O) {
     // const val = O[k].toString()
-    fmt = fmt.replace(new RegExp(`(${k})`), O[k] > 9 ? O[k].toString() : '0' + O[k].toString())
+    fmt = fmt.replace(
+      new RegExp(`(${k})`),
+      O[k] > 9 ? O[k].toString() : '0' + O[k].toString()
+    )
     // fmt = fmt.replace(new RegExp(`(${k})`), ('00' + val).substring(val.length))
   }
   return fmt
@@ -84,4 +89,15 @@ export const formatSate = (state: number) => {
   if (state === 3) {
     return '離職'
   }
+}
+
+// 獲取頁面路徑
+export const getMenuPath = (list: Menu.MenuItem[]): string[] => {
+  return list.reduce((result: string[], item: Menu.MenuItem) => {
+    return result.concat(
+      Array.isArray(item.children) && !item.buttons
+        ? getMenuPath(item.children)
+        : item.path + ''
+    )
+  }, [])
 }
