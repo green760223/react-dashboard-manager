@@ -30,10 +30,12 @@ const App: React.FC = () => {
         </Sider>
         <Layout>
           <NavHeader />
-          <div className={styles.wrapper}>
-            <Outlet></Outlet>
+          <div className={styles.content}>
+            <div className={styles.wrapper}>
+              <Outlet></Outlet>
+            </div>
+            <NavFooter />
           </div>
-          <NavFooter />
         </Layout>
       </Layout>
     </Watermark>
