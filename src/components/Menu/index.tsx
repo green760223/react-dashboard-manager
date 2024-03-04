@@ -1,14 +1,9 @@
 import React from 'react'
 import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
 import { Menu } from 'antd'
-import {
-  DesktopOutlined,
-  SettingOutlined,
-  TeamOutlined
-} from '@ant-design/icons'
 import styles from './index.module.less'
 import { useStore } from '@/store'
-import type { MenuProps, MenuTheme } from 'antd/es/menu'
+import type { MenuProps } from 'antd/es/menu'
 import { useState, useEffect } from 'react'
 import { Menu as IMenu } from '@/types/api'
 import * as Icons from '@ant-design/icons'

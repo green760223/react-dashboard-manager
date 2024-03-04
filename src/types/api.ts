@@ -1,5 +1,4 @@
 import Dashboard from '@/views/dashboard'
-import exp from 'constants'
 
 // 接口類型定義
 export interface Result<T = any> {
@@ -190,5 +189,9 @@ export namespace Role {
     permissions: {
       checkedKeys: string[]
     }
+  }
+
+  export interface EditParams extends CreateParams {
+    _id: string
   }
 }
