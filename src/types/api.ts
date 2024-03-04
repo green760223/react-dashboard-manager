@@ -1,4 +1,5 @@
 import Dashboard from '@/views/dashboard'
+import exp from 'constants'
 
 // 接口類型定義
 export interface Result<T = any> {
@@ -168,6 +169,26 @@ export namespace Dashboard {
     data: {
       name: string
       value: number[]
+    }
+  }
+}
+
+export namespace Role {
+  export interface Params extends PageParams {
+    roleName?: string
+  }
+
+  export interface CreateParams {
+    roleName: string
+    remark?: string
+  }
+
+  export interface RoleItem extends CreateParams {
+    _id: string
+    createTime: string
+    updateTime: string
+    permissions: {
+      checkedKeys: string[]
     }
   }
 }
