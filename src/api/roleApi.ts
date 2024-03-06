@@ -15,5 +15,10 @@ export default {
   // Update the role
   editRole(params: Role.EditParams) {
     return request.post('/roles/edit', params)
+  },
+
+  // Delete the role
+  deleteRole(params: { _id: string }) {
+    return request.post('/roles/delete', params)
   }
 }

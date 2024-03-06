@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useAntdTable } from 'ahooks'
-import { Form, Input, Button, Table, Space } from 'antd'
+import { Form, Input, Button, Table, Space, Modal } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import api from '@/api/roleApi'
 import { Role } from '@/types/api'
@@ -8,6 +8,7 @@ import { formatDate } from '@/utils'
 import CreateRole from './CreateRole'
 import { IAction } from '@/types/modal'
 import { ColumnsType } from 'antd/es/table'
+import { message } from '@/utils/AntdGlobal'
 
 function RoleList() {
   const [form] = useForm()
@@ -81,7 +82,11 @@ function RoleList() {
               編輯
             </Button>
             <Button type='text'>設置權限</Button>
-            <Button type='text' danger={true}>
+            <Button
+              type='text'
+              danger={true}
+              onClick={() => handleDelete(record._id)}
+            >
               刪除
             </Button>
           </Space>
@@ -98,6 +103,19 @@ function RoleList() {
   // 編輯角色
   const handleEdit = (data: Role.RoleItem) => {
     roleRef.current?.open('edit', data)
+  }
+
+  // 刪除角色
+  const handleDelete = (_id: string) => {
+    Modal.confirm({
+      title: '確認',
+      content: '確認刪除該角色嗎？',
+      async onOk() {
+        await api.deleteRole({ _id })
+        message.success('刪除成功')
+        search.submit()
+      }
+    })
   }
 
   return (
