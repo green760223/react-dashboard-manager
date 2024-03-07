@@ -2,17 +2,21 @@ import { useRef } from 'react'
 import { useAntdTable } from 'ahooks'
 import { Form, Input, Button, Table, Space, Modal } from 'antd'
 import { useForm } from 'antd/es/form/Form'
-import api from '@/api/roleApi'
 import { Role } from '@/types/api'
 import { formatDate } from '@/utils'
-import CreateRole from './CreateRole'
 import { IAction } from '@/types/modal'
 import { ColumnsType } from 'antd/es/table'
 import { message } from '@/utils/AntdGlobal'
+import api from '@/api/roleApi'
+import CreateRole from './CreateRole'
+import SetPermission from './SetPermission'
 
 function RoleList() {
   const [form] = useForm()
   const roleRef = useRef<{
+    open: (type: IAction, data?: Role.RoleItem) => void
+  }>()
+  const permissionRef = useRef<{
     open: (type: IAction, data?: Role.RoleItem) => void
   }>()
 
@@ -81,7 +85,9 @@ function RoleList() {
             <Button type='text' onClick={() => handleEdit(record)}>
               編輯
             </Button>
-            <Button type='text'>設置權限</Button>
+            <Button type='text' onClick={() => handleSetPermission(record)}>
+              設置權限
+            </Button>
             <Button
               type='text'
               danger={true}
@@ -118,6 +124,11 @@ function RoleList() {
     })
   }
 
+  // 設置權限
+  const handleSetPermission = (record: Role.RoleItem) => {
+    permissionRef.current?.open('edit', record)
+  }
+
   return (
     <div className='role-wrap'>
       <Form form={form} className='search-form' layout='inline'>
@@ -149,6 +160,8 @@ function RoleList() {
       </div>
       {/* 創建角色組件 */}
       <CreateRole mRef={roleRef} update={search.submit} />
+      {/* 設置權限組件 */}
+      <SetPermission mRef={permissionRef} update={search.submit} />
     </div>
   )
 }

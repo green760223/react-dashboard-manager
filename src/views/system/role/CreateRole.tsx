@@ -2,8 +2,8 @@ import { Role } from '@/types/api'
 import { IModalProp, IAction } from '@/types/modal'
 import { Modal, Form, Input } from 'antd'
 import { useImperativeHandle, useState } from 'react'
-import api from '@/api/roleApi'
 import { message } from '@/utils/AntdGlobal'
+import api from '@/api/roleApi'
 
 function CreateRole(props: IModalProp<Role.RoleItem>) {
   const [visible, setVisible] = useState(false)

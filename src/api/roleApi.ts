@@ -1,5 +1,5 @@
-import request from '@/utils/request'
 import { ResultData, Role } from '@/types/api'
+import request from '@/utils/request'
 
 export default {
   // Get the user role list
@@ -20,5 +20,10 @@ export default {
   // Delete the role
   deleteRole(params: { _id: string }) {
     return request.post('/roles/delete', params)
+  },
+
+  // Set the role permission
+  updatePermission(params: Role.Permission) {
+    return request.post('/roles/update/permission', params)
   }
 }
