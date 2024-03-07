@@ -25,5 +25,10 @@ export default {
   // Set the role permission
   updatePermission(params: Role.Permission) {
     return request.post('/roles/update/permission', params)
+  },
+
+  // Get all role list
+  getAllRoleList() {
+    return request.get<Role.RoleItem[]>('/roles/alllist')
   }
 }
