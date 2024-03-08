@@ -9,6 +9,7 @@ import { IAction } from '@/types/modal'
 import { Modal } from 'antd'
 import { message } from '@/utils/AntdGlobal'
 import { useAntdTable } from 'ahooks'
+import AuthButton from '@/components/AuthButton'
 
 function UserList() {
   const [form] = Form.useForm()
@@ -202,9 +203,13 @@ function UserList() {
         <div className='header-wrapper'>
           <div className='title'>用戶列表</div>
           <div className='action'>
-            <Button type='primary' onClick={handleCreate}>
+            <AuthButton
+              auth='user@create'
+              type='primary'
+              onClick={handleCreate}
+            >
               新增
-            </Button>
+            </AuthButton>
             <Button type='primary' danger onClick={handlePatchConfirm}>
               批量刪除
             </Button>
