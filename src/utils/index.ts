@@ -101,3 +101,17 @@ export const getMenuPath = (list: Menu.MenuItem[]): string[] => {
     )
   }, [])
 }
+
+// 遞迴獲取路由對象
+export const searchRoute: any = (path: string, routes: any[]) => {
+  for (const item of routes) {
+    if (item.path === path) {
+      return item
+    }
+
+    if (item.children) {
+      return searchRoute(path, item.children)
+    }
+  }
+  return ''
+}
