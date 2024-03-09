@@ -2,14 +2,14 @@ import { User } from '@/types/api'
 import { Button, Table, Form, Input, Select, Space } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { useRef, useState } from 'react'
-import api from '@/api'
 import { formatDate } from '@/utils'
-import CreateUser from './CreateUser'
 import { IAction } from '@/types/modal'
 import { Modal } from 'antd'
 import { message } from '@/utils/AntdGlobal'
 import { useAntdTable } from 'ahooks'
 import AuthButton from '@/components/AuthButton'
+import api from '@/api'
+import CreateUser from './CreateUser'
 
 function UserList() {
   const [form] = Form.useForm()

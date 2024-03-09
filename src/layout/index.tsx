@@ -9,12 +9,12 @@ import { Layout, Watermark } from 'antd'
 import { useStore } from '@/store'
 import { IAuthLoader } from '@/router/AuthLoader'
 import { searchRoute } from '@/utils'
+import { router } from '@/router'
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import Menu from '@/components/Menu'
 import styles from './index.module.less'
 import api from '@/api'
-import { router } from '@/router'
 
 const { Sider } = Layout
 

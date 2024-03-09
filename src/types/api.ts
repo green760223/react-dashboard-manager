@@ -204,3 +204,49 @@ export namespace Role {
     }
   }
 }
+
+export namespace Order {
+  export enum IState {
+    doing = 1,
+    done = 2,
+    timeout = 3,
+    cancel = 4
+  }
+
+  export interface CreateParams {
+    cityName: string
+    userName: string
+    mobile: string
+    startAddress: string
+    endAddress: string
+    orderAmount: number
+    userPayAmount: number
+    driverAmount: number // 1: WeChat, 2: Alipay
+    payType: number
+    driveName: string
+    vehicleName: string
+    state: number // 1: doing, 2: done, 3: timeout, 4: cancel
+    useTime: string
+    endTime: string
+  }
+
+  export interface OrderItem extends CreateParams {
+    _id: string
+    orderId: string
+    route: Array<{ lng: string; lat: string }> // Route coordinates
+    createTime: string
+    remark: string
+  }
+
+  export interface SearchParams {
+    oderId?: string
+    userName?: string
+    state?: IState
+  }
+
+  export interface Params extends PageParams {
+    orderId?: string
+    userName?: string
+    state?: IState
+  }
+}
