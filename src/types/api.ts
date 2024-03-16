@@ -249,4 +249,9 @@ export namespace Order {
     userName?: string
     state?: IState
   }
+
+  export interface DictItem {
+    id: string
+    name: string
+  }
 }

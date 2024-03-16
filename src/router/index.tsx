@@ -51,7 +51,7 @@ export const router = [
         element: <Role />
       },
       {
-        path: '/orderlist',
+        path: '/orderList',
         element: <Order />
       }
     ]

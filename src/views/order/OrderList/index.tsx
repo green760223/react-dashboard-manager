@@ -1,11 +1,16 @@
-import { Button, Table, Form, Input, Select, Space } from 'antd'
+import { useRef } from 'react'
+import { Button, Table, Form, Input, Select, Space, Divider } from 'antd'
 import { useAntdTable } from 'ahooks'
 import { ColumnsType } from 'antd/es/table'
 import { Order } from '@/types/api'
 import api from '@/api/orderApi'
+import CreateOrder from './components/CreateOrder'
+import { format } from 'util'
+import { formatDate, formatMoney } from '@/utils'
 
 function OrderList() {
   const [form] = Form.useForm()
+  const orderRef = useRef<{ open: () => void }>()
 
   const getTableData = (
     {
@@ -37,6 +42,11 @@ function OrderList() {
     defaultParams: [{ current: 1, pageSize: 10 }, { state: 1 }]
   })
 
+  // 創建訂單
+  const handleCreate = () => {
+    orderRef.current?.open()
+  }
+
   const columns: ColumnsType<Order.OrderItem> = [
     {
       title: '訂單編號',
@@ -44,29 +54,60 @@ function OrderList() {
       key: 'orderId'
     },
     {
-      title: '城市名稱',
+      title: '城市',
       dataIndex: 'cityName',
-      key: 'cityName'
+      key: 'cityName',
+      width: 80
     },
     {
       title: '下單地址',
       dataIndex: 'startAddress',
-      key: 'startAddress'
+      key: 'startAddress',
+      width: 160,
+      render: (_, record) => {
+        return (
+          <div>
+            <p>開始地址:{record.startAddress}</p>
+            <p>結束地址:{record.endAddress}</p>
+          </div>
+        )
+      }
     },
     {
       title: '下單時間',
       dataIndex: 'createTime',
-      key: 'createTime'
+      key: 'createTime',
+      width: 120,
+      render(createTime) {
+        return formatDate(createTime)
+      }
     },
     {
       title: '訂單金額',
       dataIndex: 'orderAmount',
-      key: 'orderAmount'
+      key: 'orderAmount',
+      render(orderAmount) {
+        return formatMoney(orderAmount)
+      }
     },
     {
       title: '訂單狀態',
       dataIndex: 'state',
-      key: 'state'
+      key: 'state',
+      render(state) {
+        if (state === 1) {
+          return '進行中'
+        }
+        if (state === 2) {
+          return '已完成'
+        }
+        if (state === 3) {
+          return '超時'
+        }
+        if (state === 4) {
+          return '取消'
+        }
+      }
     },
     {
       title: '用戶名稱',
@@ -128,11 +169,15 @@ function OrderList() {
         <div className='header-wrapper'>
           <div className='title'>用戶列表</div>
           <div className='action'>
-            <Button type='primary'>新增</Button>
+            <Button type='primary' onClick={handleCreate}>
+              新增
+            </Button>
           </div>
         </div>
         <Table bordered rowKey='userId' columns={columns} {...tableProps} />
       </div>
+      {/* 創建訂單組件 */}
+      <CreateOrder mRef={orderRef} update={search.submit} />
     </div>
   )
 }
