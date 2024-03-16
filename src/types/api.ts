@@ -216,7 +216,7 @@ export namespace Order {
   export interface CreateParams {
     cityName: string
     userName: string
-    mobile: string
+    mobile: number
     startAddress: string
     endAddress: string
     orderAmount: number

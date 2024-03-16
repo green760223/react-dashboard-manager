@@ -126,5 +126,5 @@ export const formatMobile = (mobile?: number) => {
     return '-'
   }
   const phone = mobile.toString()
-  return phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
+  return phone.replace(/(\d{3})\d*(\d{4})/, '$1****$2')
 }
