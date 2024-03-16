@@ -115,3 +115,16 @@ export const searchRoute: any = (path: string, routes: any[]) => {
   }
   return ''
 }
+
+/**
+ * 手機號加密
+ * @example
+ * 17611000011 => 176****0011
+ */
+export const formatMobile = (mobile?: number) => {
+  if (!mobile) {
+    return '-'
+  }
+  const phone = mobile.toString()
+  return phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
+}

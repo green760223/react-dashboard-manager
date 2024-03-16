@@ -223,7 +223,7 @@ export namespace Order {
     userPayAmount: number
     driverAmount: number // 1: WeChat, 2: Alipay
     payType: number
-    driveName: string
+    driverName: string
     vehicleName: string
     state: number // 1: doing, 2: done, 3: timeout, 4: cancel
     useTime: string

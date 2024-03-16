@@ -20,5 +20,10 @@ export default {
   // Create an order
   creatyOrder(params: Order.CreateParams) {
     return request.post('/order/create', params)
+  },
+
+  // Get the order detail
+  getOrderDetail(orderId: string) {
+    return request.get<Order.OrderItem>(`/order/detail/${orderId}`)
   }
 }

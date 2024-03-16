@@ -3,14 +3,15 @@ import { Button, Table, Form, Input, Select, Space, Divider } from 'antd'
 import { useAntdTable } from 'ahooks'
 import { ColumnsType } from 'antd/es/table'
 import { Order } from '@/types/api'
-import api from '@/api/orderApi'
-import CreateOrder from './components/CreateOrder'
-import { format } from 'util'
 import { formatDate, formatMoney } from '@/utils'
+import OrderDetail from './components/OrderDetail'
+import CreateOrder from './components/CreateOrder'
+import api from '@/api/orderApi'
 
 function OrderList() {
   const [form] = Form.useForm()
   const orderRef = useRef<{ open: () => void }>()
+  const detailRef = useRef<{ open: (orderId: string) => void }>()
 
   const getTableData = (
     {
@@ -41,11 +42,6 @@ function OrderList() {
     form,
     defaultParams: [{ current: 1, pageSize: 10 }, { state: 1 }]
   })
-
-  // 創建訂單
-  const handleCreate = () => {
-    orderRef.current?.open()
-  }
 
   const columns: ColumnsType<Order.OrderItem> = [
     {
@@ -125,7 +121,9 @@ function OrderList() {
       render(_, record) {
         return (
           <Space>
-            <Button type='text'>詳情</Button>
+            <Button type='text' onClick={() => handleDetail(record.orderId)}>
+              詳情
+            </Button>
             <Button type='text'>打點</Button>
             <Button type='text' danger>
               軌跡
@@ -136,6 +134,16 @@ function OrderList() {
       }
     }
   ]
+
+  // 創建訂單
+  const handleCreate = () => {
+    orderRef.current?.open()
+  }
+
+  // 訂單詳情
+  const handleDetail = (orderId: string) => {
+    detailRef.current?.open(orderId)
+  }
 
   return (
     <div className='OrderList'>
@@ -174,10 +182,12 @@ function OrderList() {
             </Button>
           </div>
         </div>
-        <Table bordered rowKey='userId' columns={columns} {...tableProps} />
+        <Table bordered rowKey='_id' columns={columns} {...tableProps} />
       </div>
       {/* 創建訂單組件 */}
       <CreateOrder mRef={orderRef} update={search.submit} />
+      {/* 訂單詳情組件 */}
+      <OrderDetail mRef={detailRef} />
     </div>
   )
 }
