@@ -1,3 +1,5 @@
-declare interface Window {
-  app: string
+interface Window {
+  BMapGL: {
+    [propName: string]: any
+  }
 }

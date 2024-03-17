@@ -7,11 +7,13 @@ import { formatDate, formatMoney } from '@/utils'
 import OrderDetail from './components/OrderDetail'
 import CreateOrder from './components/CreateOrder'
 import api from '@/api/orderApi'
+import OrderMarker from './components/OrderMarker'
 
 function OrderList() {
   const [form] = Form.useForm()
   const orderRef = useRef<{ open: () => void }>()
   const detailRef = useRef<{ open: (orderId: string) => void }>()
+  const markerRef = useRef<{ open: (orderId: string) => void }>()
 
   const getTableData = (
     {
@@ -124,7 +126,9 @@ function OrderList() {
             <Button type='text' onClick={() => handleDetail(record.orderId)}>
               詳情
             </Button>
-            <Button type='text'>打點</Button>
+            <Button type='text' onClick={() => handleMarker(record.orderId)}>
+              打點
+            </Button>
             <Button type='text' danger>
               軌跡
             </Button>
@@ -143,6 +147,11 @@ function OrderList() {
   // 訂單詳情
   const handleDetail = (orderId: string) => {
     detailRef.current?.open(orderId)
+  }
+
+  // 地圖打點
+  const handleMarker = (orderId: string) => {
+    markerRef.current?.open(orderId)
   }
 
   return (
@@ -188,6 +197,8 @@ function OrderList() {
       <CreateOrder mRef={orderRef} update={search.submit} />
       {/* 訂單詳情組件 */}
       <OrderDetail mRef={detailRef} />
+      {/* 地圖打點 */}
+      <OrderMarker mRef={markerRef} />
     </div>
   )
 }
