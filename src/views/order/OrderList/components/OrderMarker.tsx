@@ -3,10 +3,14 @@ import { Modal } from 'antd'
 import { IDetailProp } from '@/types/modal'
 import { Order } from '@/types/api'
 import api from '@/api/orderApi'
+import { message } from '@/utils/AntdGlobal'
 
 function OrderMarker(props: IDetailProp) {
   const [visible, setVisible] = useState(false)
   const [orderId, setOrderId] = useState('')
+  const [markers, setMarkers] = useState<
+    { lng: string; lat: string; id: number }[]
+  >([])
 
   useImperativeHandle(props.mRef, () => {
     return {
@@ -30,12 +34,41 @@ function OrderMarker(props: IDetailProp) {
     map.addControl(scaleCtrl)
     const zoomCtrl = new window.BMapGL.ZoomControl()
     map.addControl(zoomCtrl)
-    const cityCtrl = new window.BMapGL.CityListControl()
-    map.addControl(cityCtrl)
+
+    detail.route.map(item => {
+      createMarker(map, item.lng, item.lat)
+    })
+
+    // 添加點標記
+    map.addEventListener('click', function (e: any) {
+      createMarker(map, e.latlng.lng, e.latlng.lat)
+    })
   }
 
-  const handleOk = () => {
+  // 創建標記
+  const createMarker = (map: any, lng: string, lat: string) => {
+    const id = Math.random()
+    const marker = new window.BMapGL.Marker(new window.BMapGL.Point(lng, lat))
+    marker.id = id
+    markers.push({ lng, lat, id })
+    const markerMenu = new window.BMapGL.ContextMenu()
+    markerMenu.addItem(
+      new window.BMapGL.MenuItem('刪除', function () {
+        map.removeOverlay(marker)
+        const index = markers.findIndex(item => item.id === marker.id)
+        markers.splice(index, 1)
+      })
+    )
+    setMarkers([...markers])
+    marker.addContextMenu(markerMenu)
+    map.addOverlay(marker)
+  }
+
+  const handleOk = async () => {
+    await api.updateOrderInfo({ orderId, route: markers })
     setVisible(false)
+    message.success('更新成功')
+    handleCancel()
   }
 
   //

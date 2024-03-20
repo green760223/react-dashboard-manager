@@ -25,5 +25,10 @@ export default {
   // Get the order detail
   getOrderDetail(orderId: string) {
     return request.get<Order.OrderItem>(`/order/detail/${orderId}`)
+  },
+
+  // Update the order info
+  updateOrderInfo(params: Order.OrderRoute) {
+    return request.post('/order/edit', params)
   }
 }
