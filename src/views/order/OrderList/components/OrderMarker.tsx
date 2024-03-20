@@ -57,9 +57,10 @@ function OrderMarker(props: IDetailProp) {
         map.removeOverlay(marker)
         const index = markers.findIndex(item => item.id === marker.id)
         markers.splice(index, 1)
+        setMarkers([...markers])
       })
     )
-    setMarkers([...markers])
+
     marker.addContextMenu(markerMenu)
     map.addOverlay(marker)
   }
