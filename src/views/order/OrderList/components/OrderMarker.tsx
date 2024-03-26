@@ -49,8 +49,8 @@ function OrderMarker(props: IDetailProp) {
   const createMarker = (map: any, lng: string, lat: string) => {
     const id = Math.random()
     const marker = new window.BMapGL.Marker(new window.BMapGL.Point(lng, lat))
-    marker.id = id
     markers.push({ lng, lat, id })
+    marker.id = id
     const markerMenu = new window.BMapGL.ContextMenu()
     markerMenu.addItem(
       new window.BMapGL.MenuItem('刪除', function () {
@@ -60,7 +60,7 @@ function OrderMarker(props: IDetailProp) {
         setMarkers([...markers])
       })
     )
-
+    setMarkers([...markers])
     marker.addContextMenu(markerMenu)
     map.addOverlay(marker)
   }
@@ -75,6 +75,7 @@ function OrderMarker(props: IDetailProp) {
   //
   const handleCancel = () => {
     setVisible(false)
+    setMarkers([])
   }
 
   return (

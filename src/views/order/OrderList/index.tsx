@@ -8,12 +8,14 @@ import OrderDetail from './components/OrderDetail'
 import CreateOrder from './components/CreateOrder'
 import api from '@/api/orderApi'
 import OrderMarker from './components/OrderMarker'
+import OrderRoute from './components/OrderRoute'
 
 function OrderList() {
   const [form] = Form.useForm()
   const orderRef = useRef<{ open: () => void }>()
   const detailRef = useRef<{ open: (orderId: string) => void }>()
   const markerRef = useRef<{ open: (orderId: string) => void }>()
+  const routeRef = useRef<{ open: (orderId: string) => void }>()
 
   const getTableData = (
     {
@@ -129,7 +131,11 @@ function OrderList() {
             <Button type='text' onClick={() => handleMarker(record.orderId)}>
               打點
             </Button>
-            <Button type='text' danger>
+            <Button
+              type='text'
+              danger
+              onClick={() => handleRoute(record.orderId)}
+            >
               軌跡
             </Button>
             <Button type='text'>刪除</Button>
@@ -138,6 +144,11 @@ function OrderList() {
       }
     }
   ]
+
+  // 行駛軌跡
+  const handleRoute = (orderId: string) => {
+    routeRef.current?.open(orderId)
+  }
 
   // 創建訂單
   const handleCreate = () => {
@@ -199,6 +210,8 @@ function OrderList() {
       <OrderDetail mRef={detailRef} />
       {/* 地圖打點 */}
       <OrderMarker mRef={markerRef} />
+      {/* 行駛軌跡 */}
+      <OrderRoute mRef={routeRef} />
     </div>
   )
 }
