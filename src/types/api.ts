@@ -259,4 +259,8 @@ export namespace Order {
     orderId: string
     route: Array<{ lng: string; lat: string }>
   }
+
+  export interface DelParams {
+    _id: string
+  }
 }

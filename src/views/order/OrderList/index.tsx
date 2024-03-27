@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Button, Table, Form, Input, Select, Space } from 'antd'
+import { Button, Table, Form, Input, Select, Space, Modal } from 'antd'
 import { useAntdTable } from 'ahooks'
 import { ColumnsType } from 'antd/es/table'
 import { Order } from '@/types/api'
@@ -9,6 +9,7 @@ import CreateOrder from './components/CreateOrder'
 import api from '@/api/orderApi'
 import OrderMarker from './components/OrderMarker'
 import OrderRoute from './components/OrderRoute'
+import { message } from '@/utils/AntdGlobal'
 
 function OrderList() {
   const [form] = Form.useForm()
@@ -131,19 +132,30 @@ function OrderList() {
             <Button type='text' onClick={() => handleMarker(record.orderId)}>
               打點
             </Button>
-            <Button
-              type='text'
-              danger
-              onClick={() => handleRoute(record.orderId)}
-            >
+            <Button type='text' onClick={() => handleRoute(record.orderId)}>
               軌跡
             </Button>
-            <Button type='text'>刪除</Button>
+            <Button type='text' onClick={() => handleDelete(record._id)} danger>
+              刪除
+            </Button>
           </Space>
         )
       }
     }
   ]
+
+  // 刪除訂單
+  const handleDelete = (_id: string) => {
+    Modal.confirm({
+      title: '刪除訂單',
+      content: <span>確認刪除該訂單嗎?</span>,
+      onOk: async () => {
+        await api.deleteOrder(_id)
+        message.success('刪除成功')
+        search.submit()
+      }
+    })
+  }
 
   // 行駛軌跡
   const handleRoute = (orderId: string) => {
@@ -163,6 +175,11 @@ function OrderList() {
   // 地圖打點
   const handleMarker = (orderId: string) => {
     markerRef.current?.open(orderId)
+  }
+
+  // 文件導出
+  const handleExport = () => {
+    api.exportDate(form.getFieldsValue())
   }
 
   return (
@@ -199,6 +216,9 @@ function OrderList() {
           <div className='action'>
             <Button type='primary' onClick={handleCreate}>
               新增
+            </Button>
+            <Button type='primary' onClick={handleExport}>
+              導出
             </Button>
           </div>
         </div>

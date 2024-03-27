@@ -4,6 +4,7 @@ import storage from './storage'
 import env from '@/config'
 import { message } from './AntdGlobal'
 import { Result } from '@/types/api'
+import { debug } from 'console'
 
 console.log('config', env)
 
@@ -57,6 +58,10 @@ instance.interceptors.response.use(
   response => {
     const data: Result = response.data
     hideLoading()
+    if (response.config.responseType === 'blob') {
+      return response
+    }
+
     if (data.code === 500001) {
       // 未登入 或 token過期 或 token無效
       message.error(data.msg)
@@ -97,5 +102,26 @@ export default {
     options: IConfig = { showLoading: true, showError: true }
   ): Promise<T> {
     return instance.post(url, params, options)
+  },
+
+  downloadFile(url: string, data: any, fileName = 'filename.xlsx') {
+    instance({
+      url,
+      data,
+      method: 'post',
+      responseType: 'blob'
+    }).then(response => {
+      const blob = new Blob([response.data], {
+        type: response.data.type
+      })
+      const name = (response.headers['file-name'] as string) || fileName
+      const link = document.createElement('a')
+      link.download = decodeURIComponent(name) // 下載文件名
+      link.href = URL.createObjectURL(blob)
+      document.body.append(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(link.href)
+    })
   }
 }

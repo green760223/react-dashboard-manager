@@ -30,5 +30,15 @@ export default {
   // Update the order info
   updateOrderInfo(params: Order.OrderRoute) {
     return request.post('/order/edit', params)
+  },
+
+  // Delete the order
+  deleteOrder(orderId: string) {
+    return request.post('/order/delete', { _id: orderId })
+  },
+
+  // Export order data
+  exportDate(params: Order.SearchParams) {
+    return request.downloadFile('/order/orderExport', params, '訂單列表.xlsx')
   }
 }
