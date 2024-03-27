@@ -40,5 +40,12 @@ export default {
   // Export order data
   exportDate(params: Order.SearchParams) {
     return request.downloadFile('/order/orderExport', params, '訂單列表.xlsx')
+  },
+
+  // Get City Order Data
+  getCityData(cityId: number) {
+    return request.get<Array<{ lng: string; lat: string }>>(
+      `/order/cluster/${cityId}`
+    )
   }
 }

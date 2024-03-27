@@ -4,4 +4,6 @@ interface Window {
   }
 
   BMapGLLib: any
+
+  BMapLib: any
 }
