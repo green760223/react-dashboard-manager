@@ -1,7 +1,7 @@
+import React from 'react'
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import LoginFC from '@/views/login/Login'
 import Welcome from '@/views/welcome'
-import Dashboard from '@/views/dashboard'
 import Error403 from '@/views/Error403'
 import NotFound from '@/views/NotFound'
 import Layout from '@/layout/index'
@@ -13,6 +13,7 @@ import Role from '@/views/system/role'
 import Order from '@/views/order/OrderList'
 import OrderCluster from '@/views/order/OrderCluster'
 import DriverList from '@/views/order/DriverList'
+import { lazyLoad } from './LazyLoad'
 
 export const router = [
   {
@@ -34,35 +35,37 @@ export const router = [
       },
       {
         path: '/dashboard',
-        element: <Dashboard />
+        element: lazyLoad(React.lazy(() => import('@/views/dashboard')))
       },
       {
         path: '/userList',
-        element: <User />
+        element: lazyLoad(React.lazy(() => import('@/views/system/user')))
       },
       {
         path: '/deptList',
-        element: <Dept />
+        element: lazyLoad(React.lazy(() => import('@/views/system/dept')))
       },
       {
         path: '/menuList',
-        element: <Menu />
+        element: lazyLoad(React.lazy(() => import('@/views/system/menu')))
       },
       {
         path: '/roleList',
-        element: <Role />
+        element: lazyLoad(React.lazy(() => import('@/views/system/role')))
       },
       {
         path: '/orderList',
-        element: <Order />
+        element: lazyLoad(React.lazy(() => import('@/views/order/OrderList')))
       },
       {
         path: '/cluster',
-        element: <OrderCluster />
+        element: lazyLoad(
+          React.lazy(() => import('@/views/order/OrderCluster'))
+        )
       },
       {
         path: '/driverlist',
-        element: <DriverList />
+        element: lazyLoad(React.lazy(() => import('@/views/order/DriverList')))
       }
     ]
   },
