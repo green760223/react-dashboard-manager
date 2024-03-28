@@ -263,4 +263,37 @@ export namespace Order {
   export interface DelParams {
     _id: string
   }
+
+  export interface DriverParams {
+    driverName?: string
+    accountStatus?: number
+  }
+
+  export enum DriverStatus {
+    auth = 0,
+    normal = 1,
+    temp = 2,
+    always = 3,
+    stop = 4
+  }
+
+  export interface DriverItem {
+    driverId: number
+    driverName: string
+    driverPhone: string
+    cityName: string
+    grade: boolean
+    driverLevel: number
+    driverStatus: number
+    rating: number
+    driverScore: number
+    accountStatus: DriverStatus
+    pushOrderCount: number
+    orderCompleteCount: number
+    createTime: string
+    carNo: string
+    vehicleName: string
+    vehicleBrand: string
+    onlineTime: string
+  }
 }

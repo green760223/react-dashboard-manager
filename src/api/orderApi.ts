@@ -47,5 +47,13 @@ export default {
     return request.get<Array<{ lng: string; lat: string }>>(
       `/order/cluster/${cityId}`
     )
+  },
+
+  // Get Driver List
+  getDriverList(params: Order.DriverParams) {
+    return request.get<ResultData<Order.DriverItem>>(
+      '/order/driver/list',
+      params
+    )
   }
 }

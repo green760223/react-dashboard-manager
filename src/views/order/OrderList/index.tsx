@@ -4,12 +4,12 @@ import { useAntdTable } from 'ahooks'
 import { ColumnsType } from 'antd/es/table'
 import { Order } from '@/types/api'
 import { formatDate, formatMoney } from '@/utils'
+import { message } from '@/utils/AntdGlobal'
 import OrderDetail from './components/OrderDetail'
 import CreateOrder from './components/CreateOrder'
 import api from '@/api/orderApi'
 import OrderMarker from './components/OrderMarker'
 import OrderRoute from './components/OrderRoute'
-import { message } from '@/utils/AntdGlobal'
 
 function OrderList() {
   const [form] = Form.useForm()
