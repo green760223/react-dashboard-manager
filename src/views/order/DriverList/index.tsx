@@ -147,6 +147,16 @@ function DriverList() {
     setData(data.list)
   }
 
+  // Search
+  const handleSearch = () => {
+    getDriverList()
+  }
+
+  // Reset
+  const handleReset = () => {
+    form.resetFields()
+  }
+
   return (
     <div className='driver-list'>
       <Form className='search-form' layout='inline' form={form}>
@@ -164,8 +174,12 @@ function DriverList() {
         </Form.Item>
         <Form.Item>
           <Space>
-            <Button type='primary'>搜索</Button>
-            <Button type='default'>重置</Button>
+            <Button type='primary' onClick={handleSearch}>
+              搜索
+            </Button>
+            <Button type='default' onClick={handleReset}>
+              重置
+            </Button>
           </Space>
         </Form.Item>
       </Form>
