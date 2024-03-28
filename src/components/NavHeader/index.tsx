@@ -1,9 +1,10 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
-import { Breadcrumb, Switch, Dropdown } from 'antd'
+import { Switch, Dropdown } from 'antd'
 import type { MenuProps } from 'antd'
+import { useStore } from '@/store'
 import styles from './index.module.less'
 import storage from '@/utils/storage'
-import { useStore } from '@/store'
+import BreadCrumb from './BreadCrumb'
 
 const NavHeader = () => {
   const { userInfo, isCollapsed, updateCollapsed } = useStore(state => ({
@@ -11,15 +12,6 @@ const NavHeader = () => {
     isCollapsed: state.isCollapse,
     updateCollapsed: state.updateCollapse
   }))
-
-  const breadList = [
-    {
-      title: '首頁'
-    },
-    {
-      title: '工作台'
-    }
-  ]
 
   const items: MenuProps['items'] = [
     {
@@ -48,10 +40,14 @@ const NavHeader = () => {
     <div className={styles.navHeader}>
       <div className={styles.left}>
         <div onClick={toggleCollapsed}>
-          {isCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          {isCollapsed ? (
+            <MenuUnfoldOutlined rev={undefined} />
+          ) : (
+            <MenuFoldOutlined rev={undefined} />
+          )}
         </div>
 
-        <Breadcrumb items={breadList} style={{ marginLeft: 10 }} />
+        <BreadCrumb />
       </div>
       <div className='right'>
         <Switch

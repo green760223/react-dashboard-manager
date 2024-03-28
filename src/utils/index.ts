@@ -128,3 +128,33 @@ export const formatMobile = (mobile?: number) => {
   const phone = mobile.toString()
   return phone.replace(/(\d{3})\d*(\d{4})/, '$1****$2')
 }
+
+/**
+ * 遞迴查找樹節點
+ */
+export const findTreeNode = (
+  tree: Menu.MenuItem[],
+  pathName: string,
+  path: string[]
+): string[] => {
+  if (!tree) {
+    return []
+  }
+
+  for (const data of tree) {
+    path.push(data.menuName)
+
+    if (data.path === pathName) {
+      return path
+    }
+
+    if (data.children?.length) {
+      const list = findTreeNode(data.children, pathName, path)
+      if (list?.length) {
+        return list
+      }
+    }
+    path.pop()
+  }
+  return []
+}
