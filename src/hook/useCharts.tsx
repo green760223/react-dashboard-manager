@@ -5,7 +5,6 @@ export const useCharts = (): [
   RefObject<HTMLDivElement>,
   echarts.EChartsType | undefined
 ] => {
-  console.log('useCharts hook is running...')
   const chartRef = useRef<HTMLDivElement>(null)
   const [chartInstance, setChartInstance] = useState<echarts.EChartsType>()
 
