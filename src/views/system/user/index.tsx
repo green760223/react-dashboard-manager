@@ -10,6 +10,7 @@ import { useAntdTable } from 'ahooks'
 import AuthButton from '@/components/AuthButton'
 import api from '@/api'
 import CreateUser from './CreateUser'
+import SearchForm from '@/components/SearchForm'
 
 function UserList() {
   const [form] = Form.useForm()
@@ -168,11 +169,11 @@ function UserList() {
 
   return (
     <div className='user-list'>
-      <Form
-        className='search-form'
+      <SearchForm
         form={form}
-        layout='inline'
         initialValues={{ state: 1 }}
+        submit={search.submit}
+        reset={search.reset}
       >
         <Form.Item name='userId' label='用戶ID'>
           <Input placeholder='請輸入用戶ID' />
@@ -188,17 +189,7 @@ function UserList() {
             <Select.Option value={3}>試用期</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item name='search' label='搜尋'>
-          <Space>
-            <Button type='primary' onClick={search.submit}>
-              搜尋
-            </Button>
-            <Button type='default' onClick={search.reset}>
-              重置
-            </Button>
-          </Space>
-        </Form.Item>
-      </Form>
+      </SearchForm>
       <div className='base-table'>
         <div className='header-wrapper'>
           <div className='title'>用戶列表</div>

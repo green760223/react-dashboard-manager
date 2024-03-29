@@ -16,7 +16,6 @@ import Menu from '@/components/Menu'
 import styles from './index.module.less'
 import api from '@/api'
 import TabsFC from '@/components/Tabs'
-import { use } from 'echarts'
 
 const { Sider } = Layout
 
