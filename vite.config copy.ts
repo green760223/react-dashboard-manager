@@ -4,6 +4,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // root: './',
   server: {
     host: 'localhost',
     port: 8080,
@@ -16,6 +17,8 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
-  base: '/',
+  // Checked if it's in production mode, if it is, set the base path to /react-todo-list/, if not, set it to /.
+  // base:
+  //   process.env.NODE_ENV === 'production' ? '/react-dashboard-manager/' : '/',
   plugins: [react()]
 })
