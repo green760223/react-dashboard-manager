@@ -1,19 +1,12 @@
-import React from 'react'
+import { lazyLoad } from './LazyLoad'
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import LoginFC from '@/views/login/Login'
 import Welcome from '@/views/welcome'
 import Error403 from '@/views/Error403'
 import NotFound from '@/views/NotFound'
 import Layout from '@/layout/index'
-import User from '@/views/system/user'
-import Dept from '@/views/system/dept'
-import Menu from '@/views/system/menu'
 import AuthLoader from './AuthLoader'
-import Role from '@/views/system/role'
-import Order from '@/views/order/OrderList'
-import OrderCluster from '@/views/order/OrderCluster'
-import DriverList from '@/views/order/DriverList'
-import { lazyLoad } from './LazyLoad'
+import React from 'react'
 
 export const router = [
   {

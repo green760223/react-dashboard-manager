@@ -110,7 +110,10 @@ export const searchRoute: any = (path: string, routes: any[]) => {
     }
 
     if (item.children) {
-      return searchRoute(path, item.children)
+      const result = searchRoute(path, item.children)
+      if (result) {
+        return result
+      }
     }
   }
   return ''

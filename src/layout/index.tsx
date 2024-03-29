@@ -15,12 +15,14 @@ import NavFooter from '@/components/NavFooter'
 import Menu from '@/components/Menu'
 import styles from './index.module.less'
 import api from '@/api'
+import TabsFC from '@/components/Tabs'
+import { use } from 'echarts'
 
 const { Sider } = Layout
 
 const App: React.FC = () => {
   const { pathname } = useLocation()
-  const { updateUserInfo, isCollapse } = useStore()
+  const { updateUserInfo, isCollapse, userInfo } = useStore()
 
   useEffect(() => {
     getUserInfo()
@@ -48,20 +50,23 @@ const App: React.FC = () => {
 
   return (
     <Watermark content='React'>
-      <Layout>
-        <Sider collapsed={isCollapse}>
-          <Menu />
-        </Sider>
+      {userInfo._id ? (
         <Layout>
-          <NavHeader />
-          <div className={styles.content}>
-            <div className={styles.wrapper}>
-              <Outlet></Outlet>
+          <Sider collapsed={isCollapse}>
+            <Menu />
+          </Sider>
+          <Layout>
+            <NavHeader />
+            <TabsFC />
+            <div className={styles.content}>
+              <div className={styles.wrapper}>
+                <Outlet></Outlet>
+              </div>
+              <NavFooter />
             </div>
-            <NavFooter />
-          </div>
+          </Layout>
         </Layout>
-      </Layout>
+      ) : null}
     </Watermark>
   )
 }
