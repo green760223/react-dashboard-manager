@@ -5,13 +5,22 @@ import { useStore } from '@/store'
 import styles from './index.module.less'
 import storage from '@/utils/storage'
 import BreadCrumb from './BreadCrumb'
+import { useEffect } from 'react'
 
 const NavHeader = () => {
-  const { userInfo, isCollapsed, updateCollapsed } = useStore(state => ({
-    userInfo: state.userInfo,
-    isCollapsed: state.isCollapse,
-    updateCollapsed: state.updateCollapse
-  }))
+  // const { userInfo, isCollapsed, isDark, updateCollapsed, updateTheme } =
+  //   useStore(state => ({
+  //     userInfo: state.userInfo,
+  //     isCollapsed: state.isCollapse,
+  //     updateCollapsed: state.updateCollapse
+  //   }))
+
+  const { userInfo, isCollapse, isDark, updateCollapse, updateTheme } =
+    useStore()
+
+  useEffect(() => {
+    handleSwitch(isDark)
+  }, [])
 
   const items: MenuProps['items'] = [
     {
@@ -33,14 +42,27 @@ const NavHeader = () => {
 
   // Toggle the menu collapsed state
   const toggleCollapsed = () => {
-    updateCollapsed()
+    updateCollapse()
+  }
+
+  // Switch the theme
+  const handleSwitch = (isDark: boolean) => {
+    if (isDark) {
+      document.documentElement.dataset.theme = 'dark'
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.dataset.theme = 'light'
+      document.documentElement.classList.remove('dark')
+    }
+    storage.set('isDark', isDark)
+    updateTheme(isDark)
   }
 
   return (
     <div className={styles.navHeader}>
       <div className={styles.left}>
         <div onClick={toggleCollapsed}>
-          {isCollapsed ? (
+          {isCollapse ? (
             <MenuUnfoldOutlined rev={undefined} />
           ) : (
             <MenuFoldOutlined rev={undefined} />
@@ -51,9 +73,11 @@ const NavHeader = () => {
       </div>
       <div className='right'>
         <Switch
+          checked={isDark}
           checkedChildren='暗黑'
           unCheckedChildren='默認'
           style={{ marginRight: 10 }}
+          onChange={handleSwitch}
         />
         <Dropdown menu={{ items, onClick }} trigger={['click']}>
           <span className={styles.nickName}>{userInfo.userName}</span>

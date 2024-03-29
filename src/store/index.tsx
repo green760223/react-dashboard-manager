@@ -1,13 +1,16 @@
 import { create } from 'zustand'
 import { User } from '@/types/api'
+import storage from '@/utils/storage'
 
 export const useStore = create<{
   token: string
   userInfo: User.UserItem
   isCollapse: boolean
+  isDark: boolean
   updateToken: (token: string) => void
   updateUserInfo: (userInfo: User.UserItem) => void
   updateCollapse: () => void
+  updateTheme: (isDark: boolean) => void
 }>(set => ({
   token: '',
   userInfo: {
@@ -30,8 +33,10 @@ export const useStore = create<{
   // }
   // 上面寫法與下面寫法相同
   updateUserInfo: (userInfo: User.UserItem) => set({ userInfo }),
-  updateToken: (token: string) => set({ token }),
+  updateToken: token => set({ token }),
+  updateTheme: isDark => set({ isDark }),
   isCollapse: false,
+  isDark: storage.get('isDark') || false,
   updateCollapse: () =>
     set(state => {
       return {

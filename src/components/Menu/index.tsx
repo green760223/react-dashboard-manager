@@ -13,7 +13,10 @@ function SideMenu() {
   const [menuList, setMenuList] = useState<MenuItem[]>([])
   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
   const navigate = useNavigate()
-  const isCollapse = useStore(state => state.isCollapse)
+  const { isCollapse, isDark } = useStore(state => ({
+    isCollapse: state.isCollapse,
+    isDark: state.isDark
+  }))
 
   const { pathname } = useLocation()
 
@@ -91,7 +94,7 @@ function SideMenu() {
   }
 
   return (
-    <div>
+    <div className={styles.navSide}>
       <div className={styles.logo} onClick={handleClickLog}>
         <img src='/imgs/logo.png' alt='' className={styles.img} />
         {isCollapse ? '' : <span>倫斯貨運</span>}
@@ -99,9 +102,12 @@ function SideMenu() {
       <Menu
         defaultOpenKeys={['2']}
         mode='inline'
-        theme='dark'
+        theme={isDark ? 'light' : 'dark'}
         items={menuList}
-        style={{ width: isCollapse ? 80 : 'auto' }}
+        style={{
+          width: isCollapse ? 80 : 'auto',
+          height: 'calc(100vh - 50px)'
+        }}
         onClick={handleClickMenu}
         selectedKeys={selectedKeys}
       />
