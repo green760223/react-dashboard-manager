@@ -4,7 +4,6 @@ import storage from './storage'
 import env from '@/config'
 import { message } from './AntdGlobal'
 import { Result } from '@/types/api'
-import { debug } from 'console'
 
 console.log('config', env)
 
