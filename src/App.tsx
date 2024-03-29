@@ -5,6 +5,7 @@ import router from './router'
 import './App.less'
 import './style/theme.less'
 import { useStore } from '@/store'
+import { basename } from 'path'
 
 function App() {
   const isDark = useStore(state => state.isDark)

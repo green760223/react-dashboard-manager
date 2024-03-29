@@ -5,6 +5,9 @@ import env from '@/config'
 import { message } from './AntdGlobal'
 import { Result } from '@/types/api'
 
+console.log('env:', env)
+console.log('basename:', import.meta.env.BASE_URL)
+
 interface IConfig {
   showLoading?: boolean
   showError?: boolean
