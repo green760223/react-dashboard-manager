@@ -6,7 +6,7 @@ import path from 'path'
 export default defineConfig({
   server: {
     host: 'localhost',
-    port: 8080,
+    // port: 8080,
     proxy: {
       '/api': 'http://api-driver.marsview.cc'
     }
@@ -16,6 +16,6 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
-  base: process.env.VITE_BASE_PATH || '/react-dashboard-manager',
+  // base: process.env.VITE_BASE_PATH || '/react-dashboard-manager',
   plugins: [react()]
 })

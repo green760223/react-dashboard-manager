@@ -8,7 +8,7 @@ const env = (document.documentElement.dataset.env as ENV) || 'stg'
 const config = {
   dev: {
     baseAPI: '/api',
-    uploadAPI: 'http:///api-driver-dev.marsview.cc',
+    uploadAPI: 'http://api-driver-dev.marsview.cc',
     mock: false,
     cnd: 'http://www.aliyun.com',
     mockAPI:
@@ -16,7 +16,7 @@ const config = {
   },
   stg: {
     baseAPI: '/api',
-    uploadAPI: 'http:///api-driver-stg.marsview.cc',
+    uploadAPI: 'http://api-driver-stg.marsview.cc',
     mock: false,
     cnd: 'http://www.aliyun.com',
     mockAPI:
@@ -24,7 +24,7 @@ const config = {
   },
   prod: {
     baseAPI: 'http://api-driver.marsview.cc/api',
-    uploadAPI: 'http:///api-driver.marsview.cc',
+    uploadAPI: 'http://api-driver.marsview.cc',
     mock: false,
     cnd: 'http://www.aliyun.com',
     mockAPI:
