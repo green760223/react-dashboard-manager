@@ -76,4 +76,6 @@ export const router = [
   }
 ]
 
-export default createBrowserRouter(router)
+export default createBrowserRouter(router, {
+  basename: import.meta.env.BASE_URL
+})

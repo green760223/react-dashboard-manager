@@ -9,6 +9,9 @@ import { useStore } from '@/store'
 function App() {
   const isDark = useStore(state => state.isDark)
 
+  // const basename = import.meta.env.BASE_URL
+  // console.log('new_basename', new_basename)
+
   return (
     <ConfigProvider
       theme={{
