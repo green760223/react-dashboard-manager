@@ -16,6 +16,6 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
-  // base: '/react-dashboard-manager/',
+  base: '/',
   plugins: [react()]
 })

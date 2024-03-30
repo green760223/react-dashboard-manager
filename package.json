@@ -10,7 +10,8 @@
     "build:stg": "tsc && vite build --mode stg",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "start": "serve -s dist"
   },
   "dependencies": {
     "ahooks": "^3.7.10",
@@ -23,6 +24,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
+    "serve": "^14.2.1",
     "zustand": "^4.5.0"
   },
   "devDependencies": {
