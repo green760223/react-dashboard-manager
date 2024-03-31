@@ -25,11 +25,11 @@ const NavHeader = () => {
   const items: MenuProps['items'] = [
     {
       key: 'email',
-      label: '信箱：' + userInfo.userEmail
+      label: 'email：' + userInfo.userEmail
     },
     {
       key: 'logout',
-      label: '退出'
+      label: 'Logout'
     }
   ]
 
