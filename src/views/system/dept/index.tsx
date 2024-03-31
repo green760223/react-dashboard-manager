@@ -45,8 +45,8 @@ function DeptList() {
 
   const handleDelete = async (id: string) => {
     Modal.confirm({
-      title: '確認',
-      content: '確認刪除後數據將無法恢復',
+      title: 'Confirm',
+      content: 'Are you sure you want to delete this department?',
       onOk() {
         handleDelSubmit(id)
       }
@@ -56,7 +56,7 @@ function DeptList() {
   // Delete the department
   const handleDelSubmit = async (_id: string) => {
     await api.deleteDept({ _id })
-    message.success('刪除成功')
+    message.success('Delete successfully!')
     getDeptList()
   }
 
@@ -67,19 +67,19 @@ function DeptList() {
 
   const columns: ColumnsType<Dept.DeptItem> = [
     {
-      title: '部門名稱',
+      title: 'Department Name',
       dataIndex: 'deptName',
       key: 'deptName',
       width: 200
     },
     {
-      title: '負責人',
+      title: 'Department Manager',
       dataIndex: 'userName',
       key: 'userName',
       width: 150
     },
     {
-      title: '更新時間',
+      title: 'Update Time',
       dataIndex: 'updateTime',
       key: 'updateTime',
       render(updateTime) {
@@ -87,7 +87,7 @@ function DeptList() {
       }
     },
     {
-      title: '創立時間',
+      title: 'Create Time',
       dataIndex: 'createTime',
       key: 'createTime',
       render(createTime) {
@@ -95,20 +95,20 @@ function DeptList() {
       }
     },
     {
-      title: '操作',
+      title: 'Action',
       key: 'action',
       width: 200,
       render(_, record) {
         return (
           <Space>
             <Button type='text' onClick={() => handleSubCreate(record._id)}>
-              新增
+              Add
             </Button>
             <Button type='text' onClick={() => handleEdit(record)}>
-              編輯
+              Edit
             </Button>
             <Button type='text' danger onClick={() => handleDelete(record._id)}>
-              刪除
+              Delete
             </Button>
           </Space>
         )
@@ -119,24 +119,24 @@ function DeptList() {
   return (
     <div>
       <Form className='search-form' layout='inline' form={form}>
-        <Form.Item label='部門名稱' name='deptName'>
-          <Input placeholder='部門名稱'></Input>
+        <Form.Item label='Department Name' name='deptName'>
+          <Input placeholder='Department Name'></Input>
         </Form.Item>
         <Form.Item>
           <Button type='primary' className='mr10' onClick={getDeptList}>
-            搜尋
+            Search
           </Button>
           <Button type='default' onClick={handleReset}>
-            重置
+            Reset
           </Button>
         </Form.Item>
       </Form>
       <div className='base-table'>
         <div className='header-wrapper'>
-          <div className='title'>部門列表</div>
+          <div className='title'>Department List</div>
           <div className='action'>
             <Button type='primary' onClick={handleCreate}>
-              新增
+              New
             </Button>
           </div>
         </div>

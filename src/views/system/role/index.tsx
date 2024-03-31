@@ -51,17 +51,17 @@ function RoleList() {
 
   const columns: ColumnsType<Role.RoleItem> = [
     {
-      title: '角色名稱',
+      title: 'Role Name',
       dataIndex: 'roleName',
       key: 'roleName'
     },
     {
-      title: '備註',
+      title: 'Remark',
       dataIndex: 'remark',
       key: 'remark'
     },
     {
-      title: '更新時間',
+      title: 'Update Time',
       dataIndex: 'updateTime',
       key: 'updateTime',
       render(updateTime: string) {
@@ -69,7 +69,7 @@ function RoleList() {
       }
     },
     {
-      title: '創建時間',
+      title: 'Create Time',
       dataIndex: 'createTime',
       key: 'createTime',
       render(createTime: string) {
@@ -77,23 +77,23 @@ function RoleList() {
       }
     },
     {
-      title: '操作',
+      title: 'Action',
       key: 'action',
       render(_, record) {
         return (
           <Space>
             <Button type='text' onClick={() => handleEdit(record)}>
-              編輯
+              Edit
             </Button>
             <Button type='text' onClick={() => handleSetPermission(record)}>
-              設置權限
+              Set Permission
             </Button>
             <Button
               type='text'
               danger={true}
               onClick={() => handleDelete(record._id)}
             >
-              刪除
+              Delete
             </Button>
           </Space>
         )
@@ -114,11 +114,11 @@ function RoleList() {
   // 刪除角色
   const handleDelete = (_id: string) => {
     Modal.confirm({
-      title: '確認',
-      content: '確認刪除該角色嗎？',
+      title: 'Confirm Delete',
+      content: 'Are you sure you want to delete this role?',
       async onOk() {
         await api.deleteRole({ _id })
-        message.success('刪除成功')
+        message.success('Delete successful!')
         search.submit()
       }
     })
@@ -132,27 +132,27 @@ function RoleList() {
   return (
     <div className='role-wrap'>
       <Form form={form} className='search-form' layout='inline'>
-        <Form.Item name='roleName' label='角色名稱'>
-          <Input placeholder='請輸入角色名稱' />
+        <Form.Item name='roleName' label='Role Name'>
+          <Input placeholder='Please enter role name' />
         </Form.Item>
 
         <Form.Item>
           <Space>
             <Button type='primary' onClick={search.submit}>
-              搜索
+              Search
             </Button>
             <Button type='default' onClick={search.reset}>
-              重置
+              Reset
             </Button>
           </Space>
         </Form.Item>
       </Form>
       <div className='base-table'>
         <div className='header-wrapper'>
-          <div className='title'>角色列表</div>
+          <div className='title'>Role List</div>
           <div className='action'>
             <Button type='primary' onClick={handleCreate}>
-              新增
+              New
             </Button>
           </div>
         </div>

@@ -20,10 +20,10 @@ function SearchForm(props: any) {
       <Form.Item>
         <Space>
           <Button type='primary' onClick={props.submit}>
-            搜索
+            Search
           </Button>
           <Button type='default' onClick={props.reset}>
-            重置
+            Reset
           </Button>
         </Space>
       </Form.Item>

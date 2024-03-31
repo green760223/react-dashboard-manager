@@ -1,8 +1,8 @@
 import { useImperativeHandle, useState } from 'react'
 import { Modal, message } from 'antd'
 import { IDetailProp } from '@/types/modal'
-import api from '@/api/orderApi'
 import { Order } from '@/types/api'
+import api from '@/api/orderApi'
 
 function OrderRoute(props: IDetailProp) {
   const [visible, setVisible] = useState(false)
@@ -24,7 +24,7 @@ function OrderRoute(props: IDetailProp) {
         renderMap(detail)
       })
     } else {
-      message.info('請先完成打點上報')
+      message.info('Please complete the marker route first')
     }
 
     setVisible(true)
@@ -68,7 +68,7 @@ function OrderRoute(props: IDetailProp) {
 
   return (
     <Modal
-      title='行駛軌跡'
+      title='Driving Trajectory'
       width={1100}
       open={visible}
       footer={false}

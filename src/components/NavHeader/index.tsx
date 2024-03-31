@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Switch, Dropdown } from 'antd'
 import type { MenuProps } from 'antd'
@@ -5,7 +6,6 @@ import { useStore } from '@/store'
 import styles from './index.module.less'
 import storage from '@/utils/storage'
 import BreadCrumb from './BreadCrumb'
-import { useEffect } from 'react'
 
 const NavHeader = () => {
   // const { userInfo, isCollapsed, isDark, updateCollapsed, updateTheme } =
@@ -74,8 +74,8 @@ const NavHeader = () => {
       <div className='right'>
         <Switch
           checked={isDark}
-          checkedChildren='暗黑'
-          unCheckedChildren='默認'
+          checkedChildren='Dark'
+          unCheckedChildren='Light'
           style={{ marginRight: 10 }}
           onChange={handleSwitch}
         />

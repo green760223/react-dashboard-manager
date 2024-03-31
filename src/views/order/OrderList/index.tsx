@@ -51,32 +51,32 @@ function OrderList() {
 
   const columns: ColumnsType<Order.OrderItem> = [
     {
-      title: '訂單編號',
+      title: 'Order ID',
       dataIndex: 'orderId',
       key: 'orderId'
     },
     {
-      title: '城市',
+      title: 'City',
       dataIndex: 'cityName',
       key: 'cityName',
       width: 80
     },
     {
-      title: '下單地址',
+      title: 'Ordering Address',
       dataIndex: 'startAddress',
       key: 'startAddress',
       width: 160,
       render: (_, record) => {
         return (
           <div>
-            <p>開始地址:{record.startAddress}</p>
-            <p>結束地址:{record.endAddress}</p>
+            <p>Start: {record.startAddress}</p>
+            <p>End: {record.endAddress}</p>
           </div>
         )
       }
     },
     {
-      title: '下單時間',
+      title: 'Create Time',
       dataIndex: 'createTime',
       key: 'createTime',
       width: 120,
@@ -85,7 +85,7 @@ function OrderList() {
       }
     },
     {
-      title: '訂單金額',
+      title: 'Order Amount',
       dataIndex: 'orderAmount',
       key: 'orderAmount',
       render(orderAmount) {
@@ -93,51 +93,51 @@ function OrderList() {
       }
     },
     {
-      title: '訂單狀態',
+      title: 'Order Status',
       dataIndex: 'state',
       key: 'state',
       render(state) {
         if (state === 1) {
-          return '進行中'
+          return 'In Progress'
         }
         if (state === 2) {
-          return '已完成'
+          return 'Completed'
         }
         if (state === 3) {
-          return '超時'
+          return 'Overdue'
         }
         if (state === 4) {
-          return '取消'
+          return 'Cancelled'
         }
       }
     },
     {
-      title: '用戶名稱',
+      title: 'User Name',
       dataIndex: 'userName',
       key: 'userName'
     },
     {
-      title: '司機名稱',
+      title: 'Driver Name',
       dataIndex: 'driverName',
       key: 'driverName'
     },
     {
-      title: '操作',
+      title: 'Action',
       key: 'action',
       render(_, record) {
         return (
           <Space>
             <Button type='text' onClick={() => handleDetail(record.orderId)}>
-              詳情
+              Detail
             </Button>
             <Button type='text' onClick={() => handleMarker(record.orderId)}>
-              打點
+              Marker
             </Button>
             <Button type='text' onClick={() => handleRoute(record.orderId)}>
-              軌跡
+              Route
             </Button>
             <Button type='text' onClick={() => handleDelete(record._id)} danger>
-              刪除
+              Delete
             </Button>
           </Space>
         )
@@ -148,11 +148,11 @@ function OrderList() {
   // 刪除訂單
   const handleDelete = (_id: string) => {
     Modal.confirm({
-      title: '刪除訂單',
-      content: <span>確認刪除該訂單嗎?</span>,
+      title: 'Delete Order',
+      content: <span>Confirm deletion of this order?</span>,
       onOk: async () => {
         await api.deleteOrder(_id)
-        message.success('刪除成功')
+        message.success('Deletion successful!')
         search.submit()
       }
     })
@@ -186,40 +186,40 @@ function OrderList() {
   return (
     <div className='OrderList'>
       <Form className='search-form' form={form} layout='inline'>
-        <Form.Item name='oderId' label='訂單ID'>
-          <Input placeholder='請輸入訂單ID' />
+        <Form.Item name='oderId' label='Order ID'>
+          <Input placeholder='Please enter the order ID' />
         </Form.Item>
-        <Form.Item name='userName' label='用戶名稱'>
-          <Input placeholder='請輸入用戶名稱' />
+        <Form.Item name='userName' label='User Name'>
+          <Input placeholder='Please enter the username' />
         </Form.Item>
-        <Form.Item name='state' label='訂單狀態'>
+        <Form.Item name='state' label='Order Status'>
           <Select style={{ width: 120 }}>
-            <Select.Option value={1}>進行中</Select.Option>
-            <Select.Option value={2}>已完成</Select.Option>
-            <Select.Option value={3}>超時</Select.Option>
-            <Select.Option value={4}>取消</Select.Option>
+            <Select.Option value={1}>In Progress</Select.Option>
+            <Select.Option value={2}>Completed</Select.Option>
+            <Select.Option value={3}>Overdue</Select.Option>
+            <Select.Option value={4}>Cancelled</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item name='search' label='搜尋'>
+        <Form.Item name='search'>
           <Space>
             <Button type='primary' onClick={search.submit}>
-              搜尋
+              Search
             </Button>
             <Button type='default' onClick={search.reset}>
-              重置
+              Reset
             </Button>
           </Space>
         </Form.Item>
       </Form>
       <div className='base-table'>
         <div className='header-wrapper'>
-          <div className='title'>用戶列表</div>
+          <div className='title'>Order List</div>
           <div className='action'>
             <Button type='primary' onClick={handleCreate}>
-              新增
+              Add
             </Button>
             <Button type='primary' onClick={handleExport}>
-              導出
+              Export
             </Button>
           </div>
         </div>

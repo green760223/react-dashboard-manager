@@ -2,8 +2,8 @@ import { useEffect, useImperativeHandle, useState } from 'react'
 import { Modal, Form, Row, Col, Select, Input, DatePicker } from 'antd'
 import { IModalProp } from '@/types/modal'
 import { Order } from '@/types/api'
-import api from '@/api/orderApi'
 import { message } from '@/utils/AntdGlobal'
+import api from '@/api/orderApi'
 
 function CreateOrder(props: IModalProp) {
   const [visible, setVisible] = useState(false)
@@ -39,11 +39,11 @@ function CreateOrder(props: IModalProp) {
     const valid = await form.validateFields()
     if (valid) {
       await api.creatyOrder(form.getFieldsValue())
-      message.success('創建訂單成功')
+      message.success('Order creation successful!')
       handleCancel()
       props.update()
     } else {
-      message.error('請填寫必填項')
+      message.error('Please fill in required fields')
     }
   }
 
@@ -55,11 +55,11 @@ function CreateOrder(props: IModalProp) {
 
   return (
     <Modal
-      title='創建訂單'
+      title='Create Order'
       width={800}
       open={visible}
-      okText='確定'
-      cancelText='取消'
+      okText='Submit'
+      cancelText='Cancel'
       onOk={handleOk}
       onCancel={handleCancel}
     >
@@ -74,8 +74,10 @@ function CreateOrder(props: IModalProp) {
           <Col span={12}>
             <Form.Item
               name='cityName'
-              label='城市名稱'
-              rules={[{ required: true, message: '請輸入城市名稱' }]}
+              label='City Name'
+              rules={[
+                { required: true, message: 'Please enter the city name' }
+              ]}
             >
               <Select placeholder='請選擇城市名稱'>
                 {cityList.map(item => {

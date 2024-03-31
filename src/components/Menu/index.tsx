@@ -1,11 +1,11 @@
-import React from 'react'
-import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
-import { Menu } from 'antd'
-import styles from './index.module.less'
-import { useStore } from '@/store'
 import type { MenuProps } from 'antd/es/menu'
 import { useState, useEffect } from 'react'
 import { Menu as IMenu } from '@/types/api'
+import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
+import { Menu } from 'antd'
+import { useStore } from '@/store'
+import styles from './index.module.less'
+import React from 'react'
 import * as Icons from '@ant-design/icons'
 
 function SideMenu() {
@@ -97,7 +97,7 @@ function SideMenu() {
     <div className={styles.navSide}>
       <div className={styles.logo} onClick={handleClickLog}>
         <img src='/imgs/logo.png' alt='' className={styles.img} />
-        {isCollapse ? '' : <span>倫斯貨運</span>}
+        {isCollapse ? '' : <span>ABC Freight</span>}
       </div>
       <Menu
         defaultOpenKeys={['2']}

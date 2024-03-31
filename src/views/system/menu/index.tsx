@@ -54,16 +54,16 @@ function MenuList() {
     let text = ''
 
     if (record.menuType == '1') {
-      text = '菜單'
+      text = 'Menu'
     } else if (record.menuType == '2') {
-      text = '按鈕'
+      text = 'Button'
     } else if (record.menuType == '3') {
-      text = '頁面'
+      text = 'Page'
     }
 
     Modal.confirm({
-      title: '確認',
-      content: `確認刪除${text}後數據將無法恢復`,
+      title: 'Confirm delete',
+      content: `Confirmation: ${text} cannot be recovered after deletion`,
       onOk() {
         handleDelSubmit(record._id)
       }
@@ -73,7 +73,7 @@ function MenuList() {
   // Delete the menu
   const handleDelSubmit = async (_id: string) => {
     await api.deleteMenu({ _id })
-    message.success('刪除成功')
+    message.success('Deletion successful')
     getMenuList()
   }
 
@@ -84,44 +84,44 @@ function MenuList() {
 
   const columns: ColumnsType<Menu.MenuItem> = [
     {
-      title: '菜單名稱',
+      title: 'Menu Name',
       dataIndex: 'menuName',
       key: 'menuName'
     },
     {
-      title: '菜單圖標',
+      title: 'Menu Icon',
       dataIndex: 'icon',
       key: 'icon'
     },
     {
-      title: '菜單類型',
+      title: 'Menu Type',
       dataIndex: 'menuType',
       key: 'menuType',
       render(menuType: number) {
         return {
-          1: '菜單',
-          2: '按鈕',
-          3: '頁面'
+          1: 'Menu',
+          2: 'Button',
+          3: 'Page'
         }[menuType]
       }
     },
     {
-      title: '權限標示',
+      title: 'Permission',
       dataIndex: 'menuCode',
       key: 'menuCode'
     },
     {
-      title: '路由地址',
+      title: 'Route Path',
       dataIndex: 'path',
       key: 'path'
     },
     {
-      title: '組建名稱',
+      title: 'Component',
       dataIndex: 'component',
       key: 'component'
     },
     {
-      title: '創建時間',
+      title: 'Create Time',
       dataIndex: 'createTime',
       key: 'createTime',
       render(createTime) {
@@ -129,20 +129,20 @@ function MenuList() {
       }
     },
     {
-      title: '操作',
+      title: 'Action',
       key: 'action',
       width: 200,
       render(_, record) {
         return (
           <Space>
             <Button type='text' onClick={() => handleSubCreate(record)}>
-              新增
+              Add
             </Button>
             <Button type='text' onClick={() => handleEdit(record)}>
-              編輯
+              Edit
             </Button>
             <Button type='text' danger onClick={() => handleDelete(record)}>
-              刪除
+              Delete
             </Button>
           </Space>
         )
@@ -158,30 +158,30 @@ function MenuList() {
         form={form}
         initialValues={{ menuState: 1 }}
       >
-        <Form.Item label='菜單名稱' name='menuName'>
-          <Input placeholder='菜單名稱'></Input>
+        <Form.Item label='Menu Name' name='menuName'>
+          <Input placeholder='Menu Name'></Input>
         </Form.Item>
-        <Form.Item label='菜單狀態' name='menuState'>
+        <Form.Item label='Menu Status' name='menuState'>
           <Select style={{ width: 100 }}>
-            <Select.Option value={1}>正常</Select.Option>
-            <Select.Option value={2}>停用</Select.Option>
+            <Select.Option value={1}>Enable</Select.Option>
+            <Select.Option value={2}>Disable</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item>
           <Button type='primary' className='mr10' onClick={getMenuList}>
-            搜尋
+            Search
           </Button>
           <Button type='default' onClick={handleReset}>
-            重置
+            Reset
           </Button>
         </Form.Item>
       </Form>
       <div className='base-table'>
         <div className='header-wrapper'>
-          <div className='title'>菜單列表</div>
+          <div className='title'>Menu List</div>
           <div className='action'>
             <Button type='primary' onClick={handleCreate}>
-              新增
+              New
             </Button>
           </div>
         </div>

@@ -13,7 +13,7 @@ interface IConfig {
 // 建立 axios 實例
 const instance = axios.create({
   timeout: 8000, // 請求Time out時間
-  timeoutErrorMessage: '請求超時，請稍後再試！',
+  timeoutErrorMessage: 'Request timed out. Please try again later！',
   withCredentials: true, // 允許夾帶cookie
   headers: {
     icode: '71D57689E433FCC4'

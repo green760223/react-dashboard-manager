@@ -1,5 +1,5 @@
-import * as echarts from 'echarts'
 import { RefObject, useEffect, useRef, useState } from 'react'
+import * as echarts from 'echarts'
 
 export const useCharts = (): [
   RefObject<HTMLDivElement>,

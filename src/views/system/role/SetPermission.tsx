@@ -3,9 +3,9 @@ import { IModalProp, IAction } from '@/types/modal'
 import { Modal, Form, Tree } from 'antd'
 import { useEffect, useImperativeHandle, useState } from 'react'
 import { message } from '@/utils/AntdGlobal'
+import { Menu } from '@/types/api'
 import api from '@/api/index'
 import roleApi from '@/api/roleApi'
-import { Menu } from '@/types/api'
 
 function SetPermission(props: IModalProp<Role.RoleItem>) {
   const [visible, setVisible] = useState(false)
@@ -39,7 +39,7 @@ function SetPermission(props: IModalProp<Role.RoleItem>) {
   const handleOk = async () => {
     if (permission) {
       await roleApi.updatePermission(permission)
-      message.success('操作成功')
+      message.success('Operation successful!')
       handleCancel()
       props.update()
     }
@@ -76,18 +76,18 @@ function SetPermission(props: IModalProp<Role.RoleItem>) {
 
   return (
     <Modal
-      title='設置權限'
+      title='Set Permission'
       width={600}
       open={visible}
-      okText='確定'
-      cancelText='取消'
+      okText='Save'
+      cancelText='Cancel'
       onOk={handleOk}
       onCancel={handleCancel}
     >
       <Form labelAlign='right' labelCol={{ span: 4 }}>
-        <Form.Item label='角色名稱'>{roleInfo?.roleName}</Form.Item>
+        <Form.Item label='Role Name'>{roleInfo?.roleName}</Form.Item>
 
-        <Form.Item label='權限'>
+        <Form.Item label='Permission'>
           <Tree
             defaultExpandAll
             fieldNames={{

@@ -1,11 +1,11 @@
 import { Descriptions, Card, Button } from 'antd'
 import { useEffect, useState } from 'react'
-import styles from './index.module.less'
 import { useStore } from '@/store'
 import { formatSate, formatMoney, formatNum } from '@/utils'
-import api from '@/api'
 import { Dashboard } from '@/types/api'
 import { useCharts } from '@/hook/useCharts'
+import styles from './index.module.less'
+import api from '@/api'
 
 function DashBoard() {
   const userInfo = useStore(state => state.userInfo)
@@ -40,7 +40,7 @@ function DashBoard() {
     const data = await api.getPieCityChartData()
     pieChart1?.setOption({
       title: {
-        text: '司機城市分佈',
+        text: 'Driver City Distribution',
         left: 'center'
       },
       tooltip: {
@@ -52,7 +52,7 @@ function DashBoard() {
       },
       series: [
         {
-          name: '城市分佈',
+          name: 'City Distribution',
           type: 'pie',
           radius: '55%',
           data: data
@@ -67,7 +67,7 @@ function DashBoard() {
     const data = await api.getPieAgeChartData()
     pieChart2?.setOption({
       title: {
-        text: '司機年齡分佈',
+        text: 'Driver Age Distribution',
         left: 'center'
       },
       tooltip: {
@@ -79,7 +79,7 @@ function DashBoard() {
       },
       series: [
         {
-          name: '年齡分佈',
+          name: 'Age Distribution',
           roseType: 'area',
           type: 'pie',
           radius: [50, 150],
@@ -95,14 +95,14 @@ function DashBoard() {
     const data = await api.getRadarChartData()
     radarChart?.setOption({
       legend: {
-        data: ['司機模型診斷']
+        data: ['Driver Radar Diagnosis']
       },
       radar: {
         indicator: data.indicator
       },
       series: [
         {
-          name: '模型診斷',
+          name: 'Model Diagnosis',
           type: 'radar',
           data: data.data
         }
@@ -119,7 +119,7 @@ function DashBoard() {
         trigger: 'axis'
       },
       legend: {
-        data: ['訂單', '流水']
+        data: ['Orders', 'Transactions']
       },
       grid: {
         left: '5%',
@@ -134,12 +134,12 @@ function DashBoard() {
       },
       series: [
         {
-          name: '訂單',
+          name: 'Orders',
           type: 'line',
           data: data.order
         },
         {
-          name: '流水',
+          name: 'Transactions',
           type: 'line',
           data: data.money
         }
@@ -167,7 +167,7 @@ function DashBoard() {
     <div className={styles.dashboard}>
       <div className={styles.userInfo}>
         <img src={userInfo.userImg} alt='User' className={styles.userImg} />
-        <Descriptions title='歡迎新同學！'>
+        <Descriptions title={'Welcome back ' + userInfo.userName}>
           <Descriptions.Item label='User ID'>
             {userInfo.userId}
           </Descriptions.Item>
@@ -190,31 +190,31 @@ function DashBoard() {
       </div>
       <div className={styles.report}>
         <div className={styles.card}>
-          <div className='title'>司機數量</div>
-          <div className={styles.data}>{formatNum(report?.driverCount)}個</div>
+          <div className='title'>Number of Drivers</div>
+          <div className={styles.data}>{formatNum(report?.driverCount)}</div>
         </div>
 
         <div className={styles.card}>
-          <div className='title'>總庫存</div>
-          <div className={styles.data}>{formatMoney(report?.totalMoney)}元</div>
+          <div className='title'>Total Inventory</div>
+          <div className={styles.data}>{formatMoney(report?.totalMoney)}</div>
         </div>
 
         <div className={styles.card}>
-          <div className='title'>總訂單</div>
-          <div className={styles.data}>{formatNum(report?.orderCount)}單</div>
+          <div className='title'>Total Orders</div>
+          <div className={styles.data}>{formatNum(report?.orderCount)}</div>
         </div>
 
         <div className={styles.card}>
-          <div className='title'>開通城市</div>
-          <div className={styles.data}>{formatNum(report?.cityNum)}座</div>
+          <div className='title'>City Launch</div>
+          <div className={styles.data}>{formatNum(report?.cityNum)}</div>
         </div>
       </div>
       <div className={styles.chart}>
         <Card
-          title='訂單和流水走勢圖'
+          title='Order and Revenue Trend Chart'
           extra={
             <Button type='primary' onClick={renderLineChart}>
-              刷新
+              Refresh
             </Button>
           }
         >
@@ -223,10 +223,10 @@ function DashBoard() {
       </div>
       <div className={styles.chart}>
         <Card
-          title='司機分佈'
+          title='Driver Distribution'
           extra={
             <Button type='primary' onClick={handleRefresh}>
-              刷新
+              Refresh
             </Button>
           }
         >
@@ -238,10 +238,10 @@ function DashBoard() {
       </div>
       <div className={styles.chart}>
         <Card
-          title='模型診斷'
+          title='Model Diagnosis'
           extra={
             <Button type='primary' onClick={renderRadarChart}>
-              刷新
+              Refresh
             </Button>
           }
         >

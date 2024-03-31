@@ -3,22 +3,22 @@ import { formatMoney } from '@/utils'
 import { Button, Form, Input, Select, Space, Table } from 'antd'
 import { Order } from '@/types/api'
 import { ColumnsType } from 'antd/es/table'
-import api from '@/api/orderApi'
 import { formatDate } from '@/utils'
+import api from '@/api/orderApi'
 
 function DriverList() {
   const [form] = Form.useForm()
   const [data, setData] = useState<Order.DriverItem[]>([])
   const columns: ColumnsType<Order.DriverItem> = [
     {
-      title: '司機名稱',
+      title: 'Driver Name',
       dataIndex: 'driverName',
       key: 'driverName',
       fixed: 'left',
       width: 100
     },
     {
-      title: '司機資訊',
+      title: 'Driver Info',
       key: 'driverInfo',
       fixed: 'left',
       width: 200,
@@ -26,23 +26,23 @@ function DriverList() {
         return (
           <div>
             <p>
-              <span>司機ID:</span>
+              <span>Driver ID:</span>
               <span>{record.driverId}</span>
             </p>
             <p>
-              <span>手機號碼:</span>
+              <span>Mobile:</span>
               <span>{record.driverPhone}</span>
             </p>
             <p>
-              <span>註冊城市:</span>
+              <span>City:</span>
               <span>{record.cityName}</span>
             </p>
             <p>
-              <span>會員等級:</span>
+              <span>Membership:</span>
               <span>{record.grade}</span>
             </p>
             <p>
-              <span>司機等級:</span>
+              <span>Level:</span>
               <span>{record.driverLevel}</span>
             </p>
           </div>
@@ -50,38 +50,38 @@ function DriverList() {
       }
     },
     {
-      title: '司機狀態',
+      title: 'Driver Status',
       dataIndex: 'accountStatus',
       key: 'accountStatus',
-      width: 100,
+      width: 120,
       render(accountStatus: Order.DriverStatus) {
         const statusMap = {
-          0: '待認證',
-          1: '正常',
-          2: '暫時拉黑',
-          3: '永久拉黑',
-          4: '停止推送'
+          0: 'Pending',
+          1: 'Active',
+          2: 'Temporarily suspended',
+          3: 'Suspended',
+          4: 'Blacklisted'
         }
         return statusMap[accountStatus]
       }
     },
     {
-      title: '車輛資訊',
+      title: 'Vehicle Info',
       key: 'vehicleInfo',
       width: 260,
       render(_, record) {
         return (
           <div>
             <p>
-              <span>車牌號碼：</span>
+              <span>Plate Number:</span>
               <span>{record.carNo}</span>
             </p>
             <p>
-              <span>車輛品牌：</span>
+              <span>Vehicle Brand：</span>
               <span>{record.vehicleBrand}</span>
             </p>
             <p>
-              <span>車輛名稱：</span>
+              <span>Vehicle Name:</span>
               <span>{record.vehicleName}</span>
             </p>
           </div>
@@ -89,13 +89,13 @@ function DriverList() {
       }
     },
     {
-      title: '昨日在線時長',
+      title: 'Online Time',
       dataIndex: 'onlineTime',
       key: 'onlineTime',
       width: 150
     },
     {
-      title: '昨日司機流水',
+      title: 'Driver Amount',
       dataIndex: 'driverAmount',
       key: 'driverAmount',
       width: 120,
@@ -104,31 +104,31 @@ function DriverList() {
       }
     },
     {
-      title: '司機評分',
+      title: 'Rating',
       dataIndex: 'rating',
       key: 'rating',
       width: 100
     },
     {
-      title: '司機行為評分',
+      title: 'Driver Score',
       dataIndex: 'driverScore',
       key: 'driverScore',
       width: 100
     },
     {
-      title: '昨日推單數',
+      title: 'Push Order',
       dataIndex: 'pushOrderCount',
       key: 'pushOrderCount',
       width: 120
     },
     {
-      title: '昨日完單數',
+      title: 'Complete Order',
       dataIndex: 'orderCompleteCount',
       key: 'orderCompleteCount',
       width: 120
     },
     {
-      title: '加入時間',
+      title: 'Create Time',
       dataIndex: 'createTime',
       key: 'createTime',
       width: 220,
@@ -160,32 +160,35 @@ function DriverList() {
   return (
     <div className='driver-list'>
       <Form className='search-form' layout='inline' form={form}>
-        <Form.Item name='driverName' label='司機名稱'>
-          <Input placeholder='請輸入司機名稱' />
+        <Form.Item name='driverName' label='Driver name'>
+          <Input placeholder='Please input driver name' />
         </Form.Item>
-        <Form.Item name='accountStatus' label='司機狀態'>
-          <Select placeholder='請選擇司機狀態' style={{ width: 140 }}>
-            <Select.Option value={0}>待認證</Select.Option>
-            <Select.Option value={1}>正常</Select.Option>
-            <Select.Option value={2}>暫時拉黑</Select.Option>
-            <Select.Option value={3}>永久拉黑</Select.Option>
-            <Select.Option value={4}>停止推送</Select.Option>
+        <Form.Item name='accountStatus' label='Driver Status'>
+          <Select
+            placeholder='Please select driver status'
+            style={{ width: 220 }}
+          >
+            <Select.Option value={0}>Pending</Select.Option>
+            <Select.Option value={1}>Active</Select.Option>
+            <Select.Option value={2}>Temporarily suspended</Select.Option>
+            <Select.Option value={3}>Suspended</Select.Option>
+            <Select.Option value={4}>Blacklisted</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item>
           <Space>
             <Button type='primary' onClick={handleSearch}>
-              搜索
+              Search
             </Button>
             <Button type='default' onClick={handleReset}>
-              重置
+              Reset
             </Button>
           </Space>
         </Form.Item>
       </Form>
       <div className='base-table'>
         <div className='header-wrpper'>
-          <div className='title'>司機列表</div>
+          <div className='title'>Driver List</div>
         </div>
         <Table
           bordered

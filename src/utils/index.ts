@@ -79,15 +79,15 @@ export const formatDate = (date?: Date | string, rule?: string) => {
 // 格式化用戶狀態轉換
 export const formatSate = (state: number) => {
   if (state === 1) {
-    return '在職'
+    return 'Employed'
   }
 
   if (state === 2) {
-    return '試用期'
+    return 'Probation'
   }
 
   if (state === 3) {
-    return '離職'
+    return 'Resigned'
   }
 }
 

@@ -49,11 +49,11 @@ function CreateOrder(props: IModalProp) {
     const valid = await form.validateFields()
     if (valid) {
       await api.creatyOrder(form.getValues())
-      message.success('創建訂單成功')
+      message.success('Order created successfully!')
       handleCancel()
       props.update()
     } else {
-      message.error('請填寫必填項')
+      message.error('Please enter the city name')
     }
   }
 
@@ -71,124 +71,134 @@ function CreateOrder(props: IModalProp) {
     labelWidth: 120,
     properties: {
       cityName: {
-        title: '城市名稱',
+        title: 'City Name',
         type: 'srting',
         widget: 'select',
-        placeholder: '請選擇城市',
-        rules: [{ required: true, message: '請選擇城市' }]
+        placeholder: 'Please select the city',
+        rules: [{ required: true, message: 'Please select the city' }]
       },
       vehicleName: {
-        title: '車型',
+        title: 'Vehicle Model',
         type: 'srting',
         widget: 'select',
-        placeholder: '請選擇車型',
-        rules: [{ required: true, message: '請選擇車型' }]
+        placeholder: 'Please select the vehicle model',
+        rules: [{ required: true, message: 'Please select the vehicle model' }]
       },
       userName: {
-        title: '用戶名稱',
+        title: 'User Name',
         type: 'srting',
         widget: 'input',
-        rules: [{ required: true, message: '請輸入用戶名稱' }],
-        placeholder: '請輸入用戶名稱'
+        rules: [{ required: true, message: 'Please enter the username' }],
+        placeholder: 'Please enter the username'
       },
       moile: {
-        title: '手機號碼',
+        title: 'Mobile Number',
         type: 'srting',
         widget: 'inputNumber',
-        placeholder: '請輸入手機號碼',
-        rules: [{ pattern: /^1[1-9]\d{9}$/, message: '請輸入有效的手機號碼' }]
+        placeholder: 'Please enter the phone number',
+        rules: [
+          {
+            pattern: /^1[1-9]\d{9}$/,
+            message: 'Please enter a valid phone number'
+          }
+        ]
       },
       startAddress: {
-        title: '起始地址',
+        title: 'Starting address',
         type: 'srting',
         widget: 'input',
-        placeholder: '請輸入起始地址'
+        placeholder: 'Please enter the starting address'
       },
       endAddress: {
-        title: '結束地址',
+        title: 'Ending address',
         type: 'srting',
         widget: 'input',
-        placeholder: '請輸入結束地址'
+        placeholder: 'Please enter the ending address'
       },
       orderAmount: {
-        title: '下單金額',
+        title: 'Order Amount',
         type: 'number',
         widget: 'inputNumber',
-        placeholder: '請輸入下單金額'
+        placeholder: 'Please enter the order amount'
       },
       userAmount: {
-        title: '支付金額',
+        title: 'Payment Amount',
         type: 'number',
         widget: 'inputNumber',
-        placeholder: '請輸入支付金額'
+        placeholder: 'Please enter the payment amount'
       },
       driverName: {
-        title: '司機名稱',
+        title: 'Driver Name',
         type: 'string',
         widget: 'input',
-        placeholder: '請輸入司機名稱',
+        placeholder: 'Please enter the driver name',
         required: true
       },
       driverAmount: {
-        title: '司機金額',
+        title: 'Driver Payment mount',
         type: 'number',
         widget: 'inputNumber',
-        placeholder: '請輸入司機金額',
+        placeholder: 'Please enter the driver payment amount',
         required: true
       },
       payType: {
-        title: '支付方式',
+        title: 'Payment Method',
         type: 'number',
         widget: 'select',
-        placeholder: '請選擇支付方式',
+        placeholder: 'Please select the payment method',
         props: {
           options: [
-            { label: '微信', value: 1 },
-            { label: '支付寶', value: 2 },
-            { label: '銀聯', value: 3 }
+            { label: 'WeChat Pay', value: 1 },
+            { label: 'Alipay', value: 2 },
+            { label: 'UnionPay', value: 3 }
           ]
         }
       },
       state: {
-        title: '訂單狀態',
+        title: 'Order Status',
         type: 'number',
         widget: 'select',
-        placeholder: '請選擇訂單狀態',
+        placeholder: 'Please select the order status',
         props: {
           options: [
-            { label: '進行中', value: 1 },
-            { label: '已完成', value: 2 },
-            { label: '超時', value: 3 },
-            { label: '取消', value: 4 }
+            { label: 'In Progress', value: 1 },
+            { label: 'Completed', value: 2 },
+            { label: 'Overdue', value: 3 },
+            { label: 'Cancelled', value: 4 }
           ]
         }
       },
       useTime: {
-        title: '用車時間',
+        title: 'Use Time',
         type: 'string',
         widget: 'datePicker',
-        placeholder: '請選擇用車時間'
+        placeholder: 'Please select the use time'
       },
       endTime: {
-        title: '結束時間',
+        title: 'End Time',
         type: 'string',
         widget: 'datePicker',
-        placeholder: '請選擇結束時間'
+        placeholder: 'Please select the end time'
       }
     }
   }
 
   return (
     <Modal
-      title='創建訂單'
-      width={800}
+      title='Create Order'
+      width={1000}
       open={visible}
-      okText='確定'
-      cancelText='取消'
+      okText='Submit'
+      cancelText='Cancel'
       onOk={handleOk}
       onCancel={handleCancel}
     >
-      <FormRender form={form} schema={schema} onMount={getInitData} />
+      <FormRender
+        locale='en-US'
+        form={form}
+        schema={schema}
+        onMount={getInitData}
+      />
     </Modal>
   )
 }

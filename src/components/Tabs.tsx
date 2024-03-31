@@ -13,7 +13,7 @@ interface TabsItem {
 function TabsFC() {
   const { pathname } = useLocation()
   const [tabList, setTabList] = useState<TabsItem[]>([
-    { key: '/welcome', label: '首頁', closable: false }
+    { key: '/welcome', label: 'Home', closable: false }
   ])
   const [activeKey, setActiveKey] = useState('')
   const data = useRouteLoaderData('layout') as IAuthLoader

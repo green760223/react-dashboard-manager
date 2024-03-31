@@ -24,11 +24,11 @@ function OrderCluster() {
     const zoomCtrl = new window.BMapGL.ZoomControl()
     map.addControl(zoomCtrl)
     const cityNames: { [k: number]: string } = {
-      10001: '長沙',
-      20001: '武漢',
-      30001: '杭州',
-      40001: '惠州',
-      50001: '昆明'
+      10001: 'Changsha',
+      20001: 'Wuhan',
+      30001: 'Hangzhou',
+      40001: 'Huizhou',
+      50001: 'Kunming'
     }
     map.centerAndZoom(cityNames[cityId], 12)
 
@@ -54,15 +54,15 @@ function OrderCluster() {
   return (
     <div style={{ backgroundColor: 'fff', padding: 10 }}>
       <Select
-        style={{ width: 100, marginBottom: 10 }}
+        style={{ width: 120, marginBottom: 10 }}
         value={cityId}
         onChange={handleChange}
       >
-        <Select.Option value={10001}>長沙</Select.Option>
-        <Select.Option value={20001}>武漢</Select.Option>
-        <Select.Option value={30001}>杭州</Select.Option>
-        <Select.Option value={40001}>惠州</Select.Option>
-        <Select.Option value={50001}>昆明</Select.Option>
+        <Select.Option value={10001}>Changsha</Select.Option>
+        <Select.Option value={20001}>Wuhan</Select.Option>
+        <Select.Option value={30001}>Hangzhou</Select.Option>
+        <Select.Option value={40001}>Huizhou</Select.Option>
+        <Select.Option value={50001}>Kunming</Select.Option>
       </Select>
       <div id='clusterMap' style={{ height: 'calc(100vh-192px)' }}></div>
     </div>

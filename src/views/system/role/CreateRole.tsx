@@ -36,7 +36,7 @@ function CreateRole(props: IModalProp<Role.RoleItem>) {
         await api.editRole(params)
       }
 
-      message.success('操作成功')
+      message.success('Operation successful!')
       handleCancel()
       props.update()
     }
@@ -50,11 +50,11 @@ function CreateRole(props: IModalProp<Role.RoleItem>) {
 
   return (
     <Modal
-      title={action === 'create' ? '新增角色' : '編輯角色'}
+      title={action === 'create' ? 'Create Role' : 'Edit Role'}
       width={600}
       open={visible}
-      okText='確定'
-      cancelText='取消'
+      okText='Save'
+      cancelText='Cancel'
       onOk={handleOk}
       onCancel={handleCancel}
     >
@@ -65,19 +65,19 @@ function CreateRole(props: IModalProp<Role.RoleItem>) {
 
         <Form.Item
           name='roleName'
-          label='角色名稱'
+          label='Role Name'
           rules={[
             {
               required: true,
-              message: '請輸入角色名稱'
+              message: 'Please enter the role name!'
             }
           ]}
         >
-          <Input placeholder='請輸入角色名稱' />
+          <Input placeholder='Please enter the role name' />
         </Form.Item>
 
-        <Form.Item name='remark' label='備註'>
-          <Input.TextArea placeholder='請輸入備註' />
+        <Form.Item name='remark' label='Remark'>
+          <Input.TextArea placeholder='Please enter remark if any' />
         </Form.Item>
       </Form>
     </Modal>

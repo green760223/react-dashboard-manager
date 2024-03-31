@@ -2,8 +2,8 @@ import { useImperativeHandle, useState } from 'react'
 import { Modal } from 'antd'
 import { IDetailProp } from '@/types/modal'
 import { Order } from '@/types/api'
-import api from '@/api/orderApi'
 import { message } from '@/utils/AntdGlobal'
+import api from '@/api/orderApi'
 
 function OrderMarker(props: IDetailProp) {
   const [visible, setVisible] = useState(false)
@@ -53,7 +53,7 @@ function OrderMarker(props: IDetailProp) {
     marker.id = id
     const markerMenu = new window.BMapGL.ContextMenu()
     markerMenu.addItem(
-      new window.BMapGL.MenuItem('刪除', function () {
+      new window.BMapGL.MenuItem('Delete', function () {
         map.removeOverlay(marker)
         const index = markers.findIndex(item => item.id === marker.id)
         markers.splice(index, 1)
@@ -68,7 +68,7 @@ function OrderMarker(props: IDetailProp) {
   const handleOk = async () => {
     await api.updateOrderInfo({ orderId, route: markers })
     setVisible(false)
-    message.success('更新成功')
+    message.success('Update successful!')
     handleCancel()
   }
 
@@ -80,11 +80,11 @@ function OrderMarker(props: IDetailProp) {
 
   return (
     <Modal
-      title='地圖打點'
+      title='Order Route'
       width={1100}
       open={visible}
-      okText='確定'
-      cancelText='取消'
+      okText='Save'
+      cancelText='Cancel'
       onOk={handleOk}
       onCancel={handleCancel}
     >

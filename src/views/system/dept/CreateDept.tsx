@@ -3,8 +3,8 @@ import { IAction, IModalProp } from '@/types/modal'
 import { useEffect, useImperativeHandle, useState } from 'react'
 import { Dept, User } from '@/types/api'
 import { useForm } from 'antd/es/form/Form'
-import api from '@/api'
 import { message } from '@/utils/AntdGlobal'
+import api from '@/api'
 
 function CreateDept(props: IModalProp<Dept.EditParams>) {
   const [form] = useForm()
@@ -52,7 +52,7 @@ function CreateDept(props: IModalProp<Dept.EditParams>) {
       } else {
         await api.editDept(form.getFieldsValue())
       }
-      message.success('操作成功')
+      message.success('Operation successful')
       handleCancel()
       props.update()
     }
@@ -66,21 +66,21 @@ function CreateDept(props: IModalProp<Dept.EditParams>) {
 
   return (
     <Modal
-      title={action === 'create' ? '創建部門' : '編輯部門'}
-      width={800}
+      title={action === 'create' ? 'Create Department' : 'Edit Department'}
+      width={1000}
       open={visible}
-      okText='確定'
-      cancelText='取消'
+      okText='Save'
+      cancelText='Cancel'
       onOk={handleSubmit}
       onCancel={handleCancel}
     >
       <Form form={form} labelAlign='right' labelCol={{ span: 4 }}>
-        <Form.Item label='部門ID' name='_id' hidden>
+        <Form.Item label='Department ID' name='_id' hidden>
           <Input disabled />
         </Form.Item>
-        <Form.Item label='上級部門' name='parentId'>
+        <Form.Item label='Upper Department' name='parentId'>
           <TreeSelect
-            placeholder='請選擇上級部門'
+            placeholder='Please select the upper department'
             allowClear
             treeDefaultExpandAll
             fieldNames={{ label: 'deptName', value: '_id' }}
@@ -88,16 +88,20 @@ function CreateDept(props: IModalProp<Dept.EditParams>) {
           ></TreeSelect>
         </Form.Item>
         <Form.Item
-          label='部門名稱'
+          label='Department Name'
           name='deptName'
-          rules={[{ required: true, message: '請輸入部門名稱' }]}
+          rules={[
+            { required: true, message: 'Please enter the department name' }
+          ]}
         >
-          <Input placeholder='請輸入部門名稱' />
+          <Input placeholder='Please enter the department name' />
         </Form.Item>
         <Form.Item
-          label='負責人'
+          label='Department Manager'
           name='userName'
-          rules={[{ required: true, message: '請選擇負責人' }]}
+          rules={[
+            { required: true, message: 'Please select the department manager' }
+          ]}
         >
           <Select>
             {userList.map(item => {

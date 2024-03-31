@@ -1,6 +1,6 @@
-import api from '@/api'
 import { Menu } from '@/types/api'
 import { getMenuPath } from '@/utils'
+import api from '@/api'
 
 export interface IAuthLoader {
   buttonList: string[]

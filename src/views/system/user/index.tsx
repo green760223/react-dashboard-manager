@@ -62,8 +62,8 @@ function UserList() {
   // Delete user
   const handleDel = (userId: number) => {
     Modal.confirm({
-      title: '刪除確認',
-      content: <span>確認刪除該用戶嗎？</span>,
+      title: 'Delete confirmation',
+      content: <span>Are you sure you want to delete this user?</span>,
       onOk: () => {
         handleUserDelSubmit([userId])
       }
@@ -76,24 +76,24 @@ function UserList() {
       await api.delUser({
         userIds: ids
       })
-      message.success('刪除成功')
+      message.success('Delete success')
       setUserIds([])
       search.reset()
     } catch (error) {
-      message.error('刪除失敗')
+      message.error('Delete failed')
     }
   }
 
   // Batch delete users confirmation
   const handlePatchConfirm = () => {
     if (userIds.length === 0) {
-      message.error('請選擇需要刪除的用戶')
+      message.error('Please select the user to delete')
       return
     }
 
     Modal.confirm({
-      title: '刪除確認',
-      content: <span>確認刪除該批用戶嗎？</span>,
+      title: 'Delete confirmation',
+      content: <span>Are you sure you want to delete these users?</span>,
       onOk: () => {
         handleUserDelSubmit(userIds)
       }
@@ -102,47 +102,47 @@ function UserList() {
 
   const columns: ColumnsType<User.UserItem> = [
     {
-      title: '用戶ID',
+      title: 'User ID',
       dataIndex: 'userId',
       key: 'userId'
     },
     {
-      title: '用戶名稱',
+      title: 'User Name',
       dataIndex: 'userName',
       key: 'userName'
     },
     {
-      title: '用戶信箱',
+      title: 'User Email',
       dataIndex: 'userEmail',
       key: 'userEmail'
     },
     {
-      title: '用戶角色',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'User Role',
+      dataIndex: 'role',
+      key: 'role',
       render(role: number) {
         return {
-          0: '超級管理員',
-          1: '管理員',
-          2: '體驗管理員',
-          3: '普通用戶'
+          0: 'Super Administrator',
+          1: 'Administrator',
+          2: 'Trial Administrator',
+          3: 'Normal User'
         }[role]
       }
     },
     {
-      title: '用戶狀態',
+      title: 'User State',
       dataIndex: 'state',
       key: 'state',
       render(state: number) {
         return {
-          1: '在職',
-          2: '離職',
-          3: '試用期'
+          1: 'Employed',
+          2: 'Resigned',
+          3: 'Probationary'
         }[state]
       }
     },
     {
-      title: '註冊時間',
+      title: 'Create Time',
       dataIndex: 'createTime',
       key: 'createTime',
       render(createTime: string) {
@@ -150,16 +150,16 @@ function UserList() {
       }
     },
     {
-      title: '操作',
+      title: 'Action',
       key: 'address',
       render(record: User.UserItem) {
         return (
           <Space>
             <Button type='text' onClick={() => handleEdit(record)}>
-              編輯
+              Edit
             </Button>
             <Button type='text' danger onClick={() => handleDel(record.userId)}>
-              刪除
+              Delete
             </Button>
           </Space>
         )
@@ -175,34 +175,34 @@ function UserList() {
         submit={search.submit}
         reset={search.reset}
       >
-        <Form.Item name='userId' label='用戶ID'>
-          <Input placeholder='請輸入用戶ID' />
+        <Form.Item name='userId' label='User ID'>
+          <Input placeholder='Please enter user ID' />
         </Form.Item>
-        <Form.Item name='userName' label='用戶名稱'>
-          <Input placeholder='請輸入用戶名稱' />
+        <Form.Item name='userName' label='User Name'>
+          <Input placeholder='Please enter user name' />
         </Form.Item>
-        <Form.Item name='state' label='狀態'>
+        <Form.Item name='state' label='Status'>
           <Select style={{ width: 120 }}>
-            <Select.Option value={0}>所有</Select.Option>
-            <Select.Option value={1}>在職</Select.Option>
-            <Select.Option value={2}>離職</Select.Option>
-            <Select.Option value={3}>試用期</Select.Option>
+            <Select.Option value={0}>All</Select.Option>
+            <Select.Option value={1}>Employed</Select.Option>
+            <Select.Option value={2}>Resigned</Select.Option>
+            <Select.Option value={3}>Probationary</Select.Option>
           </Select>
         </Form.Item>
       </SearchForm>
       <div className='base-table'>
         <div className='header-wrapper'>
-          <div className='title'>用戶列表</div>
+          <div className='title'>User List</div>
           <div className='action'>
             <AuthButton
               auth='user@create'
               type='primary'
               onClick={handleCreate}
             >
-              新增
+              Create User
             </AuthButton>
             <Button type='primary' danger onClick={handlePatchConfirm}>
-              批量刪除
+              Batch Delete
             </Button>
           </div>
         </div>

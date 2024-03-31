@@ -19,7 +19,7 @@ function LoginFC() {
       setLoading(false)
       storage.set('token', data)
       updateToken(data)
-      message.success('登錄成功')
+      message.success('Login successfully!')
       const params = new URLSearchParams(location.search)
       setTimeout(() => {
         location.href = params.get('callback') || '/#/welcome'
@@ -34,7 +34,7 @@ function LoginFC() {
     <>
       <div className={styles.login}>
         <div className={styles.loginWrapper}>
-          <div className={styles.title}>系統登錄</div>
+          <div className={styles.title}>User Login</div>
           <Form
             name='basic'
             initialValues={{ remember: true }}
@@ -67,7 +67,7 @@ function LoginFC() {
 
             <Form.Item>
               <Button type='primary' block htmlType='submit' loading={loading}>
-                登錄
+                Sign in
               </Button>
             </Form.Item>
           </Form>

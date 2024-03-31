@@ -63,10 +63,10 @@ const CreateUser = (props: IModalProp) => {
       }
       if (action === 'create') {
         await api.createUser(params)
-        message.success('創建成功')
+        message.success('Create success')
       } else {
         await api.editUser(params)
-        message.success('更新成功')
+        message.success('Edit success')
       }
       handleCancel()
       props.update()
@@ -84,12 +84,12 @@ const CreateUser = (props: IModalProp) => {
   const beforeUpload = (file: RcFile) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
-      message.error('只能上傳JPG/PNG格式的圖片')
+      message.error('Only support JPG or PNG file!')
       return false
     }
     const isLt2M = file.size / 1024 / 1024 < 0.5
     if (!isLt2M) {
-      message.error('圖片大小不能超過500KB')
+      message.error('Image must smaller than 0.5MB!')
     }
     return isJpgOrPng && isLt2M
   }
@@ -113,7 +113,7 @@ const CreateUser = (props: IModalProp) => {
         message.error(msg)
       }
     } else if (info.file.status === 'error') {
-      message.error('伺服器異常，請稍後重試')
+      message.error('Upload failed!')
     }
   }
 
@@ -128,71 +128,75 @@ const CreateUser = (props: IModalProp) => {
 
   return (
     <Modal
-      title={action === 'create' ? '創建用戶' : '編輯用戶'}
+      title={action === 'create' ? 'Create User' : 'Edit User'}
       width={800}
       open={visible}
       onOk={handleSubmit}
       onCancel={handleCancel}
-      okText='確定'
-      cancelText='取消'
+      okText='Submit'
+      cancelText='Cancel'
     >
       <Form form={form} labelCol={{ span: 4 }} labelAlign='right'>
         <Form.Item name='userId' hidden>
           <Input></Input>
         </Form.Item>
         <Form.Item
-          label='用戶名稱'
+          label='User Name'
           name='userName'
           rules={[
-            { required: true, message: '請輸入用戶名稱' },
+            { required: true, message: 'Please enter the username' },
             {
               min: 3,
               max: 12,
-              message: '用戶名稱最小3個字符，最大12字符'
+              message:
+                'Username must be at least 3 characters and maximum 12 characters'
             }
           ]}
         >
-          <Input placeholder='請輸入用戶名稱'></Input>
+          <Input placeholder='Please enter the username'></Input>
         </Form.Item>
         <Form.Item
-          label='用戶信箱'
+          label='User Email'
           name='userEmail'
           rules={[
-            { required: true, message: '請輸入用戶信箱' },
-            { type: 'email', message: '請輸入正確的信箱格式' },
+            { required: true, message: 'Please enter user email' },
+            { type: 'email', message: 'Please enter a valid email format' },
             {
-              pattern: /^\w+@mars.com$/,
-              message: '請輸入格式為mars.com結尾的信箱'
+              // pattern: /^\w+@mars.com$/,
+              // message: 'Please enter an email ending with mars.com format'
             }
           ]}
         >
           <Input
-            placeholder='請輸入用戶信箱'
+            placeholder='Please enter user email'
             disabled={action === 'edit'}
           ></Input>
         </Form.Item>
         <Form.Item
-          label='手機'
+          label='Mobile'
           name='mobile'
           rules={[
-            { len: 11, message: '請輸入11位手機號' },
-            { pattern: /1[1-9]\d{9}/, message: '請輸入為1開頭的手機號' }
+            { len: 11, message: 'Please enter an 11-digit phone number' },
+            {
+              pattern: /1[1-9]\d{9}/,
+              message: 'Please enter a phone number starting with 1'
+            }
           ]}
         >
-          <Input type='number' placeholder='請輸入手機'></Input>
+          <Input type='number' placeholder='Please enter mobile number'></Input>
         </Form.Item>
         <Form.Item
-          label='部門'
+          label='Department'
           name='deptId'
           rules={[
             {
               required: true,
-              message: '請選擇部門'
+              message: 'Please select the department'
             }
           ]}
         >
           <TreeSelect
-            placeholder='請選擇部門'
+            placeholder='Please select the department'
             allowClear
             treeDefaultExpandAll
             showCheckedStrategy={TreeSelect.SHOW_ALL}
@@ -203,18 +207,18 @@ const CreateUser = (props: IModalProp) => {
             }}
           />
         </Form.Item>
-        <Form.Item label='崗位' name='job'>
-          <Input placeholder='請輸入崗位'></Input>
+        <Form.Item label='Job Position' name='job'>
+          <Input placeholder='Please enter the job position'></Input>
         </Form.Item>
-        <Form.Item label='狀態' name='state'>
+        <Form.Item label='Status' name='state'>
           <Select>
-            <Select.Option value={1}>在職</Select.Option>
-            <Select.Option value={2}>離職</Select.Option>
-            <Select.Option value={3}>試用期</Select.Option>
+            <Select.Option value={1}>Employed</Select.Option>
+            <Select.Option value={2}>Resigned</Select.Option>
+            <Select.Option value={3}>Probationary</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item label='系統角色' name='roleList'>
-          <Select placeholder='請選擇角色'>
+        <Form.Item label='Role List' name='roleList'>
+          <Select placeholder='Please select a role'>
             {roleList.map(item => {
               return (
                 <Select.Option key={item._id} value={item._id}>
@@ -225,7 +229,7 @@ const CreateUser = (props: IModalProp) => {
           </Select>
         </Form.Item>
         <Form.Item
-          label='用戶頭像'
+          label='Avatar'
           name='profile'
           valuePropName='fileList'
           getValueFromEvent={normFile}
@@ -250,7 +254,7 @@ const CreateUser = (props: IModalProp) => {
             ) : (
               <div>
                 {loading ? <LoadingOutlined /> : <PlusOutlined />}
-                <div style={{ marginTop: 8 }}>上傳頭像</div>
+                <div style={{ marginTop: 8 }}>Upload Avatar</div>
               </div>
             )}
           </Upload>
