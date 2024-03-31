@@ -1,16 +1,13 @@
 import { RouterProvider } from 'react-router-dom'
 import { ConfigProvider, App as AntdApp, theme } from 'antd'
+import { useStore } from '@/store'
 import AntdGlobal from '@/utils/AntdGlobal'
 import router from './router'
 import './App.less'
 import './style/theme.less'
-import { useStore } from '@/store'
 
 function App() {
   const isDark = useStore(state => state.isDark)
-
-  // const basename = import.meta.env.BASE_URL
-  // console.log('new_basename', new_basename)
 
   return (
     <ConfigProvider

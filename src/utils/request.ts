@@ -5,9 +5,6 @@ import env from '@/config'
 import { message } from './AntdGlobal'
 import { Result } from '@/types/api'
 
-console.log('env:', env)
-console.log('basename:', import.meta.env.BASE_URL)
-
 interface IConfig {
   showLoading?: boolean
   showError?: boolean
@@ -64,7 +61,8 @@ instance.interceptors.response.use(
       // 未登入 或 token過期 或 token無效
       message.error(data.msg)
       storage.remove('token')
-      location.href = '/login?callback=' + encodeURIComponent(location.href)
+      // location.href = '/login?callback=' + encodeURIComponent(location.href)
+      location.href = '/#/login?callback=' + encodeURIComponent(location.href)
     } else if (data.code != 0) {
       // 其他錯誤
       if (response.config.showError === false) {

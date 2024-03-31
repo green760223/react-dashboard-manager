@@ -1,5 +1,5 @@
 import { lazyLoad } from './LazyLoad'
-import { Navigate, createBrowserRouter } from 'react-router-dom'
+import { Navigate, createHashRouter } from 'react-router-dom'
 import LoginFC from '@/views/login/Login'
 import Welcome from '@/views/welcome'
 import Error403 from '@/views/Error403'
@@ -76,6 +76,4 @@ export const router = [
   }
 ]
 
-export default createBrowserRouter(router, {
-  basename: import.meta.env.BASE_URL
-})
+export default createHashRouter(router)
