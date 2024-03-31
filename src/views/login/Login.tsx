@@ -22,7 +22,7 @@ function LoginFC() {
       message.success('登錄成功')
       const params = new URLSearchParams(location.search)
       setTimeout(() => {
-        location.href = params.get('callback') || '/welcome'
+        location.href = params.get('callback') || '/#/welcome'
       }, 1000)
     } catch (error) {
       // In case the login fails, the loading button got stuck in the loading state
