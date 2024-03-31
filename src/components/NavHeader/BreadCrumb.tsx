@@ -15,7 +15,7 @@ function BreadCrumb() {
 
   useEffect(() => {
     const list = findTreeNode(data.menuList, pathname, [])
-    setBreadList([<a href='/welcome'>Home</a>, ...list])
+    setBreadList([<a href='/#/welcome'>Home</a>, ...list])
   }, [pathname])
 
   return (
