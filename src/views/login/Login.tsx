@@ -46,7 +46,7 @@ function LoginFC() {
               rules={[
                 { required: true, message: 'Please input your username!' }
               ]}
-              initialValue={2996130235}
+              initialValue={'demo'}
             >
               <Input />
             </Form.Item>
@@ -56,6 +56,7 @@ function LoginFC() {
               rules={[
                 { required: true, message: 'Please input your password!' }
               ]}
+              initialValue={123456}
             >
               <Input.Password />
             </Form.Item>
