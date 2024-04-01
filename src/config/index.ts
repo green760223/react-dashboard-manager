@@ -25,7 +25,7 @@ const config = {
   },
   prod: {
     baseAPI: 'https://api-proxy-service.onrender.com/api',
-    uploadAPI: 'http://api-driver.marsview.cc',
+    uploadAPI: 'https://api-proxy-service.onrender.com',
     mock: false,
     cnd: 'http://www.aliyun.com',
     mockAPI:
