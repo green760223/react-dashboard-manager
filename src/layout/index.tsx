@@ -48,7 +48,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <Watermark content='React'>
+    <>
       {userInfo._id ? (
         <Layout>
           <Sider collapsed={isCollapse}>
@@ -66,7 +66,7 @@ const App: React.FC = () => {
           </Layout>
         </Layout>
       ) : null}
-    </Watermark>
+    </>
   )
 }
 
