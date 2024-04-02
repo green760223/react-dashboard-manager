@@ -5,7 +5,7 @@ import {
   useLocation,
   useRouteLoaderData
 } from 'react-router-dom'
-import { Layout, Watermark } from 'antd'
+import { Layout } from 'antd'
 import { useStore } from '@/store'
 import { IAuthLoader } from '@/router/AuthLoader'
 import { searchRoute } from '@/utils'
