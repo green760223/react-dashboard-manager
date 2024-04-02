@@ -48,7 +48,7 @@ function NavFooter() {
           Contact Me
         </a>
       </div>
-      <div>Copyright @2023 Lawrence Chuang All Rights Reserved.</div>
+      <div>Copyright @2024 All Rights Reserved By Lawrence Chuang</div>
     </div>
   )
 }
