@@ -9,7 +9,7 @@ function NavFooter() {
           target='_blank'
           rel='noreferrer'
         >
-          GitHub
+          GitHub Repository
         </a>
         <span className='gutter'>|</span>
         <a
@@ -34,14 +34,6 @@ function NavFooter() {
           rel='noreferrer'
         >
           Medium Blog
-        </a>
-        <span className='gutter'>|</span>
-        <a
-          href='https://www.flickr.com/photos/lawrence_image/albums'
-          target='_blank'
-          rel='noreferrer'
-        >
-          Flickr Album
         </a>
         <span className='gutter'>|</span>
         <a href='mailto:green760223@gmail.com' target='_blank' rel='noreferrer'>
