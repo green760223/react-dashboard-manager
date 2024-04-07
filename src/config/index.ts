@@ -24,7 +24,7 @@ const config = {
       'https://www.fastmock.site/mock/a5c0902ecbc737f8e4d65447420fe0d2/api'
   },
   prod: {
-    baseAPI: 'https://api-proxy-service.onrender.com/api',
+    baseAPI: 'https://api-proxy-service-128315aa4d53.herokuapp.com/api',
     uploadAPI: 'https://api-proxy-service.onrender.com',
     mock: false,
     cnd: 'http://www.aliyun.com',
