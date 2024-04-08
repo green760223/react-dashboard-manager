@@ -1,0 +1,49 @@
+{
+  "welcome": {
+    "welcome": "歡迎體驗",
+    "message": "React18 通用儀表板平台管理系统"
+  },
+  "navHeader": {
+    "email": "信箱",
+    "username": "用戶名",
+    "logout": "登出系統",
+    "dark": "暗黑",
+    "light": "預設"
+  },
+  "breadcrumb": {
+    "home": "首頁",
+    "dashboard": "儀表板",
+    "users": "用戶列表",
+    "menus": "菜單列表",
+    "roles": "角色列表",
+    "departments": "部門列表",
+    "orderList": "訂單列表",
+    "orderPanel": "訂單管理",
+    "driverList": "司機列表",
+    "orderCluster": "訂單集群",
+    "systemPanel": "系統管理"
+  },
+  "menu": {
+    "Dashboard": "儀表板",
+    "Users": "用戶管理",
+    "Menus": "菜單管理",
+    "Roles": "角色管理",
+    "Departments": "部門管理",
+    "Order List": "訂單列表",
+    "Order Panel": "訂單管理",
+    "Driver List": "司機列表",
+    "Order Cluster": "訂單集群",
+    "System Panel": "系統管理"
+  },
+  "tabs": {
+    "Home": "首頁",
+    "Dashboard": "儀表板",
+    "Users": "用戶列表",
+    "Menus": "菜單列表",
+    "Roles": "角色列表",
+    "Departments": "部門列表",
+    "Order List": "訂單列表",
+    "Driver List": "司機列表",
+    "Order Cluster": "訂單集群"
+  }
+}

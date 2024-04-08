@@ -1,3 +1,10 @@
+import {
+  PaperClipOutlined,
+  LinkedinOutlined,
+  GithubOutlined,
+  MailOutlined,
+  EditOutlined
+} from '@ant-design/icons'
 import styles from './index.module.less'
 
 function NavFooter() {
@@ -9,6 +16,7 @@ function NavFooter() {
           target='_blank'
           rel='noreferrer'
         >
+          <GithubOutlined style={{ marginRight: 5 }} />
           GitHub Repository
         </a>
         <span className='gutter'>|</span>
@@ -17,6 +25,7 @@ function NavFooter() {
           target='_blank'
           rel='noreferrer'
         >
+          <LinkedinOutlined style={{ marginRight: 5 }} />
           LinkedIn
         </a>
         <span className='gutter'>|</span>
@@ -25,6 +34,7 @@ function NavFooter() {
           target='_blank'
           rel='noreferrer'
         >
+          <PaperClipOutlined style={{ marginRight: 5 }} />
           Personal Resume
         </a>
         <span className='gutter'>|</span>
@@ -33,10 +43,12 @@ function NavFooter() {
           target='_blank'
           rel='noreferrer'
         >
+          <EditOutlined style={{ marginRight: 10 }} />
           Medium Blog
         </a>
         <span className='gutter'>|</span>
         <a href='mailto:green760223@gmail.com' target='_blank' rel='noreferrer'>
+          <MailOutlined style={{ marginRight: 5 }} />
           Contact Me
         </a>
       </div>

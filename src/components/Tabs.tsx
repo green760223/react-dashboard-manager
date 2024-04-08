@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
 import { IAuthLoader } from '@/router/AuthLoader'
 import { searchRoute } from '@/utils'
 import { Tabs } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 interface TabsItem {
   key: string
@@ -11,9 +12,10 @@ interface TabsItem {
 }
 
 function TabsFC() {
+  const { t } = useTranslation()
   const { pathname } = useLocation()
   const [tabList, setTabList] = useState<TabsItem[]>([
-    { key: '/welcome', label: 'Home', closable: false }
+    { key: '/welcome', label: t('tabs.Home'), closable: false }
   ])
   const [activeKey, setActiveKey] = useState('')
   const data = useRouteLoaderData('layout') as IAuthLoader
@@ -21,7 +23,8 @@ function TabsFC() {
 
   useEffect(() => {
     addTabs()
-  }, [pathname])
+    updateTabLabels()
+  }, [pathname, t])
 
   // 添加頁籤
   const addTabs = () => {
@@ -37,6 +40,7 @@ function TabsFC() {
         closable: pathname !== '/welcome'
       })
     }
+
     setTabList([...tabList])
     setActiveKey(pathname)
   }
@@ -62,6 +66,18 @@ function TabsFC() {
       })
     }
     setTabList(tabList.filter(item => item.key != path))
+  }
+
+  // 更新頁籤標籤
+  const updateTabLabels = () => {
+    const updatedTabs = tabList.map(tab => ({
+      ...tab,
+      label:
+        tab.key === '/welcome'
+          ? t('tabs.Home')
+          : t(`tabs.${searchRoute(tab.key, data.menuList)?.menuName}`)
+    }))
+    setTabList(updatedTabs)
   }
 
   return (

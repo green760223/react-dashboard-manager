@@ -1,0 +1,49 @@
+{
+  "welcome": {
+    "welcome": "Welcome to",
+    "message": "A React Admin Dashboard System"
+  },
+  "navHeader": {
+    "email": "Email",
+    "username": "Username",
+    "logout": "Logout",
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "menus": "Menus",
+    "roles": "Roles",
+    "departments": "Departments",
+    "orderList": "Order List",
+    "orderPanel": "Order Panel",
+    "driverList": "Driver List",
+    "orderCluster": "Order Cluster",
+    "systemPanel": "System Panel"
+  },
+  "menu": {
+    "Dashboard": "Dashboard",
+    "Users": "Users",
+    "Menus": "Menus",
+    "Roles": "Roles",
+    "Departments": "Departments",
+    "Order List": "Order List",
+    "Order Panel": "Order Panel",
+    "Driver List": "Driver List",
+    "Order Cluster": "Order Cluster",
+    "System Panel": "System Panel"
+  },
+  "tabs": {
+    "Home": "Home",
+    "Dashboard": "Dashboard",
+    "Users": "Users",
+    "Menus": "Menus",
+    "Roles": "Roles",
+    "Departments": "Departments",
+    "Order List": "Order List",
+    "Driver List": "Driver List",
+    "Order Cluster": "Order Cluster"
+  }
+}

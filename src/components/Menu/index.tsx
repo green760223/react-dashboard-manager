@@ -4,11 +4,13 @@ import { Menu as IMenu } from '@/types/api'
 import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
 import { Menu } from 'antd'
 import { useStore } from '@/store'
+import { useTranslation } from 'react-i18next'
 import styles from './index.module.less'
 import React from 'react'
 import * as Icons from '@ant-design/icons'
 
 function SideMenu() {
+  const { t } = useTranslation()
   const data: any = useRouteLoaderData('layout')
   const [menuList, setMenuList] = useState<MenuItem[]>([])
   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
@@ -57,14 +59,19 @@ function SideMenu() {
   ) => {
     menuList.forEach((item, index) => {
       if (item.menuType == '1' && item.menuState === 1) {
+        const translatedMenuName = t(`menu.${item.menuName}`)
         if (item.buttons) {
           return treeList.push(
-            getItem(item.menuName, item.path || index, createIcon(item.icon))
+            getItem(
+              translatedMenuName,
+              item.path || index,
+              createIcon(item.icon)
+            )
           )
         }
         treeList.push(
           getItem(
-            item.menuName,
+            translatedMenuName,
             item.path || index,
             createIcon(item.icon),
             getTreeMenu(item.children || [])
@@ -80,7 +87,7 @@ function SideMenu() {
     const treeMenuList = getTreeMenu(data.menuList)
     setMenuList(treeMenuList)
     setSelectedKeys([pathname])
-  }, [])
+  }, [t])
 
   // logo點擊
   const handleClickLog = () => {
