@@ -45,5 +45,38 @@
     "Order List": "Order List",
     "Driver List": "Driver List",
     "Order Cluster": "Order Cluster"
+  },
+  "pieChart1": {
+    "title": "Driver City Distribution",
+    "name": "City Distribution"
+  },
+  "pieChart2": {
+    "title": "Driver Age Distribution",
+    "name": "Age Distribution"
+  },
+  "lineChart": {
+    "Orders": "Orders",
+    "Transactions": "Transactions"
+  },
+  "radarChart": {
+    "legend": "Driver Radar Diagnosis",
+    "name": "Model Diagnosis"
+  },
+  "reportData": {
+    "userId": "User ID",
+    "cellphone": "Cellphone",
+    "email": "E-mail",
+    "occupation": "Occupation",
+    "status": "Staus",
+    "department": "Department",
+    "welcome": "Welcome back ",
+    "drivers": "Number of Drivers",
+    "orders": "Total Orders",
+    "transactions": "Total Inventory",
+    "cities": "Cities Launch",
+    "refresh": "Refresh",
+    "driverDistribution": "Driver Distribution",
+    "modelDiagnosis": "Model Diagnosis",
+    "trendChart": "Order and Revenue Trend Chart"
   }
 }

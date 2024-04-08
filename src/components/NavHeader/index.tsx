@@ -105,9 +105,11 @@ const NavHeader = () => {
           onChange={handleSwitch}
         />
 
-        <Badge count={5} size='default' offset={[-8, 0]}>
-          <BellOutlined style={{ fontSize: 20, margin: 10 }} />
-        </Badge>
+        <a>
+          <Badge count={5} size='default' offset={[-5, 12]}>
+            <BellOutlined style={{ fontSize: 20, margin: 10 }} />
+          </Badge>
+        </a>
 
         <Dropdown menu={{ items, onClick }} trigger={['click']}>
           <a style={{ margin: 10 }}>

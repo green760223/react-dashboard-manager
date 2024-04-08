@@ -45,5 +45,38 @@
     "Order List": "訂單列表",
     "Driver List": "司機列表",
     "Order Cluster": "訂單集群"
+  },
+  "pieChart1": {
+    "title": "司機城市分佈",
+    "name": "城市分佈"
+  },
+  "pieChart2": {
+    "title": "司機年齡分佈",
+    "name": "年齡分佈"
+  },
+  "lineChart": {
+    "Orders": "訂單數量",
+    "Transactions": "交易數量"
+  },
+  "radarChart": {
+    "legend": "司機能力診斷",
+    "name": "模型診斷"
+  },
+  "reportData": {
+    "userId": "用戶ID",
+    "cellphone": "手機號碼",
+    "email": "信箱",
+    "occupation": "職業",
+    "status": "狀態",
+    "department": "部門",
+    "welcome": "歡迎回來，",
+    "drivers": "司機數量",
+    "orders": "訂單總數量",
+    "transactions": "交易總數量",
+    "cities": "開通城市數量",
+    "refresh": "刷新",
+    "driverDistribution": "司機分佈",
+    "modelDiagnosis": "模型診斷",
+    "trendChart": "訂單與收入趨勢圖"
   }
 }
