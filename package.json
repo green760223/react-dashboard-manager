@@ -13,6 +13,7 @@
     "start": "serve -s dist"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.6",
     "@vercel/analytics": "^1.2.2",
     "ahooks": "^3.7.10",
     "antd": "^5.11.1",

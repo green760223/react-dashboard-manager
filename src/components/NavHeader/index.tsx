@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  BellOutlined
+  BellOutlined,
+  MoonOutlined,
+  SunOutlined
 } from '@ant-design/icons'
-import { Switch, Dropdown, Button, Avatar, Badge } from 'antd'
+import { Dropdown, Button, Avatar, Badge } from 'antd'
 import type { MenuProps } from 'antd'
 import { useStore } from '@/store'
 import { useTranslation } from 'react-i18next'
@@ -70,6 +72,19 @@ const NavHeader = () => {
     updateTheme(isDark)
   }
 
+  // Switch the theme
+  const handleTheme = (isDark: boolean) => {
+    if (isDark) {
+      document.documentElement.dataset.theme = 'dark'
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.dataset.theme = 'light'
+      document.documentElement.classList.remove('dark')
+    }
+    storage.set('isDark', isDark)
+    updateTheme(isDark)
+  }
+
   // Switch the language
   const handleLanguage = (lng: string) => {
     return () => {
@@ -97,25 +112,27 @@ const NavHeader = () => {
         <BreadCrumb />
       </div>
       <div className='right'>
-        <Switch
+        {/* <Switch
           checked={isDark}
           checkedChildren={t('navHeader.dark')}
           unCheckedChildren={t('navHeader.light')}
           style={{ margin: 10 }}
           onChange={handleSwitch}
-        />
+        /> */}
 
-        <a>
+        <Button
+          shape='circle'
+          style={{ margin: 10 }}
+          onClick={() => handleTheme(!isDark)}
+        >
+          {isDark ? <MoonOutlined /> : <SunOutlined />}
+        </Button>
+
+        {/* <a>
           <Badge count={5} size='default' offset={[-5, 12]}>
             <BellOutlined style={{ fontSize: 20, margin: 10 }} />
           </Badge>
-        </a>
-
-        <Dropdown menu={{ items, onClick }} trigger={['click']}>
-          <a style={{ margin: 10 }}>
-            <Avatar src={userInfo.userImg} alt='User' size='large' />
-          </a>
-        </Dropdown>
+        </a> */}
 
         <Button
           shape='circle'
@@ -124,6 +141,18 @@ const NavHeader = () => {
         >
           {language === 'en' ? 'EN' : '中'}
         </Button>
+
+        <Button shape='circle' style={{ margin: 10 }}>
+          <Badge count={1} size='default' offset={[6, -4]}>
+            <BellOutlined />
+          </Badge>
+        </Button>
+
+        <Dropdown menu={{ items, onClick }} trigger={['click']}>
+          <a style={{ margin: 10 }}>
+            <Avatar src={userInfo.userImg} alt='User' size='large' />
+          </a>
+        </Dropdown>
       </div>
     </div>
   )
