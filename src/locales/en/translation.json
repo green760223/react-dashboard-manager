@@ -96,5 +96,12 @@
     "31-45岁": "31-45yrs",
     "45-60": "45-60yrs",
     "61以上": "over 61yrs"
+  },
+  "diagnosis": {
+    "服务态度": "Service Attitude",
+    "在线时长": "Online Duration",
+    "关注度": "Attention Level",
+    "接单率": "Acceptance Rate",
+    "评分": "Rating"
   }
 }

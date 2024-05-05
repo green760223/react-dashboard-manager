@@ -142,8 +142,15 @@ function DashBoard() {
   // Render radar chart data
   const renderRadarChart = async () => {
     if (!renderRadarChart) return
-    const data = await api.getRadarChartData()
-    setRadarChartData(data as any)
+    const rawData = await api.getRadarChartData()
+    const translatedData = {
+      ...rawData,
+      indicator: rawData.indicator.map(ind => ({
+        ...ind,
+        name: t(`diagnosis.${ind.name}`)
+      }))
+    }
+    setRadarChartData(translatedData as any)
   }
 
   // Update radar chart data
@@ -222,7 +229,11 @@ function DashBoard() {
   return (
     <div className={styles.dashboard}>
       <div className={styles.userInfo}>
-        <img src={userInfo.userImg} alt='User' className={styles.userImg} />
+        <img
+          src={userInfo.userImg ? userInfo.userImg : '/imgs/user.png'}
+          alt='User'
+          className={styles.userImg}
+        />
         <Descriptions title={t('reportData.welcome') + userInfo.userName}>
           <Descriptions.Item label={t('reportData.userId')}>
             {userInfo.userId}
@@ -231,7 +242,6 @@ function DashBoard() {
             {userInfo.userEmail}
           </Descriptions.Item>
           <Descriptions.Item label={t('reportData.status')}>
-            {/* {formatSate(userInfo.state)} */}
             {t(`reportData.${formatSate(userInfo.state)}`)}
           </Descriptions.Item>
           <Descriptions.Item label={t('reportData.cellphone')}>
