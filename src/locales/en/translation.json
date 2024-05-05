@@ -77,6 +77,24 @@
     "refresh": "Refresh",
     "driverDistribution": "Driver Distribution",
     "modelDiagnosis": "Model Diagnosis",
-    "trendChart": "Order and Revenue Trend Chart"
+    "trendChart": "Order and Revenue Trend Chart",
+    "Employed": "Employed",
+    "Probation": "Probation",
+    "Resigned": "Resigned"
+  },
+  "cities": {
+    "北京": "BJ",
+    "上海": "SH",
+    "广州": "GU",
+    "深圳": "SZ",
+    "杭州": "HA",
+    "武汉": "WU"
+  },
+  "ages": {
+    "0-18岁": "0-18yrs",
+    "19-30岁": "19-30yrs",
+    "31-45岁": "31-45yrs",
+    "45-60": "45-60yrs",
+    "61以上": "over 61yrs"
   }
 }

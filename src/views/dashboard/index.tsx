@@ -44,7 +44,7 @@ function DashBoard() {
     renderLineChart()
     // Radar chart
     renderRadarChart()
-  }, [pieChart1, pieChart2, lineChart, radarChart])
+  }, [t, pieChart1, pieChart2, lineChart, radarChart])
 
   // 更新圖表語言
   useEffect(() => {
@@ -67,8 +67,13 @@ function DashBoard() {
   // Render pie chart data for Driver City
   const renderPieChartDriverCity = async () => {
     if (!pieChart1) return
-    const data = await api.getPieCityChartData()
-    setPieChartDriverCityData(data as any)
+    const rawData = await api.getPieCityChartData()
+    const translationCities = rawData.map((item: any) => ({
+      ...item,
+      name: t(`cities.${item.name}`)
+    }))
+
+    setPieChartDriverCityData(translationCities as any)
   }
 
   // Update pie chart data for Driver City
@@ -99,8 +104,13 @@ function DashBoard() {
   // Render pie chart data for Driver Age
   const renderPieChartDriverAge = async () => {
     if (!pieChart2) return
-    const data = await api.getPieAgeChartData()
-    setPieChartDriverAgeData(data as any)
+    const rawData = await api.getPieAgeChartData()
+    const translateAges = rawData.map((item: any) => ({
+      ...item,
+      name: t(`ages.${item.name}`)
+    }))
+
+    setPieChartDriverAgeData(translateAges as any)
   }
 
   // Update pie chart data for Driver Age
@@ -213,7 +223,7 @@ function DashBoard() {
     <div className={styles.dashboard}>
       <div className={styles.userInfo}>
         <img src={userInfo.userImg} alt='User' className={styles.userImg} />
-        <Descriptions title={'Welcome back ' + userInfo.userName}>
+        <Descriptions title={t('reportData.welcome') + userInfo.userName}>
           <Descriptions.Item label={t('reportData.userId')}>
             {userInfo.userId}
           </Descriptions.Item>
@@ -221,7 +231,8 @@ function DashBoard() {
             {userInfo.userEmail}
           </Descriptions.Item>
           <Descriptions.Item label={t('reportData.status')}>
-            {formatSate(userInfo.state)}
+            {/* {formatSate(userInfo.state)} */}
+            {t(`reportData.${formatSate(userInfo.state)}`)}
           </Descriptions.Item>
           <Descriptions.Item label={t('reportData.cellphone')}>
             {userInfo.mobile}

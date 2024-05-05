@@ -3,7 +3,8 @@ import {
   LinkedinOutlined,
   GithubOutlined,
   MailOutlined,
-  EditOutlined
+  EditOutlined,
+  DesktopOutlined
 } from '@ant-design/icons'
 import styles from './index.module.less'
 
@@ -11,6 +12,11 @@ function NavFooter() {
   return (
     <div className={styles.footer}>
       <div>
+        <a href='https://lawrencechuang.com/' target='_blank' rel='noreferrer'>
+          <DesktopOutlined style={{ marginRight: 5 }} />
+          Personal Website
+        </a>
+        <span className='gutter'>|</span>
         <a
           href='https://github.com/green760223/react-dashboard-manager'
           target='_blank'
@@ -30,7 +36,7 @@ function NavFooter() {
         </a>
         <span className='gutter'>|</span>
         <a
-          href='https://drive.google.com/file/d/1hkkv7JvnJwWt3XVfQ1PSHgVf5J14gPvf/view?usp=share_link'
+          href='https://drive.google.com/file/d/1zjgdDvD2tbDAgvsxu1acl1qFYZr_uU-q/view?usp=sharing'
           target='_blank'
           rel='noreferrer'
         >
