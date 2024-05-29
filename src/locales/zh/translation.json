@@ -103,5 +103,14 @@
     "关注度": "關注度",
     "接单率": "接單率",
     "评分": "評分"
+  },
+  "userPanel": {
+    "userId": "用戶ID",
+    "userName": "用戶名稱",
+    "userEmail": "用戶信箱",
+    "userRole": "用戶角色",
+    "userState": "用戶狀態",
+    "createTime": "創建時間",
+    "action": "操作"
   }
 }

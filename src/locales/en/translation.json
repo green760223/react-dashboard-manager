@@ -103,5 +103,8 @@
     "关注度": "Attention Level",
     "接单率": "Acceptance Rate",
     "评分": "Rating"
+  },
+  "userPanel": {
+    "userId": "User ID"
   }
 }

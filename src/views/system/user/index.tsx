@@ -1,7 +1,7 @@
 import { User } from '@/types/api'
 import { Button, Table, Form, Input, Select, Space } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { formatDate } from '@/utils'
 import { IAction } from '@/types/modal'
 import { Modal } from 'antd'
@@ -11,8 +11,10 @@ import AuthButton from '@/components/AuthButton'
 import api from '@/api'
 import CreateUser from './CreateUser'
 import SearchForm from '@/components/SearchForm'
+import { useTranslation } from 'react-i18next'
 
 function UserList() {
+  const { t } = useTranslation()
   const [form] = Form.useForm()
   const userRef = useRef<{
     open: (type: IAction, data?: User.UserItem) => void
@@ -102,22 +104,22 @@ function UserList() {
 
   const columns: ColumnsType<User.UserItem> = [
     {
-      title: 'User ID',
+      title: t('userPanel.userId'),
       dataIndex: 'userId',
       key: 'userId'
     },
     {
-      title: 'User Name',
+      title: t('userPanel.userName'),
       dataIndex: 'userName',
       key: 'userName'
     },
     {
-      title: 'User Email',
+      title: t('userPanel.userEmail'),
       dataIndex: 'userEmail',
       key: 'userEmail'
     },
     {
-      title: 'User Role',
+      title: t('userPanel.userRole'),
       dataIndex: 'role',
       key: 'role',
       render(role: number) {
@@ -130,7 +132,7 @@ function UserList() {
       }
     },
     {
-      title: 'User State',
+      title: t('userPanel.userState'),
       dataIndex: 'state',
       key: 'state',
       render(state: number) {
@@ -142,7 +144,7 @@ function UserList() {
       }
     },
     {
-      title: 'Create Time',
+      title: t('userPanel.createTime'),
       dataIndex: 'createTime',
       key: 'createTime',
       render(createTime: string) {
@@ -150,7 +152,7 @@ function UserList() {
       }
     },
     {
-      title: 'Action',
+      title: t('userPanel.action'),
       key: 'address',
       render(record: User.UserItem) {
         return (
@@ -166,6 +168,8 @@ function UserList() {
       }
     }
   ]
+
+  useEffect(() => {}, [t])
 
   return (
     <div className='user-list'>

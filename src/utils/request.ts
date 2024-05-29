@@ -16,7 +16,7 @@ const instance = axios.create({
   timeoutErrorMessage: 'Request timed out. Please try again later！',
   withCredentials: true, // 允許夾帶cookie
   headers: {
-    icode: '051970D728A4E9AF'
+    icode: 'D006214EAC2C869D'
   }
 })
 
