@@ -6,6 +6,7 @@ import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface'
 import type { UploadChangeParam } from 'antd/es/upload'
 import { IAction, IModalProp } from '@/types/modal'
 import { Dept, Role, User } from '@/types/api'
+import { useTranslation } from 'react-i18next'
 import roleApi from '@/api/roleApi'
 import api from '@/api'
 import storage from '@/utils/storage'
@@ -18,11 +19,12 @@ const CreateUser = (props: IModalProp) => {
   const [action, setAction] = useState<IAction>('create')
   const [deptList, setDeptList] = useState<Dept.DeptItem[]>([])
   const [roleList, setRoleList] = useState<Role.RoleItem[]>([])
+  const { t } = useTranslation()
 
   useEffect(() => {
     getDeptList()
     getAllRoleList()
-  }, [])
+  }, [t])
 
   // 獲取部門列表
   const getDeptList = async () => {
@@ -63,10 +65,10 @@ const CreateUser = (props: IModalProp) => {
       }
       if (action === 'create') {
         await api.createUser(params)
-        message.success('Create success')
+        message.success(t('userPanel.createSuccess'))
       } else {
         await api.editUser(params)
-        message.success('Edit success')
+        message.success(t('userPanel.editSuccess'))
       }
       handleCancel()
       props.update()
@@ -84,12 +86,12 @@ const CreateUser = (props: IModalProp) => {
   const beforeUpload = (file: RcFile) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
-      message.error('Only support JPG or PNG file!')
+      message.error(t('userPanel.uploadFormat'))
       return false
     }
     const isLt2M = file.size / 1024 / 1024 < 0.5
     if (!isLt2M) {
-      message.error('Image must smaller than 0.5MB!')
+      message.error(t('userPanel.uploadSize'))
     }
     return isJpgOrPng && isLt2M
   }
@@ -113,7 +115,7 @@ const CreateUser = (props: IModalProp) => {
         message.error(msg)
       }
     } else if (info.file.status === 'error') {
-      message.error('Upload failed!')
+      message.error(t('userPanel.uploadFailed'))
     }
   }
 
@@ -128,39 +130,42 @@ const CreateUser = (props: IModalProp) => {
 
   return (
     <Modal
-      title={action === 'create' ? 'Create User' : 'Edit User'}
+      title={
+        action === 'create'
+          ? t('userPanel.createUser')
+          : t('userPanel.editUser')
+      }
       width={800}
       open={visible}
       onOk={handleSubmit}
       onCancel={handleCancel}
-      okText='Submit'
-      cancelText='Cancel'
+      okText={t('userPanel.submit')}
+      cancelText={t('userPanel.cancel')}
     >
       <Form form={form} labelCol={{ span: 4 }} labelAlign='right'>
         <Form.Item name='userId' hidden>
           <Input></Input>
         </Form.Item>
         <Form.Item
-          label='User Name'
+          label={t('userPanel.userName')}
           name='userName'
           rules={[
-            { required: true, message: 'Please enter the username' },
+            { required: true, message: t('userPanel.enterUserName') },
             {
               min: 3,
               max: 12,
-              message:
-                'Username must be at least 3 characters and maximum 12 characters'
+              message: t('userPanel.userNameRequired')
             }
           ]}
         >
-          <Input placeholder='Please enter the username'></Input>
+          <Input placeholder={t('userPanel.enterUserName')}></Input>
         </Form.Item>
         <Form.Item
-          label='User Email'
+          label={t('userPanel.userEmail')}
           name='userEmail'
           rules={[
-            { required: true, message: 'Please enter user email' },
-            { type: 'email', message: 'Please enter a valid email format' },
+            { required: true, message: t('userPanel.emailRequired') },
+            { type: 'email', message: t('userPanel.emailFormat') },
             {
               // pattern: /^\w+@mars.com$/,
               // message: 'Please enter an email ending with mars.com format'
@@ -168,35 +173,46 @@ const CreateUser = (props: IModalProp) => {
           ]}
         >
           <Input
-            placeholder='Please enter user email'
+            placeholder={t('userPanel.emailRequired')}
             disabled={action === 'edit'}
           ></Input>
         </Form.Item>
         <Form.Item
-          label='Mobile'
+          label={t('userPanel.mobile')}
           name='mobile'
           rules={[
-            { len: 11, message: 'Please enter an 11-digit phone number' },
             {
-              pattern: /1[1-9]\d{9}/,
-              message: 'Please enter a phone number starting with 1'
+              validator: (_, value) => {
+                if (value && value.length !== 11) {
+                  return Promise.reject(
+                    new Error(t('userPanel.mobileRequired'))
+                  )
+                }
+                if (value && !/^1[1-9]\d{9}$/.test(value)) {
+                  return Promise.reject(new Error(t('userPanel.mobileFormat')))
+                }
+                return Promise.resolve()
+              }
             }
           ]}
         >
-          <Input type='number' placeholder='Please enter mobile number'></Input>
+          <Input
+            type='text'
+            placeholder={t('userPanel.mobileRequired')}
+          ></Input>
         </Form.Item>
         <Form.Item
-          label='Department'
+          label={t('userPanel.department')}
           name='deptId'
           rules={[
             {
               required: true,
-              message: 'Please select the department'
+              message: t('userPanel.departmentRequired')
             }
           ]}
         >
           <TreeSelect
-            placeholder='Please select the department'
+            placeholder={t('userPanel.departmentRequired')}
             allowClear
             treeDefaultExpandAll
             showCheckedStrategy={TreeSelect.SHOW_ALL}
@@ -207,18 +223,20 @@ const CreateUser = (props: IModalProp) => {
             }}
           />
         </Form.Item>
-        <Form.Item label='Job Position' name='job'>
-          <Input placeholder='Please enter the job position'></Input>
+        <Form.Item label={t('userPanel.jobPosition')} name='job'>
+          <Input placeholder={t('userPanel.jobPositionRequired')}></Input>
         </Form.Item>
-        <Form.Item label='Status' name='state'>
+        <Form.Item label={t('userPanel.status')} name='state'>
           <Select>
-            <Select.Option value={1}>Employed</Select.Option>
-            <Select.Option value={2}>Resigned</Select.Option>
-            <Select.Option value={3}>Probationary</Select.Option>
+            <Select.Option value={1}>{t('userPanel.employed')}</Select.Option>
+            <Select.Option value={2}>{t('userPanel.resigned')}</Select.Option>
+            <Select.Option value={3}>
+              {t('userPanel.probationary')}
+            </Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item label='Role List' name='roleList'>
-          <Select placeholder='Please select a role'>
+        <Form.Item label={t('userPanel.role')} name='roleList'>
+          <Select placeholder={t('userPanel.roleRequired')}>
             {roleList.map(item => {
               return (
                 <Select.Option key={item._id} value={item._id}>
@@ -229,7 +247,7 @@ const CreateUser = (props: IModalProp) => {
           </Select>
         </Form.Item>
         <Form.Item
-          label='Avatar'
+          label={t('userPanel.avatar')}
           name='profile'
           valuePropName='fileList'
           getValueFromEvent={normFile}
@@ -254,7 +272,7 @@ const CreateUser = (props: IModalProp) => {
             ) : (
               <div>
                 {loading ? <LoadingOutlined /> : <PlusOutlined />}
-                <div style={{ marginTop: 8 }}>Upload Avatar</div>
+                <div style={{ marginTop: 8 }}>{t('userPanel.upload')}</div>
               </div>
             )}
           </Upload>
