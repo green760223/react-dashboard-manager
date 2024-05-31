@@ -111,6 +111,31 @@
     "userRole": "用戶角色",
     "userState": "用戶狀態",
     "createTime": "創建時間",
-    "action": "操作"
+    "action": "操作",
+    "userList": "用戶列表",
+    "batchDelete": "批次刪除",
+    "createUser": "新增用戶",
+    "edit": "編輯",
+    "delete": "刪除",
+    "enterUserId": "請輸入用戶ID",
+    "enterUserName": "請輸入用戶名稱",
+    "status": "狀態",
+    "all": "全部",
+    "employed": "在職",
+    "resigned": "已離職",
+    "probationary": "試用期",
+    "superAdministrator": "超級管理員",
+    "normalUser": "一般用戶",
+    "administrator": "管理員",
+    "trialAdministrator": "試用管理員",
+    "deleteUserTitle": "確認刪除用戶",
+    "deleteUserContent": "您確定要刪除該用戶嗎？",
+    "deleteUserOk": "刪除成功",
+    "deleteUserFail": "刪除失敗",
+    "selectUserFirst": "請選擇要刪除的使用者"
+  },
+  "searchForm": {
+    "search": "搜尋",
+    "reset": "重置"
   }
 }

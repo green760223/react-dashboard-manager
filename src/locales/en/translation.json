@@ -105,6 +105,37 @@
     "评分": "Rating"
   },
   "userPanel": {
-    "userId": "User ID"
+    "userId": "User ID",
+    "userName": "User Name",
+    "userEmail": "User Email",
+    "userRole": "User Role",
+    "userState": "User State",
+    "createTime": "Create Time",
+    "action": "Action",
+    "userList": "User List",
+    "batchDelete": "Batch Delete",
+    "createUser": "Create User",
+    "edit": "Edit",
+    "delete": "Delete",
+    "enterUserId": "Please enter User ID",
+    "enterUserName": "Please enter User Name",
+    "status": "Status",
+    "all": "All",
+    "employed": "Employed",
+    "resigned": "Resigned",
+    "probationary": "Probationary",
+    "superAdministrator": "Super Administrator",
+    "normalUser": "Normal User",
+    "administrator": "Administrator",
+    "trialAdministrator": "Trial Administrator",
+    "deleteUserTitle": "Delete confirmation",
+    "deleteUserContent": "Are you sure you want to delete this user?",
+    "deleteUserOk": "Delete success",
+    "deleteUserFail": "Delete failed",
+    "selectUserFirst": "Please select the user to delete"
+  },
+  "searchForm": {
+    "search": "Search",
+    "reset": "Reset"
   }
 }
