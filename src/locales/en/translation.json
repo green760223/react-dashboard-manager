@@ -159,5 +159,27 @@
   "searchForm": {
     "search": "Search",
     "reset": "Reset"
+  },
+  "menuPanel": {
+    "menuList": "Menu List",
+    "menuName": "Menu Name",
+    "menuType": "Menu Type",
+    "menuIcon": "Menu Icon",
+    "menuPermission": "Permission",
+    "menuStatus": "Menu Status",
+    "menu": "Menu",
+    "button": "Button",
+    "page": "Page",
+    "routePath": "Route Path",
+    "component": "Component",
+    "createTime": "Create Time",
+    "action": "Action",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "enable": "Enable",
+    "disable": "Disable",
+    "search": "Search",
+    "reset": "Reset"
   }
 }
