@@ -209,6 +209,10 @@
     "search": "搜尋",
     "reset": "重置",
     "roleList": "角色列表",
-    "new": "新增"
+    "new": "新增",
+    "operateSuccess": "操作成功",
+    "createRole": "新增角色",
+    "editRole": "編輯角色",
+    "enterRemark": "請輸入備註（如果有）"
   }
 }

@@ -209,6 +209,10 @@
     "search": "Search",
     "reset": "Reset",
     "roleList": "Role List",
-    "new": "New"
+    "new": "New",
+    "operateSuccess": "Operation success",
+    "createRole": "Create Role",
+    "editRole": "Edit Role",
+    "enterRemark": "Please enter remark if any"
   }
 }

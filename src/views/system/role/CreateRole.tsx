@@ -1,14 +1,18 @@
 import { Role } from '@/types/api'
 import { IModalProp, IAction } from '@/types/modal'
 import { Modal, Form, Input } from 'antd'
-import { useImperativeHandle, useState } from 'react'
+import { useImperativeHandle, useState, useEffect } from 'react'
 import { message } from '@/utils/AntdGlobal'
+import { useTranslation } from 'react-i18next'
 import api from '@/api/roleApi'
 
 function CreateRole(props: IModalProp<Role.RoleItem>) {
+  const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
   const [action, setAction] = useState<IAction>('create')
   const [form] = Form.useForm()
+
+  useEffect(() => {}, [t])
 
   useImperativeHandle(props.mRef, () => {
     return {
@@ -36,7 +40,7 @@ function CreateRole(props: IModalProp<Role.RoleItem>) {
         await api.editRole(params)
       }
 
-      message.success('Operation successful!')
+      message.success(t('rolePanel.operateSuccess'))
       handleCancel()
       props.update()
     }
@@ -50,7 +54,11 @@ function CreateRole(props: IModalProp<Role.RoleItem>) {
 
   return (
     <Modal
-      title={action === 'create' ? 'Create Role' : 'Edit Role'}
+      title={
+        action === 'create'
+          ? t('rolePanel.createRole')
+          : t('rolePanel.editRole')
+      }
       width={600}
       open={visible}
       okText='Save'
@@ -65,19 +73,19 @@ function CreateRole(props: IModalProp<Role.RoleItem>) {
 
         <Form.Item
           name='roleName'
-          label='Role Name'
+          label={t('rolePanel.roleName')}
           rules={[
             {
               required: true,
-              message: 'Please enter the role name!'
+              message: t('rolePanel.enterRoleName')
             }
           ]}
         >
-          <Input placeholder='Please enter the role name' />
+          <Input placeholder={t('rolePanel.enterRoleName')} />
         </Form.Item>
 
-        <Form.Item name='remark' label='Remark'>
-          <Input.TextArea placeholder='Please enter remark if any' />
+        <Form.Item name='remark' label={t('rolePanel.roleRemark')}>
+          <Input.TextArea placeholder={t('rolePanel.enterRemark')} />
         </Form.Item>
       </Form>
     </Modal>
