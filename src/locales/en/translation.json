@@ -167,6 +167,7 @@
     "menuIcon": "Menu Icon",
     "menuPermission": "Permission",
     "menuStatus": "Menu Status",
+    "upperMenu": "Upper Menu",
     "menu": "Menu",
     "button": "Button",
     "page": "Page",
@@ -180,6 +181,16 @@
     "enable": "Enable",
     "disable": "Disable",
     "search": "Search",
-    "reset": "Reset"
+    "reset": "Reset",
+    "createSuccess": "Create success",
+    "selectUpperMenu": "Please select the upper menu",
+    "enterMenuName": "Please enter the menu name",
+    "enterMenuIcon": "Please enter menu icon",
+    "enterRoutePath": "Please enter the route address",
+    "componentName": "Component Name",
+    "enterComponentName": "Please enter the component name",
+    "order": "Order",
+    "orderDescription": "The larger the sorting value, the later it appears",
+    "enterOrderValue": "Please enter the sorting value"
   }
 }

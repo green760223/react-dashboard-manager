@@ -1,17 +1,21 @@
 import { Modal, Form, TreeSelect, Input, InputNumber, Radio } from 'antd'
 import { IAction, IModalProp } from '@/types/modal'
-import { useImperativeHandle, useState } from 'react'
+import { useImperativeHandle, useState, useEffect } from 'react'
 import { Menu } from '@/types/api'
 import { useForm } from 'antd/es/form/Form'
 import { message } from '@/utils/AntdGlobal'
 import { InfoCircleOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import api from '@/api'
 
 function CreateMenu(props: IModalProp<Menu.EditParams>) {
+  const { t } = useTranslation()
   const [form] = useForm()
   const [action, setAction] = useState<IAction>('create')
   const [visible, setVisible] = useState(false)
   const [menuList, setMenuList] = useState<Menu.MenuItem[]>([])
+
+  useEffect(() => {}, [t])
 
   const getMenuList = async () => {
     const data = await api.getMenuList()
@@ -43,7 +47,7 @@ function CreateMenu(props: IModalProp<Menu.EditParams>) {
       } else {
         await api.editMenu(form.getFieldsValue())
       }
-      message.success('Operation successful')
+      message.success(t('menuPanel.createSuccess'))
       handleCancel()
       props.update()
     }
@@ -75,9 +79,9 @@ function CreateMenu(props: IModalProp<Menu.EditParams>) {
           <Input disabled />
         </Form.Item>
 
-        <Form.Item label='Upper Menu' name='parentId'>
+        <Form.Item label={t('menuPanel.upperMenu')} name='parentId'>
           <TreeSelect
-            placeholder='Please select the upper menu'
+            placeholder={t('menuPanel.selectUpperMenu')}
             allowClear
             treeDefaultExpandAll
             fieldNames={{ label: 'menuName', value: '_id' }}
@@ -85,20 +89,20 @@ function CreateMenu(props: IModalProp<Menu.EditParams>) {
           ></TreeSelect>
         </Form.Item>
 
-        <Form.Item label='Menu Type' name='menuType'>
+        <Form.Item label={t('menuPanel.menuType')} name='menuType'>
           <Radio.Group>
-            <Radio value={1}>Menu</Radio>
-            <Radio value={2}>Button</Radio>
-            <Radio value={3}>Page</Radio>
+            <Radio value={1}>{t('menuPanel.menu')}</Radio>
+            <Radio value={2}>{t('menuPanel.button')}</Radio>
+            <Radio value={3}>{t('menuPanel.page')}</Radio>
           </Radio.Group>
         </Form.Item>
 
         <Form.Item
-          label='Manu Name'
+          label={t('menuPanel.menuName')}
           name='menuName'
-          rules={[{ required: true, message: 'Please enter the menu name' }]}
+          rules={[{ required: true, message: t('menuPanel.enterMenuName') }]}
         >
-          <Input placeholder='Please enter the menu name' />
+          <Input placeholder={t('menuPanel.enterMenuName')} />
         </Form.Item>
 
         <Form.Item noStyle shouldUpdate>
@@ -109,37 +113,40 @@ function CreateMenu(props: IModalProp<Menu.EditParams>) {
               </Form.Item>
             ) : (
               <>
-                <Form.Item label='Menu Icon' name='icon'>
-                  <Input placeholder='Please enter menu icon' />
+                <Form.Item label={t('menuPanel.menuIcon')} name='icon'>
+                  <Input placeholder={t('menuPanel.enterMenuIcon')} />
                 </Form.Item>
 
-                <Form.Item label='Route Path' name='path'>
-                  <Input placeholder='Please enter the route address' />
+                <Form.Item label={t('menuPanel.routePath')} name='path'>
+                  <Input placeholder={t('menuPanel.enterRoutePath')} />
                 </Form.Item>
               </>
             )
           }}
         </Form.Item>
 
-        <Form.Item label='Component Name' name='component'>
-          <Input placeholder='Please enter the component name' />
+        <Form.Item label={t('menuPanel.componentName')} name='component'>
+          <Input placeholder={t('menuPanel.enterComponentName')} />
         </Form.Item>
 
         <Form.Item
-          label='Order'
+          label={t('menuPanel.order')}
           name='orderBy'
           tooltip={{
-            title: 'The larger the sorting value, the later it appears',
+            title: t('menuPanel.orderDescription'),
             icon: <InfoCircleOutlined rev={undefined} />
           }}
         >
-          <InputNumber placeholder='Please enter the sorting value' />
+          <InputNumber
+            style={{ width: 120 }}
+            placeholder={t('menuPanel.enterOrderValue')}
+          />
         </Form.Item>
 
-        <Form.Item label='Menu Status' name='menuState'>
+        <Form.Item label={t('menuPanel.menuStatus')} name='menuState'>
           <Radio.Group>
-            <Radio value={1}>Enable</Radio>
-            <Radio value={2}>Disable</Radio>
+            <Radio value={1}>{t('menuPanel.enable')}</Radio>
+            <Radio value={2}>{t('menuPanel.disable')}</Radio>
           </Radio.Group>
         </Form.Item>
       </Form>
