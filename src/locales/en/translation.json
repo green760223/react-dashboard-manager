@@ -229,6 +229,13 @@
     "delete": "Delete",
     "search": "Search",
     "reset": "Reset",
-    "deptList": "Department List"
+    "deptList": "Department List",
+    "operateSuccess": "Operation success",
+    "createDept": "Create Department",
+    "editDept": "Edit Department",
+    "upperDept": "Upper Department",
+    "selectUpperDept": "Please select the upper department",
+    "enterDeptName": "Please enter the department name",
+    "enterDeptManager": "Please select the department manager"
   }
 }

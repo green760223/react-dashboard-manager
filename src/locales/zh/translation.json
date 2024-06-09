@@ -229,6 +229,13 @@
     "delete": "刪除",
     "search": "搜尋",
     "reset": "重置",
-    "deptList": "部門列表"
+    "deptList": "部門列表",
+    "operateSuccess": "操作成功",
+    "createDept": "新增部門",
+    "editDept": "編輯部門",
+    "upperDept": "上級部門",
+    "selectUpperDept": "請選擇上級部門",
+    "enterDeptName": "請輸入部門名稱",
+    "enterDeptManager": "請選擇部門主管"
   }
 }
