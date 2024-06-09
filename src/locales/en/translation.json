@@ -192,5 +192,23 @@
     "order": "Order",
     "orderDescription": "The larger the sorting value, the later it appears",
     "enterOrderValue": "Please enter the sorting value"
+  },
+  "rolePanel": {
+    "roleName": "Role Name",
+    "roleRemark": "Remark",
+    "updateTime": "Update Time",
+    "createTime": "Create Time",
+    "action": "Action",
+    "edit": "Edit",
+    "delete": "Delete",
+    "setPermission": "Set Permission",
+    "confirmDelete": "Confirm Delete",
+    "deleteMessage": "Are you sure you want to delete this role?",
+    "deleteSuccess": "Delete success",
+    "enterRoleName": "Please enter the role name",
+    "search": "Search",
+    "reset": "Reset",
+    "roleList": "Role List",
+    "new": "New"
   }
 }

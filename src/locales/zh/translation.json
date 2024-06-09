@@ -192,5 +192,23 @@
     "order": "順序",
     "orderDescription": "排序值越大，出現越靠後",
     "enterOrderValue": "請輸入排序值"
+  },
+  "rolePanel": {
+    "roleName": "角色名稱",
+    "roleRemark": "備註",
+    "updateTime": "更新時間",
+    "createTime": "建立時間",
+    "action": "操作",
+    "edit": "編輯",
+    "delete": "操作",
+    "setPermission": "設定權限",
+    "confirmDelete": "確認刪除角色",
+    "deleteMessage": "您確定要刪除此角色嗎？",
+    "deleteSuccess": "刪除成功",
+    "enterRoleName": "請輸入角色名稱",
+    "search": "搜尋",
+    "reset": "重置",
+    "roleList": "角色列表",
+    "new": "新增"
   }
 }

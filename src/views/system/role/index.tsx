@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useAntdTable } from 'ahooks'
 import { Form, Input, Button, Table, Space, Modal } from 'antd'
 import { useForm } from 'antd/es/form/Form'
@@ -7,11 +7,13 @@ import { formatDate } from '@/utils'
 import { IAction } from '@/types/modal'
 import { ColumnsType } from 'antd/es/table'
 import { message } from '@/utils/AntdGlobal'
+import { useTranslation } from 'react-i18next'
 import api from '@/api/roleApi'
 import CreateRole from './CreateRole'
 import SetPermission from './SetPermission'
 
 function RoleList() {
+  const { t } = useTranslation()
   const [form] = useForm()
   const roleRef = useRef<{
     open: (type: IAction, data?: Role.RoleItem) => void
@@ -19,6 +21,8 @@ function RoleList() {
   const permissionRef = useRef<{
     open: (type: IAction, data?: Role.RoleItem) => void
   }>()
+
+  useEffect(() => {}, [t])
 
   const getTableDate = (
     {
@@ -51,17 +55,17 @@ function RoleList() {
 
   const columns: ColumnsType<Role.RoleItem> = [
     {
-      title: 'Role Name',
+      title: t('rolePanel.roleName'),
       dataIndex: 'roleName',
       key: 'roleName'
     },
     {
-      title: 'Remark',
+      title: t('rolePanel.roleRemark'),
       dataIndex: 'remark',
       key: 'remark'
     },
     {
-      title: 'Update Time',
+      title: t('rolePanel.updateTime'),
       dataIndex: 'updateTime',
       key: 'updateTime',
       render(updateTime: string) {
@@ -69,7 +73,7 @@ function RoleList() {
       }
     },
     {
-      title: 'Create Time',
+      title: t('rolePanel.createTime'),
       dataIndex: 'createTime',
       key: 'createTime',
       render(createTime: string) {
@@ -77,23 +81,23 @@ function RoleList() {
       }
     },
     {
-      title: 'Action',
+      title: t('rolePanel.action'),
       key: 'action',
       render(_, record) {
         return (
           <Space>
             <Button type='text' onClick={() => handleEdit(record)}>
-              Edit
+              {t('rolePanel.edit')}
             </Button>
             <Button type='text' onClick={() => handleSetPermission(record)}>
-              Set Permission
+              {t('rolePanel.setPermission')}
             </Button>
             <Button
               type='text'
               danger={true}
               onClick={() => handleDelete(record._id)}
             >
-              Delete
+              {t('rolePanel.delete')}
             </Button>
           </Space>
         )
@@ -114,11 +118,11 @@ function RoleList() {
   // 刪除角色
   const handleDelete = (_id: string) => {
     Modal.confirm({
-      title: 'Confirm Delete',
-      content: 'Are you sure you want to delete this role?',
+      title: t('rolePanel.confirmDelete'),
+      content: t('rolePanel.deleteMessage'),
       async onOk() {
         await api.deleteRole({ _id })
-        message.success('Delete successful!')
+        message.success(t('rolePanel.deleteSuccess'))
         search.submit()
       }
     })
@@ -132,27 +136,27 @@ function RoleList() {
   return (
     <div className='role-wrap'>
       <Form form={form} className='search-form' layout='inline'>
-        <Form.Item name='roleName' label='Role Name'>
-          <Input placeholder='Please enter role name' />
+        <Form.Item name='roleName' label={t('rolePanel.roleName')}>
+          <Input placeholder={t('rolePanel.enterRoleName')} />
         </Form.Item>
 
         <Form.Item>
           <Space>
             <Button type='primary' onClick={search.submit}>
-              Search
+              {t('rolePanel.search')}
             </Button>
             <Button type='default' onClick={search.reset}>
-              Reset
+              {t('rolePanel.reset')}
             </Button>
           </Space>
         </Form.Item>
       </Form>
       <div className='base-table'>
         <div className='header-wrapper'>
-          <div className='title'>Role List</div>
+          <div className='title'>{t('rolePanel.roleList')}</div>
           <div className='action'>
             <Button type='primary' onClick={handleCreate}>
-              New
+              {t('rolePanel.new')}
             </Button>
           </div>
         </div>
