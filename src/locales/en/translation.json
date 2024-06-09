@@ -214,5 +214,21 @@
     "createRole": "Create Role",
     "editRole": "Edit Role",
     "enterRemark": "Please enter remark if any"
+  },
+  "deptPanel": {
+    "confirmDelete": "Confirm Delete",
+    "deleteMessage": "Are you sure you want to delete this department?",
+    "deleteSuccess": "Delete success",
+    "deptName": "Department Name",
+    "deptManager": "Department Manager",
+    "updateTime": "Update Time",
+    "createTime": "Create Time",
+    "action": "Action",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "reset": "Reset",
+    "deptList": "Department List"
   }
 }
