@@ -297,6 +297,8 @@
     "useTime": "使用時間",
     "selectUseTime": "請選擇使用時間",
     "endTime": "結束時間",
-    "selectEndTime": "請選擇結束時間"
+    "selectEndTime": "請選擇結束時間",
+    "userPayAmount": "用戶支付金額",
+    "vehicleName": "車輛名稱"
   }
 }

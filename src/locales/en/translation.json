@@ -297,6 +297,8 @@
     "useTime": "Use Time",
     "selectUseTime": "Please select the use time",
     "endTime": "End Time",
-    "selectEndTime": "Please select the end time"
+    "selectEndTime": "Please select the end time",
+    "userPayAmount": "User Pay Amount",
+    "vehicleName": "Vehicle Name"
   }
 }
