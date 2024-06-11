@@ -302,6 +302,8 @@
     "vehicleName": "Vehicle Name",
     "markerDelete": "Delete Marker",
     "updateMarkerSuccee": "Update Marker Success",
-    "orderRoute": "Order Route"
+    "orderRoute": "Order Route",
+    "orderRouteError": "Please complete the marker route first",
+    "drivingTrajectory": "Driving Trajectory"
   }
 }

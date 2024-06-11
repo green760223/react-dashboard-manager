@@ -1,12 +1,16 @@
-import { useImperativeHandle, useState } from 'react'
+import { useImperativeHandle, useState, useEffect } from 'react'
 import { Modal, message } from 'antd'
 import { IDetailProp } from '@/types/modal'
 import { Order } from '@/types/api'
+import { useTranslation } from 'react-i18next'
 import api from '@/api/orderApi'
 
 function OrderRoute(props: IDetailProp) {
+  const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
   const [trackAni, setTrackAni] = useState<{ cancel: () => void }>()
+
+  useEffect(() => {}, [t])
 
   useImperativeHandle(props.mRef, () => {
     return {
@@ -24,7 +28,7 @@ function OrderRoute(props: IDetailProp) {
         renderMap(detail)
       })
     } else {
-      message.info('Please complete the marker route first')
+      message.info(t('orderPanel.orderRouteError'))
     }
 
     setVisible(true)
@@ -68,7 +72,7 @@ function OrderRoute(props: IDetailProp) {
 
   return (
     <Modal
-      title='Driving Trajectory'
+      title={t('orderPanel.drivingTrajectory')}
       width={1100}
       open={visible}
       footer={false}
