@@ -305,5 +305,12 @@
     "orderRoute": "訂單路線",
     "orderRouteError": "請先完成路線標記",
     "drivingTrajectory": "行駛軌跡"
+  },
+  "orderCluster": {
+    "changsha": "長沙",
+    "wuhan": "武漢",
+    "hangzhou": "杭州",
+    "huizhou": "惠州",
+    "kunming": "昆明"
   }
 }

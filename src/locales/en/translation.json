@@ -305,5 +305,12 @@
     "orderRoute": "Order Route",
     "orderRouteError": "Please complete the marker route first",
     "drivingTrajectory": "Driving Trajectory"
+  },
+  "orderCluster": {
+    "changsha": "Changsha",
+    "wuhan": "Wuhan",
+    "hangzhou": "Hangzhou",
+    "huizhou": "Huizhou",
+    "kunming": "Kunming"
   }
 }
