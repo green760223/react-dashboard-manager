@@ -3,9 +3,11 @@ import { Modal, Form, Row, Col, Select, Input, DatePicker } from 'antd'
 import { IModalProp } from '@/types/modal'
 import { Order } from '@/types/api'
 import { message } from '@/utils/AntdGlobal'
+import { useTranslation } from 'react-i18next'
 import api from '@/api/orderApi'
 
 function CreateOrder(props: IModalProp) {
+  const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
   const [cityList, setCityList] = useState<Order.DictItem[]>([])
   const [vehicleList, setVehicleList] = useState<Order.DictItem[]>([])
@@ -13,7 +15,7 @@ function CreateOrder(props: IModalProp) {
 
   useEffect(() => {
     getInitData()
-  }, [])
+  }, [t])
 
   // 初始化數據（城市列表、車型列表）
   const getInitData = async () => {
@@ -39,11 +41,11 @@ function CreateOrder(props: IModalProp) {
     const valid = await form.validateFields()
     if (valid) {
       await api.creatyOrder(form.getFieldsValue())
-      message.success('Order creation successful!')
+      message.success(t('orderPanel.orderCreateSuccess'))
       handleCancel()
       props.update()
     } else {
-      message.error('Please fill in required fields')
+      message.error(t('orderPanel.orderDetailRequired'))
     }
   }
 
@@ -55,7 +57,7 @@ function CreateOrder(props: IModalProp) {
 
   return (
     <Modal
-      title='Create Order'
+      title={t('orderPanel.createOrder')}
       width={800}
       open={visible}
       okText='Submit'
@@ -74,12 +76,12 @@ function CreateOrder(props: IModalProp) {
           <Col span={12}>
             <Form.Item
               name='cityName'
-              label='City Name'
+              label={t('orderPanel.cityName')}
               rules={[
-                { required: true, message: 'Please enter the city name' }
+                { required: true, message: t('orderPanel.enterCityName') }
               ]}
             >
-              <Select placeholder='請選擇城市名稱'>
+              <Select placeholder={t('orderPanel.enterCityName')}>
                 {cityList.map(item => {
                   return (
                     <Select.Option value={item.name} key={item.id}>
@@ -93,10 +95,12 @@ function CreateOrder(props: IModalProp) {
           <Col span={12}>
             <Form.Item
               name='vehicleName'
-              label='車型名稱'
-              rules={[{ required: true, message: '請選擇車型名稱' }]}
+              label={t('orderPanel.vehicleType')}
+              rules={[
+                { required: true, message: t('orderPanel.selectVehicleType') }
+              ]}
             >
-              <Select placeholder='請選擇車型名稱'>
+              <Select placeholder={t('orderPanel.selectVehicleType')}>
                 {vehicleList.map(item => {
                   return (
                     <Select.Option value={item.name} key={item.id}>

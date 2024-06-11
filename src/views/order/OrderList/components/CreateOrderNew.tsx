@@ -1,13 +1,17 @@
-import { useImperativeHandle, useState } from 'react'
+import { useImperativeHandle, useState, useEffect } from 'react'
 import { Modal } from 'antd'
 import { IModalProp } from '@/types/modal'
 import { message } from '@/utils/AntdGlobal'
+import { useTranslation } from 'react-i18next'
 import FormRender, { useForm } from 'form-render'
 import api from '@/api/orderApi'
 
 function CreateOrder(props: IModalProp) {
+  const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
   const form = useForm()
+
+  useEffect(() => {}, [t])
 
   // 初始化數據（城市列表、車型列表）
   const getInitData = async () => {
@@ -44,16 +48,16 @@ function CreateOrder(props: IModalProp) {
     setVisible(true)
   }
 
-  // 創建訂單並提交
+  // 建立訂單並提交
   const handleOk = async () => {
     const valid = await form.validateFields()
     if (valid) {
       await api.creatyOrder(form.getValues())
-      message.success('Order created successfully!')
+      message.success(t('orderPanel.createSuccess'))
       handleCancel()
       props.update()
     } else {
-      message.error('Please enter the city name')
+      message.error(t('orderPanel.orderDetailRequired'))
     }
   }
 
@@ -71,121 +75,123 @@ function CreateOrder(props: IModalProp) {
     labelWidth: 120,
     properties: {
       cityName: {
-        title: 'City Name',
+        title: t('orderPanel.cityName'),
         type: 'srting',
         widget: 'select',
-        placeholder: 'Please select the city',
-        rules: [{ required: true, message: 'Please select the city' }]
+        placeholder: t('orderPanel.selectCity'),
+        rules: [{ required: true, message: t('orderPanel.selectCity') }]
       },
       vehicleName: {
-        title: 'Vehicle Model',
+        title: t('orderPanel.vehicleModel'),
         type: 'srting',
         widget: 'select',
-        placeholder: 'Please select the vehicle model',
-        rules: [{ required: true, message: 'Please select the vehicle model' }]
+        placeholder: t('orderPanel.selectVehicleModel'),
+        rules: [{ required: true, message: t('orderPanel.selectVehicleModel') }]
       },
       userName: {
-        title: 'User Name',
+        title: t('orderPanel.userName'),
         type: 'srting',
         widget: 'input',
-        rules: [{ required: true, message: 'Please enter the username' }],
-        placeholder: 'Please enter the username'
+        rules: [{ required: true, message: t('orderPanel.enterUserName') }],
+        placeholder: t('orderPanel.enterUserName')
       },
       moile: {
-        title: 'Mobile Number',
+        title: t('orderPanel.mobile'),
         type: 'srting',
         widget: 'inputNumber',
-        placeholder: 'Please enter the phone number',
+        placeholder: t('orderPanel.enterMobile'),
         rules: [
           {
             pattern: /^1[1-9]\d{9}$/,
-            message: 'Please enter a valid phone number'
+            message: t('orderPanel.enterValidMobile')
           }
         ]
       },
       startAddress: {
-        title: 'Starting address',
+        title: t('orderPanel.startingAddress'),
         type: 'srting',
         widget: 'input',
-        placeholder: 'Please enter the starting address'
+        placeholder: t('orderPanel.enterStartingAddress')
       },
       endAddress: {
-        title: 'Ending address',
+        title: t('orderPanel.endingAddress'),
         type: 'srting',
         widget: 'input',
-        placeholder: 'Please enter the ending address'
+        placeholder: t('orderPanel.enterEndingAddress')
       },
       orderAmount: {
-        title: 'Order Amount',
+        title: t('orderPanel.orderAmount'),
         type: 'number',
         widget: 'inputNumber',
-        placeholder: 'Please enter the order amount'
+        placeholder: t('orderPanel.enterOrderAmount')
       },
       userAmount: {
-        title: 'Payment Amount',
+        title: t('orderPanel.paymentAmount'),
         type: 'number',
         widget: 'inputNumber',
-        placeholder: 'Please enter the payment amount'
+        placeholder: t('orderPanel.enterPaymentAmount')
       },
       driverName: {
-        title: 'Driver Name',
+        title: t('orderPanel.driverName'),
         type: 'string',
         widget: 'input',
-        placeholder: 'Please enter the driver name',
-        required: true
+        rules: [{ required: true, message: t('orderPanel.enterDriverName') }],
+        placeholder: t('orderPanel.enterDriverName')
       },
       driverAmount: {
-        title: 'Driver Payment mount',
+        title: t('orderPanel.driverPaymentAmount'),
         type: 'number',
         widget: 'inputNumber',
-        placeholder: 'Please enter the driver payment amount',
-        required: true
+        rules: [
+          { required: true, message: t('orderPanel.enterDriverPaymentAmount') }
+        ],
+        placeholder: t('orderPanel.enterDriverPaymentAmount')
       },
       payType: {
-        title: 'Payment Method',
+        title: t('orderPanel.paymentMethod'),
         type: 'number',
         widget: 'select',
-        placeholder: 'Please select the payment method',
+        placeholder: t('orderPanel.selectPaymentMethod'),
         props: {
           options: [
-            { label: 'WeChat Pay', value: 1 },
-            { label: 'Alipay', value: 2 },
-            { label: 'UnionPay', value: 3 }
+            { label: t('orderPanel.weChatPay'), value: 1 },
+            { label: t('orderPanel.alipay'), value: 2 },
+            { label: t('orderPanel.unionPay'), value: 3 }
           ]
         }
       },
       state: {
-        title: 'Order Status',
+        title: t('orderPanel.orderStatus'),
         type: 'number',
         widget: 'select',
-        placeholder: 'Please select the order status',
+        placeholder: t('orderPanel.selectOrderStatus'),
         props: {
           options: [
-            { label: 'In Progress', value: 1 },
-            { label: 'Completed', value: 2 },
-            { label: 'Overdue', value: 3 },
-            { label: 'Cancelled', value: 4 }
+            { label: t('orderPanel.inprogress'), value: 1 },
+            { label: t('orderPanel.completed'), value: 2 },
+            { label: t('orderPanel.overdue'), value: 3 },
+            { label: t('orderPanel.cancelled'), value: 4 }
           ]
         }
       },
       useTime: {
-        title: 'Use Time',
+        title: t('orderPanel.useTime'),
         type: 'string',
         widget: 'datePicker',
-        placeholder: 'Please select the use time'
+        placeholder: t('orderPanel.selectUseTime')
       },
       endTime: {
-        title: 'End Time',
+        title: t('orderPanel.endTime'),
         type: 'string',
         widget: 'datePicker',
-        placeholder: 'Please select the end time'
+        placeholder: t('orderPanel.selectEndTime')
       }
     }
   }
 
   return (
     <Modal
-      title='Create Order'
+      title={t('orderPanel.createOrder')}
       width={1000}
       open={visible}
       okText='Submit'
