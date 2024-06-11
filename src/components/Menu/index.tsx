@@ -104,7 +104,7 @@ function SideMenu() {
     <div className={styles.navSide}>
       <div className={styles.logo} onClick={handleClickLog}>
         <img src='/imgs/logo.png' alt='' className={styles.img} />
-        {isCollapse ? '' : <span>ABC Freight</span>}
+        {isCollapse ? '' : <span>XYZ Company</span>}
       </div>
       <Menu
         defaultOpenKeys={['2']}
