@@ -299,6 +299,9 @@
     "endTime": "End Time",
     "selectEndTime": "Please select the end time",
     "userPayAmount": "User Pay Amount",
-    "vehicleName": "Vehicle Name"
+    "vehicleName": "Vehicle Name",
+    "markerDelete": "Delete Marker",
+    "updateMarkerSuccee": "Update Marker Success",
+    "orderRoute": "Order Route"
   }
 }

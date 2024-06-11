@@ -299,6 +299,9 @@
     "endTime": "結束時間",
     "selectEndTime": "請選擇結束時間",
     "userPayAmount": "用戶支付金額",
-    "vehicleName": "車輛名稱"
+    "vehicleName": "車輛名稱",
+    "markerDelete": "刪除標記",
+    "updateMarkerSuccee": "更新標記成功",
+    "orderRoute": "訂單路線"
   }
 }

@@ -1,16 +1,20 @@
-import { useImperativeHandle, useState } from 'react'
+import { useImperativeHandle, useState, useEffect } from 'react'
 import { Modal } from 'antd'
 import { IDetailProp } from '@/types/modal'
 import { Order } from '@/types/api'
 import { message } from '@/utils/AntdGlobal'
+import { useTranslation } from 'react-i18next'
 import api from '@/api/orderApi'
 
 function OrderMarker(props: IDetailProp) {
+  const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
   const [orderId, setOrderId] = useState('')
   const [markers, setMarkers] = useState<
     { lng: string; lat: string; id: number }[]
   >([])
+
+  useEffect(() => {}, [t])
 
   useImperativeHandle(props.mRef, () => {
     return {
@@ -45,7 +49,7 @@ function OrderMarker(props: IDetailProp) {
     })
   }
 
-  // 創建標記
+  // 建立標記
   const createMarker = (map: any, lng: string, lat: string) => {
     const id = Math.random()
     const marker = new window.BMapGL.Marker(new window.BMapGL.Point(lng, lat))
@@ -53,7 +57,7 @@ function OrderMarker(props: IDetailProp) {
     marker.id = id
     const markerMenu = new window.BMapGL.ContextMenu()
     markerMenu.addItem(
-      new window.BMapGL.MenuItem('Delete', function () {
+      new window.BMapGL.MenuItem(t('orderPanel.markerDelete'), function () {
         map.removeOverlay(marker)
         const index = markers.findIndex(item => item.id === marker.id)
         markers.splice(index, 1)
@@ -68,7 +72,7 @@ function OrderMarker(props: IDetailProp) {
   const handleOk = async () => {
     await api.updateOrderInfo({ orderId, route: markers })
     setVisible(false)
-    message.success('Update successful!')
+    message.success(t('orderPanel.updateMarkerSuccee'))
     handleCancel()
   }
 
@@ -80,7 +84,7 @@ function OrderMarker(props: IDetailProp) {
 
   return (
     <Modal
-      title='Order Route'
+      title={t('orderPanel.orderRoute')}
       width={1100}
       open={visible}
       okText='Save'
