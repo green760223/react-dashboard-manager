@@ -1,10 +1,11 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { Button, Table, Form, Input, Select, Space, Modal } from 'antd'
 import { useAntdTable } from 'ahooks'
 import { ColumnsType } from 'antd/es/table'
 import { Order } from '@/types/api'
 import { formatDate, formatMoney } from '@/utils'
 import { message } from '@/utils/AntdGlobal'
+import { useTranslation } from 'react-i18next'
 import OrderDetail from './components/OrderDetail'
 // import CreateOrder from './components/CreateOrder'
 import CreateOrder from './components/CreateOrderNew'
@@ -13,11 +14,14 @@ import OrderMarker from './components/OrderMarker'
 import OrderRoute from './components/OrderRoute'
 
 function OrderList() {
+  const { t } = useTranslation()
   const [form] = Form.useForm()
   const orderRef = useRef<{ open: () => void }>()
   const detailRef = useRef<{ open: (orderId: string) => void }>()
   const markerRef = useRef<{ open: (orderId: string) => void }>()
   const routeRef = useRef<{ open: (orderId: string) => void }>()
+
+  useEffect(() => {}, [t])
 
   const getTableData = (
     {
@@ -51,18 +55,18 @@ function OrderList() {
 
   const columns: ColumnsType<Order.OrderItem> = [
     {
-      title: 'Order ID',
+      title: t('orderPanel.orderId'),
       dataIndex: 'orderId',
       key: 'orderId'
     },
     {
-      title: 'City',
+      title: t('orderPanel.cityName'),
       dataIndex: 'cityName',
       key: 'cityName',
       width: 80
     },
     {
-      title: 'Ordering Address',
+      title: t('orderPanel.orderingAddress'),
       dataIndex: 'startAddress',
       key: 'startAddress',
       width: 160,
@@ -76,7 +80,7 @@ function OrderList() {
       }
     },
     {
-      title: 'Create Time',
+      title: t('orderPanel.createTime'),
       dataIndex: 'createTime',
       key: 'createTime',
       width: 120,
@@ -85,7 +89,7 @@ function OrderList() {
       }
     },
     {
-      title: 'Order Amount',
+      title: t('orderPanel.orderAmount'),
       dataIndex: 'orderAmount',
       key: 'orderAmount',
       render(orderAmount) {
@@ -93,51 +97,51 @@ function OrderList() {
       }
     },
     {
-      title: 'Order Status',
+      title: t('orderPanel.orderStatus'),
       dataIndex: 'state',
       key: 'state',
       render(state) {
         if (state === 1) {
-          return 'In Progress'
+          return t('orderPanel.inprogress')
         }
         if (state === 2) {
-          return 'Completed'
+          return t('orderPanel.completed')
         }
         if (state === 3) {
-          return 'Overdue'
+          return t('orderPanel.overdue')
         }
         if (state === 4) {
-          return 'Cancelled'
+          return t('orderPanel.cancelled')
         }
       }
     },
     {
-      title: 'User Name',
+      title: t('orderPanel.userName'),
       dataIndex: 'userName',
       key: 'userName'
     },
     {
-      title: 'Driver Name',
+      title: t('orderPanel.driverName'),
       dataIndex: 'driverName',
       key: 'driverName'
     },
     {
-      title: 'Action',
+      title: t('orderPanel.action'),
       key: 'action',
       render(_, record) {
         return (
           <Space>
             <Button type='text' onClick={() => handleDetail(record.orderId)}>
-              Detail
+              {t('orderPanel.orderDetail')}
             </Button>
             <Button type='text' onClick={() => handleMarker(record.orderId)}>
-              Marker
+              {t('orderPanel.marker')}
             </Button>
             <Button type='text' onClick={() => handleRoute(record.orderId)}>
-              Route
+              {t('orderPanel.route')}
             </Button>
             <Button type='text' onClick={() => handleDelete(record._id)} danger>
-              Delete
+              {t('orderPanel.delete')}
             </Button>
           </Space>
         )
@@ -148,11 +152,11 @@ function OrderList() {
   // 刪除訂單
   const handleDelete = (_id: string) => {
     Modal.confirm({
-      title: 'Delete Order',
-      content: <span>Confirm deletion of this order?</span>,
+      title: t('orderPanel.deleteOrder'),
+      content: <span>{t('orderPanel.deleteOrderMessage')}</span>,
       onOk: async () => {
         await api.deleteOrder(_id)
-        message.success('Deletion successful!')
+        message.success(t('orderPanel.deleteSuccess'))
         search.submit()
       }
     })
@@ -186,40 +190,48 @@ function OrderList() {
   return (
     <div className='OrderList'>
       <Form className='search-form' form={form} layout='inline'>
-        <Form.Item name='oderId' label='Order ID'>
-          <Input placeholder='Please enter the order ID' />
+        <Form.Item name='oderId' label={t('orderPanel.orderId')}>
+          <Input placeholder={t('orderPanel.enterOrderId')} />
         </Form.Item>
-        <Form.Item name='userName' label='User Name'>
-          <Input placeholder='Please enter the username' />
+        <Form.Item name='userName' label={t('orderPanel.userName')}>
+          <Input placeholder={t('orderPanel.enterUserName')} />
         </Form.Item>
-        <Form.Item name='state' label='Order Status'>
+        <Form.Item name='state' label={t('orderPanel.orderStatus')}>
           <Select style={{ width: 120 }}>
-            <Select.Option value={1}>In Progress</Select.Option>
-            <Select.Option value={2}>Completed</Select.Option>
-            <Select.Option value={3}>Overdue</Select.Option>
-            <Select.Option value={4}>Cancelled</Select.Option>
+            <Select.Option value={1}>
+              {t('orderPanel.inprogress')}
+            </Select.Option>
+            <Select.Option value={2}>
+              {' '}
+              {t('orderPanel.completed')}
+            </Select.Option>
+            <Select.Option value={3}> {t('orderPanel.overdue')}</Select.Option>
+            <Select.Option value={4}>
+              {' '}
+              {t('orderPanel.cancelled')}
+            </Select.Option>
           </Select>
         </Form.Item>
         <Form.Item name='search'>
           <Space>
             <Button type='primary' onClick={search.submit}>
-              Search
+              {t('orderPanel.search')}
             </Button>
             <Button type='default' onClick={search.reset}>
-              Reset
+              {t('orderPanel.reset')}
             </Button>
           </Space>
         </Form.Item>
       </Form>
       <div className='base-table'>
         <div className='header-wrapper'>
-          <div className='title'>Order List</div>
+          <div className='title'> {t('orderPanel.orderList')}</div>
           <div className='action'>
             <Button type='primary' onClick={handleCreate}>
-              Add
+              {t('orderPanel.add')}
             </Button>
             <Button type='primary' onClick={handleExport}>
-              Export
+              {t('orderPanel.export')}
             </Button>
           </div>
         </div>
