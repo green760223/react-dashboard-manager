@@ -36,11 +36,7 @@ function NavFooter() {
         </a>
         <span className='gutter'>|</span>
         <a
-<<<<<<< HEAD
-          href='https://drive.google.com/file/d/1hkkv7JvnJwWt3XVfQ1PSHgVf5J14gPvf/view?usp=share_link'
-=======
           href='https://drive.google.com/file/d/1zjgdDvD2tbDAgvsxu1acl1qFYZr_uU-q/view?usp=sharing'
->>>>>>> dev
           target='_blank'
           rel='noreferrer'
         >
