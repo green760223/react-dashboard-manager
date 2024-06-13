@@ -24,9 +24,9 @@ const NavHeader = () => {
 
   const { t, i18n } = useTranslation()
   const [language, setLanguage] = useState('en')
-
   const { userInfo, isCollapse, isDark, updateCollapse, updateTheme } =
     useStore()
+  const [imgSrc, setImgSrc] = useState(userInfo.userImg || '/imgs/user.png')
 
   useEffect(() => {
     handleSwitch(isDark)
@@ -98,6 +98,12 @@ const NavHeader = () => {
     }
   }
 
+  // Error handling for the user image
+  const handleImgError = () => {
+    setImgSrc('/imgs/user.png')
+    return false
+  }
+
   return (
     <div className={styles.navHeader}>
       <div className={styles.left}>
@@ -150,7 +156,12 @@ const NavHeader = () => {
 
         <Dropdown menu={{ items, onClick }} trigger={['click']}>
           <a style={{ margin: 10 }}>
-            <Avatar src={userInfo.userImg} alt='User' size='large' />
+            <Avatar
+              src={userInfo.userImg}
+              alt='User'
+              size='large'
+              onError={handleImgError}
+            />
           </a>
         </Dropdown>
       </div>
