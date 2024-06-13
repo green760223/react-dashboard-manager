@@ -157,7 +157,7 @@ const NavHeader = () => {
         <Dropdown menu={{ items, onClick }} trigger={['click']}>
           <a style={{ margin: 10 }}>
             <Avatar
-              src={userInfo.userImg}
+              src={imgSrc}
               alt='User'
               size='large'
               onError={handleImgError}
