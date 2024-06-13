@@ -1,13 +1,17 @@
-import { useState, useImperativeHandle } from 'react'
+import { useState, useImperativeHandle, useEffect } from 'react'
 import { Modal, Descriptions } from 'antd'
 import { IDetailProp } from '@/types/modal'
 import api from '@/api/orderApi'
 import { Order } from '@/types/api'
 import { formatDate, formatMoney, formatMobile } from '@/utils'
+import { useTranslation } from 'react-i18next'
 
 function OrderDetail(props: IDetailProp) {
+  const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
   const [detail, setDetail] = useState<Order.OrderItem>()
+
+  useEffect(() => {}, [t])
 
   useImperativeHandle(props.mRef, () => {
     return {
@@ -30,69 +34,71 @@ function OrderDetail(props: IDetailProp) {
   const formatState = (state?: Order.IState) => {
     if (!state) return '-'
     const stateMap = {
-      1: 'In Progress',
-      2: 'Completed',
-      3: 'Overdue',
-      4: 'Cancelled'
+      1: t('orderPanel.inprogress'),
+      2: t('orderPanel.completed'),
+      3: t('orderPanel.overdue'),
+      4: t('orderPanel.cancelled')
     }
     return stateMap[state]
   }
 
   return (
     <Modal
-      title='Order Detail'
+      title={t('orderPanel.orderDetail')}
       width={800}
       open={visible}
       footer={false}
       onCancel={handleCancel}
     >
       <Descriptions column={2} style={{ padding: '10px 30px' }}>
-        <Descriptions.Item label='Order ID'>
+        <Descriptions.Item label={t('orderPanel.orderId')}>
           {detail?.orderId}
         </Descriptions.Item>
-        <Descriptions.Item label='Order City Name'>
+        <Descriptions.Item label={t('orderPanel.cityName')}>
           {detail?.cityName}
         </Descriptions.Item>
-        <Descriptions.Item label='Order User Name'>
+        <Descriptions.Item label={t('orderPanel.userName')}>
           {detail?.userName}
         </Descriptions.Item>
-        <Descriptions.Item label='Mobile Number'>
+        <Descriptions.Item label={t('orderPanel.mobile')}>
           {formatMobile(detail?.mobile)}
         </Descriptions.Item>
-        <Descriptions.Item label='Start Address'>
+        <Descriptions.Item label={t('orderPanel.startingAddress')}>
           {detail?.startAddress}
         </Descriptions.Item>
-        <Descriptions.Item label='End Address'>
+        <Descriptions.Item label={t('orderPanel.endingAddress')}>
           {detail?.endAddress}
         </Descriptions.Item>
-        <Descriptions.Item label='Order Amount'>
+        <Descriptions.Item label={t('orderPanel.orderAmount')}>
           {formatMoney(detail?.orderAmount)}
         </Descriptions.Item>
-        <Descriptions.Item label='User Pay Amount'>
+        <Descriptions.Item label={t('orderPanel.userPayAmount')}>
           {formatMoney(detail?.userPayAmount)}
         </Descriptions.Item>
-        <Descriptions.Item label='Driver Pay Amount'>
+        <Descriptions.Item label={t('orderPanel.driverPaymentAmount')}>
           {formatMoney(detail?.driverAmount)}
         </Descriptions.Item>
-        <Descriptions.Item label='Payment Method'>
-          {detail?.payType == 1 ? 'WeChat Pay' : 'Alipay'}
+        <Descriptions.Item label={t('orderPanel.paymentMethod')}>
+          {detail?.payType == 1
+            ? t('orderPanel.weChatPay')
+            : t('orderPanel.alipay')}
         </Descriptions.Item>
-        <Descriptions.Item label='Driver Name'>
+        <Descriptions.Item label={t('orderPanel.driverName')}>
           {detail?.driverName}
         </Descriptions.Item>
-        <Descriptions.Item label='Vehicle Name'>
+        <Descriptions.Item label={t('orderPanel.vehicleName')}>
           {detail?.vehicleName}
         </Descriptions.Item>
-        <Descriptions.Item label='Order Status'>
+        <Descriptions.Item label={t('orderPanel.orderStatus')}>
           {formatState(detail?.state)}
         </Descriptions.Item>
-        <Descriptions.Item label='Use Time'>
+        <Descriptions.Item label={t('orderPanel.useTime')}>
           {formatDate(detail?.useTime)}
         </Descriptions.Item>
-        <Descriptions.Item label='End Time'>
+        <Descriptions.Item label={t('orderPanel.endTime')}>
           {formatDate(detail?.endTime)}
         </Descriptions.Item>
-        <Descriptions.Item label='Create Time'>
+        <Descriptions.Item label={t('orderPanel.createTime')}>
           {formatDate(detail?.createTime)}
         </Descriptions.Item>
       </Descriptions>

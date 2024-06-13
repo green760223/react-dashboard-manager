@@ -6,10 +6,12 @@ import { IAction } from '@/types/modal'
 import { ColumnsType } from 'antd/es/table'
 import { formatDate } from '@/utils'
 import { message } from '@/utils/AntdGlobal'
+import { useTranslation } from 'react-i18next'
 import api from '@/api'
 import CreateDept from './CreateDept'
 
 function DeptList() {
+  const { t } = useTranslation()
   const [form] = useForm()
 
   const deptRef = useRef<{
@@ -45,8 +47,8 @@ function DeptList() {
 
   const handleDelete = async (id: string) => {
     Modal.confirm({
-      title: 'Confirm',
-      content: 'Are you sure you want to delete this department?',
+      title: t('deptPanel.confirmDelete'),
+      content: t('deptPanel.deleteMessage'),
       onOk() {
         handleDelSubmit(id)
       }
@@ -56,30 +58,30 @@ function DeptList() {
   // Delete the department
   const handleDelSubmit = async (_id: string) => {
     await api.deleteDept({ _id })
-    message.success('Delete successfully!')
+    message.success(t('deptPanel.deleteSuccess'))
     getDeptList()
   }
 
   // Get the department list
   useEffect(() => {
     getDeptList()
-  }, [])
+  }, [t])
 
   const columns: ColumnsType<Dept.DeptItem> = [
     {
-      title: 'Department Name',
+      title: t('deptPanel.deptName'),
       dataIndex: 'deptName',
       key: 'deptName',
       width: 200
     },
     {
-      title: 'Department Manager',
+      title: t('deptPanel.deptManager'),
       dataIndex: 'userName',
       key: 'userName',
       width: 150
     },
     {
-      title: 'Update Time',
+      title: t('deptPanel.updateTime'),
       dataIndex: 'updateTime',
       key: 'updateTime',
       render(updateTime) {
@@ -87,7 +89,7 @@ function DeptList() {
       }
     },
     {
-      title: 'Create Time',
+      title: t('deptPanel.createTime'),
       dataIndex: 'createTime',
       key: 'createTime',
       render(createTime) {
@@ -95,20 +97,20 @@ function DeptList() {
       }
     },
     {
-      title: 'Action',
+      title: t('deptPanel.action'),
       key: 'action',
       width: 200,
       render(_, record) {
         return (
           <Space>
             <Button type='text' onClick={() => handleSubCreate(record._id)}>
-              Add
+              {t('deptPanel.add')}
             </Button>
             <Button type='text' onClick={() => handleEdit(record)}>
-              Edit
+              {t('deptPanel.edit')}
             </Button>
             <Button type='text' danger onClick={() => handleDelete(record._id)}>
-              Delete
+              {t('deptPanel.delete')}
             </Button>
           </Space>
         )
@@ -119,24 +121,24 @@ function DeptList() {
   return (
     <div>
       <Form className='search-form' layout='inline' form={form}>
-        <Form.Item label='Department Name' name='deptName'>
-          <Input placeholder='Department Name'></Input>
+        <Form.Item label={t('deptPanel.deptName')} name='deptName'>
+          <Input placeholder={t('deptPanel.deptName')}></Input>
         </Form.Item>
         <Form.Item>
           <Button type='primary' className='mr10' onClick={getDeptList}>
-            Search
+            {t('deptPanel.add')}
           </Button>
           <Button type='default' onClick={handleReset}>
-            Reset
+            {t('deptPanel.reset')}
           </Button>
         </Form.Item>
       </Form>
       <div className='base-table'>
         <div className='header-wrapper'>
-          <div className='title'>Department List</div>
+          <div className='title'>{t('deptPanel.deptList')}</div>
           <div className='action'>
             <Button type='primary' onClick={handleCreate}>
-              New
+              {t('deptPanel.add')}
             </Button>
           </div>
         </div>

@@ -4,9 +4,11 @@ import { useEffect, useImperativeHandle, useState } from 'react'
 import { Dept, User } from '@/types/api'
 import { useForm } from 'antd/es/form/Form'
 import { message } from '@/utils/AntdGlobal'
+import { useTranslation } from 'react-i18next'
 import api from '@/api'
 
 function CreateDept(props: IModalProp<Dept.EditParams>) {
+  const { t } = useTranslation()
   const [form] = useForm()
   const [action, setAction] = useState<IAction>('create')
   const [visible, setVisible] = useState(false)
@@ -15,7 +17,7 @@ function CreateDept(props: IModalProp<Dept.EditParams>) {
 
   useEffect(() => {
     getAllUserList()
-  }, [])
+  }, [t])
 
   const getDeptList = async () => {
     const data = await api.getDeptList()
@@ -52,7 +54,7 @@ function CreateDept(props: IModalProp<Dept.EditParams>) {
       } else {
         await api.editDept(form.getFieldsValue())
       }
-      message.success('Operation successful')
+      message.success(t('deptPanel.operateSuccess'))
       handleCancel()
       props.update()
     }
@@ -66,7 +68,11 @@ function CreateDept(props: IModalProp<Dept.EditParams>) {
 
   return (
     <Modal
-      title={action === 'create' ? 'Create Department' : 'Edit Department'}
+      title={
+        action === 'create'
+          ? t('deptPanel.createDept')
+          : t('deptPanel.editDept')
+      }
       width={1000}
       open={visible}
       okText='Save'
@@ -78,9 +84,9 @@ function CreateDept(props: IModalProp<Dept.EditParams>) {
         <Form.Item label='Department ID' name='_id' hidden>
           <Input disabled />
         </Form.Item>
-        <Form.Item label='Upper Department' name='parentId'>
+        <Form.Item label={t('deptPanel.upperDept')} name='parentId'>
           <TreeSelect
-            placeholder='Please select the upper department'
+            placeholder={t('deptPanel.selectUpperDept')}
             allowClear
             treeDefaultExpandAll
             fieldNames={{ label: 'deptName', value: '_id' }}
@@ -88,20 +94,16 @@ function CreateDept(props: IModalProp<Dept.EditParams>) {
           ></TreeSelect>
         </Form.Item>
         <Form.Item
-          label='Department Name'
+          label={t('deptPanel.deptName')}
           name='deptName'
-          rules={[
-            { required: true, message: 'Please enter the department name' }
-          ]}
+          rules={[{ required: true, message: t('deptPanel.enterDeptName') }]}
         >
-          <Input placeholder='Please enter the department name' />
+          <Input placeholder={t('deptPanel.enterDeptName')} />
         </Form.Item>
         <Form.Item
-          label='Department Manager'
+          label={t('deptPanel.deptManager')}
           name='userName'
-          rules={[
-            { required: true, message: 'Please select the department manager' }
-          ]}
+          rules={[{ required: true, message: t('deptPanel.enterDeptManager') }]}
         >
           <Select>
             {userList.map(item => {

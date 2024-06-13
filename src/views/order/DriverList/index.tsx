@@ -4,21 +4,23 @@ import { Button, Form, Input, Select, Space, Table } from 'antd'
 import { Order } from '@/types/api'
 import { ColumnsType } from 'antd/es/table'
 import { formatDate } from '@/utils'
+import { useTranslation } from 'react-i18next'
 import api from '@/api/orderApi'
 
 function DriverList() {
+  const { t } = useTranslation()
   const [form] = Form.useForm()
   const [data, setData] = useState<Order.DriverItem[]>([])
   const columns: ColumnsType<Order.DriverItem> = [
     {
-      title: 'Driver Name',
+      title: t('driverPanel.driverName'),
       dataIndex: 'driverName',
       key: 'driverName',
       fixed: 'left',
       width: 100
     },
     {
-      title: 'Driver Info',
+      title: t('driverPanel.driverInfo'),
       key: 'driverInfo',
       fixed: 'left',
       width: 200,
@@ -26,23 +28,23 @@ function DriverList() {
         return (
           <div>
             <p>
-              <span>Driver ID:</span>
+              <span>{t('driverPanel.driverId')}:</span>
               <span>{record.driverId}</span>
             </p>
             <p>
-              <span>Mobile:</span>
+              <span>{t('driverPanel.driverMobile')}:</span>
               <span>{record.driverPhone}</span>
             </p>
             <p>
-              <span>City:</span>
+              <span>{t('driverPanel.driverCity')}:</span>
               <span>{record.cityName}</span>
             </p>
             <p>
-              <span>Membership:</span>
+              <span>{t('driverPanel.driverMembership')}:</span>
               <span>{record.grade}</span>
             </p>
             <p>
-              <span>Level:</span>
+              <span>{t('driverPanel.driverLevel')}:</span>
               <span>{record.driverLevel}</span>
             </p>
           </div>
@@ -50,38 +52,38 @@ function DriverList() {
       }
     },
     {
-      title: 'Driver Status',
+      title: t('driverPanel.driverStatus'),
       dataIndex: 'accountStatus',
       key: 'accountStatus',
       width: 120,
       render(accountStatus: Order.DriverStatus) {
         const statusMap = {
-          0: 'Pending',
-          1: 'Active',
-          2: 'Temporarily suspended',
-          3: 'Suspended',
-          4: 'Blacklisted'
+          0: t('driverPanel.pending'),
+          1: t('driverPanel.active'),
+          2: t('driverPanel.temporarilySuspended'),
+          3: t('driverPanel.suspended'),
+          4: t('driverPanel.blacklisted')
         }
         return statusMap[accountStatus]
       }
     },
     {
-      title: 'Vehicle Info',
+      title: t('driverPanel.vehicleInfo'),
       key: 'vehicleInfo',
       width: 260,
       render(_, record) {
         return (
           <div>
             <p>
-              <span>Plate Number:</span>
+              <span>{t('driverPanel.plateNumber')}:</span>
               <span>{record.carNo}</span>
             </p>
             <p>
-              <span>Vehicle Brand：</span>
+              <span>{t('driverPanel.vehicleBrand')}：</span>
               <span>{record.vehicleBrand}</span>
             </p>
             <p>
-              <span>Vehicle Name:</span>
+              <span>{t('driverPanel.vehicleName')}:</span>
               <span>{record.vehicleName}</span>
             </p>
           </div>
@@ -89,13 +91,13 @@ function DriverList() {
       }
     },
     {
-      title: 'Online Time',
+      title: t('driverPanel.onlineTime'),
       dataIndex: 'onlineTime',
       key: 'onlineTime',
       width: 150
     },
     {
-      title: 'Driver Amount',
+      title: t('driverPanel.driverPrice'),
       dataIndex: 'driverAmount',
       key: 'driverAmount',
       width: 120,
@@ -104,31 +106,31 @@ function DriverList() {
       }
     },
     {
-      title: 'Rating',
+      title: t('driverPanel.driverRating'),
       dataIndex: 'rating',
       key: 'rating',
       width: 100
     },
     {
-      title: 'Driver Score',
+      title: t('driverPanel.driverScore'),
       dataIndex: 'driverScore',
       key: 'driverScore',
       width: 100
     },
     {
-      title: 'Push Order',
+      title: t('driverPanel.driverPushOrders'),
       dataIndex: 'pushOrderCount',
       key: 'pushOrderCount',
       width: 120
     },
     {
-      title: 'Complete Order',
+      title: t('driverPanel.driverCompleteOrders'),
       dataIndex: 'orderCompleteCount',
       key: 'orderCompleteCount',
       width: 120
     },
     {
-      title: 'Create Time',
+      title: t('driverPanel.createTime'),
       dataIndex: 'createTime',
       key: 'createTime',
       width: 220,
@@ -140,7 +142,7 @@ function DriverList() {
 
   useEffect(() => {
     getDriverList()
-  }, [])
+  }, [t])
 
   const getDriverList = async () => {
     const data = await api.getDriverList(form.getFieldsValue())
@@ -160,35 +162,41 @@ function DriverList() {
   return (
     <div className='driver-list'>
       <Form className='search-form' layout='inline' form={form}>
-        <Form.Item name='driverName' label='Driver name'>
-          <Input placeholder='Please input driver name' />
+        <Form.Item name='driverName' label={t('driverPanel.driverName')}>
+          <Input placeholder={t('driverPanel.enterDriverName')} />
         </Form.Item>
-        <Form.Item name='accountStatus' label='Driver Status'>
+        <Form.Item name='accountStatus' label={t('driverPanel.driverStatus')}>
           <Select
-            placeholder='Please select driver status'
+            placeholder={t('driverPanel.enterDriverStatus')}
             style={{ width: 220 }}
           >
-            <Select.Option value={0}>Pending</Select.Option>
-            <Select.Option value={1}>Active</Select.Option>
-            <Select.Option value={2}>Temporarily suspended</Select.Option>
-            <Select.Option value={3}>Suspended</Select.Option>
-            <Select.Option value={4}>Blacklisted</Select.Option>
+            <Select.Option value={0}>{t('driverPanel.pending')}</Select.Option>
+            <Select.Option value={1}>{t('driverPanel.active')}</Select.Option>
+            <Select.Option value={2}>
+              {t('driverPanel.temporarilySuspended')}
+            </Select.Option>
+            <Select.Option value={3}>
+              {t('driverPanel.suspended')}
+            </Select.Option>
+            <Select.Option value={4}>
+              {t('driverPanel.blacklisted')}
+            </Select.Option>
           </Select>
         </Form.Item>
         <Form.Item>
           <Space>
             <Button type='primary' onClick={handleSearch}>
-              Search
+              {t('driverPanel.search')}
             </Button>
             <Button type='default' onClick={handleReset}>
-              Reset
+              {t('driverPanel.reset')}
             </Button>
           </Space>
         </Form.Item>
       </Form>
       <div className='base-table'>
         <div className='header-wrpper'>
-          <div className='title'>Driver List</div>
+          <div className='title'>{t('driverPanel.driverList')}</div>
         </div>
         <Table
           bordered

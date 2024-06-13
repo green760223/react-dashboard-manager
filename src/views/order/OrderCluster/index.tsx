@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Select } from 'antd'
+import { useTranslation } from 'react-i18next'
 import api from '@/api/orderApi'
 
 function OrderCluster() {
+  const { t } = useTranslation()
   const [cityId, setCityId] = useState(10001)
 
   useEffect(() => {
     getCityData()
-  }, [cityId])
+  }, [cityId, t])
 
   // 取得各城市訂單數量資料
   const getCityData = async () => {
@@ -24,11 +26,11 @@ function OrderCluster() {
     const zoomCtrl = new window.BMapGL.ZoomControl()
     map.addControl(zoomCtrl)
     const cityNames: { [k: number]: string } = {
-      10001: 'Changsha',
-      20001: 'Wuhan',
-      30001: 'Hangzhou',
-      40001: 'Huizhou',
-      50001: 'Kunming'
+      10001: t('orderCluster.changsha'),
+      20001: t('orderCluster.wuhan'),
+      30001: t('orderCluster.hangzhou'),
+      40001: t('orderCluster.huizhou'),
+      50001: t('orderCluster.kunming')
     }
     map.centerAndZoom(cityNames[cityId], 12)
 
@@ -58,11 +60,15 @@ function OrderCluster() {
         value={cityId}
         onChange={handleChange}
       >
-        <Select.Option value={10001}>Changsha</Select.Option>
-        <Select.Option value={20001}>Wuhan</Select.Option>
-        <Select.Option value={30001}>Hangzhou</Select.Option>
-        <Select.Option value={40001}>Huizhou</Select.Option>
-        <Select.Option value={50001}>Kunming</Select.Option>
+        <Select.Option value={10001}>
+          {t('orderCluster.changsha')}
+        </Select.Option>
+        <Select.Option value={20001}> {t('orderCluster.wuhan')}</Select.Option>
+        <Select.Option value={30001}>
+          {t('orderCluster.hangzhou')}
+        </Select.Option>
+        <Select.Option value={40001}>{t('orderCluster.huizhou')}</Select.Option>
+        <Select.Option value={50001}>{t('orderCluster.kunming')}</Select.Option>
       </Select>
       <div id='clusterMap' style={{ height: 'calc(100vh-192px)' }}></div>
     </div>

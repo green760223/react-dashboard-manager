@@ -1,8 +1,15 @@
-import { useEffect } from 'react'
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
-import { Switch, Dropdown } from 'antd'
+import { useEffect, useState } from 'react'
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  BellOutlined,
+  MoonOutlined,
+  SunOutlined
+} from '@ant-design/icons'
+import { Dropdown, Button, Avatar, Badge } from 'antd'
 import type { MenuProps } from 'antd'
 import { useStore } from '@/store'
+import { useTranslation } from 'react-i18next'
 import styles from './index.module.less'
 import storage from '@/utils/storage'
 import BreadCrumb from './BreadCrumb'
@@ -15,6 +22,9 @@ const NavHeader = () => {
   //     updateCollapsed: state.updateCollapse
   //   }))
 
+  const { t, i18n } = useTranslation()
+  const [language, setLanguage] = useState('en')
+
   const { userInfo, isCollapse, isDark, updateCollapse, updateTheme } =
     useStore()
 
@@ -24,12 +34,16 @@ const NavHeader = () => {
 
   const items: MenuProps['items'] = [
     {
-      key: 'email',
-      label: 'email：' + userInfo.userEmail
+      key: 'name',
+      label: `${t('navHeader.username')}：` + userInfo.userName
+    },
+    {
+      key: 'e-mail',
+      label: `${t('navHeader.email')}：` + userInfo.userEmail
     },
     {
       key: 'logout',
-      label: 'Logout'
+      label: `${t('navHeader.logout')}`
     }
   ]
 
@@ -58,6 +72,32 @@ const NavHeader = () => {
     updateTheme(isDark)
   }
 
+  // Switch the theme
+  const handleTheme = (isDark: boolean) => {
+    if (isDark) {
+      document.documentElement.dataset.theme = 'dark'
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.dataset.theme = 'light'
+      document.documentElement.classList.remove('dark')
+    }
+    storage.set('isDark', isDark)
+    updateTheme(isDark)
+  }
+
+  // Switch the language
+  const handleLanguage = (lng: string) => {
+    return () => {
+      if (lng === 'en') {
+        i18n.changeLanguage('zh')
+        setLanguage('zh')
+      } else {
+        i18n.changeLanguage('en')
+        setLanguage('en')
+      }
+    }
+  }
+
   return (
     <div className={styles.navHeader}>
       <div className={styles.left}>
@@ -72,15 +112,46 @@ const NavHeader = () => {
         <BreadCrumb />
       </div>
       <div className='right'>
-        <Switch
+        {/* <Switch
           checked={isDark}
-          checkedChildren='Dark'
-          unCheckedChildren='Light'
-          style={{ marginRight: 10 }}
+          checkedChildren={t('navHeader.dark')}
+          unCheckedChildren={t('navHeader.light')}
+          style={{ margin: 10 }}
           onChange={handleSwitch}
-        />
+        /> */}
+
+        <Button
+          shape='circle'
+          style={{ margin: 10 }}
+          onClick={() => handleTheme(!isDark)}
+        >
+          {isDark ? <MoonOutlined /> : <SunOutlined />}
+        </Button>
+
+        {/* <a>
+          <Badge count={5} size='default' offset={[-5, 12]}>
+            <BellOutlined style={{ fontSize: 20, margin: 10 }} />
+          </Badge>
+        </a> */}
+
+        <Button
+          shape='circle'
+          style={{ margin: 10 }}
+          onClick={handleLanguage(language)}
+        >
+          {language === 'en' ? 'EN' : '中'}
+        </Button>
+
+        <Button shape='circle' style={{ margin: 10 }}>
+          <Badge count={1} size='default' offset={[6, -4]}>
+            <BellOutlined />
+          </Badge>
+        </Button>
+
         <Dropdown menu={{ items, onClick }} trigger={['click']}>
-          <span className={styles.nickName}>{userInfo.userName}</span>
+          <a style={{ margin: 10 }}>
+            <Avatar src={userInfo.userImg} alt='User' size='large' />
+          </a>
         </Dropdown>
       </div>
     </div>

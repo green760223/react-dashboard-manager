@@ -1,4 +1,6 @@
 import { Form, Space, Button } from 'antd'
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 /**
  * 搜索表單容器組件封裝
@@ -6,6 +8,10 @@ import { Form, Space, Button } from 'antd'
  * @returns
  */
 function SearchForm(props: any) {
+  const { t } = useTranslation()
+
+  useEffect(() => {}, [t])
+
   return (
     <Form
       className='search-form'
@@ -20,10 +26,10 @@ function SearchForm(props: any) {
       <Form.Item>
         <Space>
           <Button type='primary' onClick={props.submit}>
-            Search
+            {t('searchForm.search')}
           </Button>
           <Button type='default' onClick={props.reset}>
-            Reset
+            {t('searchForm.reset')}
           </Button>
         </Space>
       </Form.Item>

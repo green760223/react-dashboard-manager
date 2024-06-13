@@ -13,6 +13,7 @@
     "start": "serve -s dist"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.6",
     "@vercel/analytics": "^1.2.2",
     "ahooks": "^3.7.10",
     "antd": "^5.11.1",
@@ -20,9 +21,14 @@
     "echarts": "^5.4.3",
     "form-render": "^2.4.4",
     "gh-pages": "^6.0.0",
+    "i18n": "^0.15.1",
+    "i18next": "^23.10.1",
+    "i18next-browser-languagedetector": "^7.2.1",
+    "i18next-http-backend": "^2.5.0",
     "less": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^14.1.0",
     "react-router-dom": "^6.15.0",
     "serve": "^14.2.1",
     "zustand": "^4.5.0"
@@ -31,6 +37,7 @@
     "@types/node": "^20.5.7",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/react-i18next": "^8.1.0",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
     "@vitejs/plugin-react": "^4.0.3",

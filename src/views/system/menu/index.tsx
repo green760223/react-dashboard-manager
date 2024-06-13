@@ -8,10 +8,11 @@ import { formatDate } from '@/utils'
 import { message } from '@/utils/AntdGlobal'
 import api from '@/api'
 import CreateMenu from './CreateMenu'
+import { useTranslation } from 'react-i18next'
 
 function MenuList() {
+  const { t } = useTranslation()
   const [form] = useForm()
-
   const menuRef = useRef<{
     open: (
       type: IAction,
@@ -80,48 +81,48 @@ function MenuList() {
   // Get the menu list
   useEffect(() => {
     getMenuList()
-  }, [])
+  }, [t])
 
   const columns: ColumnsType<Menu.MenuItem> = [
     {
-      title: 'Menu Name',
+      title: t('menuPanel.menuName'),
       dataIndex: 'menuName',
       key: 'menuName'
     },
     {
-      title: 'Menu Icon',
+      title: t('menuPanel.menuIcon'),
       dataIndex: 'icon',
       key: 'icon'
     },
     {
-      title: 'Menu Type',
+      title: t('menuPanel.menuType'),
       dataIndex: 'menuType',
       key: 'menuType',
       render(menuType: number) {
         return {
-          1: 'Menu',
-          2: 'Button',
-          3: 'Page'
+          1: t('menuPanel.menu'),
+          2: t('menuPanel.button'),
+          3: t('menuPanel.page')
         }[menuType]
       }
     },
     {
-      title: 'Permission',
+      title: t('menuPanel.menuPermission'),
       dataIndex: 'menuCode',
       key: 'menuCode'
     },
     {
-      title: 'Route Path',
+      title: t('menuPanel.routePath'),
       dataIndex: 'path',
       key: 'path'
     },
     {
-      title: 'Component',
+      title: t('menuPanel.component'),
       dataIndex: 'component',
       key: 'component'
     },
     {
-      title: 'Create Time',
+      title: t('menuPanel.createTime'),
       dataIndex: 'createTime',
       key: 'createTime',
       render(createTime) {
@@ -129,20 +130,20 @@ function MenuList() {
       }
     },
     {
-      title: 'Action',
+      title: t('menuPanel.action'),
       key: 'action',
       width: 200,
       render(_, record) {
         return (
           <Space>
             <Button type='text' onClick={() => handleSubCreate(record)}>
-              Add
+              {t('menuPanel.add')}
             </Button>
             <Button type='text' onClick={() => handleEdit(record)}>
-              Edit
+              {t('menuPanel.edit')}
             </Button>
             <Button type='text' danger onClick={() => handleDelete(record)}>
-              Delete
+              {t('menuPanel.delete')}
             </Button>
           </Space>
         )
@@ -158,30 +159,30 @@ function MenuList() {
         form={form}
         initialValues={{ menuState: 1 }}
       >
-        <Form.Item label='Menu Name' name='menuName'>
-          <Input placeholder='Menu Name'></Input>
+        <Form.Item label={t('menuPanel.menuName')} name='menuName'>
+          <Input placeholder={t('menuPanel.menuName')}></Input>
         </Form.Item>
-        <Form.Item label='Menu Status' name='menuState'>
+        <Form.Item label={t('menuPanel.menuStatus')} name='menuState'>
           <Select style={{ width: 100 }}>
-            <Select.Option value={1}>Enable</Select.Option>
-            <Select.Option value={2}>Disable</Select.Option>
+            <Select.Option value={1}>{t('menuPanel.enable')}</Select.Option>
+            <Select.Option value={2}>{t('menuPanel.disable')}</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item>
           <Button type='primary' className='mr10' onClick={getMenuList}>
-            Search
+            {t('menuPanel.search')}
           </Button>
           <Button type='default' onClick={handleReset}>
-            Reset
+            {t('menuPanel.reset')}
           </Button>
         </Form.Item>
       </Form>
       <div className='base-table'>
         <div className='header-wrapper'>
-          <div className='title'>Menu List</div>
+          <div className='title'>{t('menuPanel.menuList')}</div>
           <div className='action'>
             <Button type='primary' onClick={handleCreate}>
-              New
+              {t('menuPanel.add')}
             </Button>
           </div>
         </div>

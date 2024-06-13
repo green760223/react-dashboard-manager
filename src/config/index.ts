@@ -25,7 +25,7 @@ const config = {
   },
   prod: {
     baseAPI: 'https://api-proxy-service-128315aa4d53.herokuapp.com/api',
-    uploadAPI: 'https://api-proxy-service-128315aa4d53.herokuapp.com',
+    uploadAPI: 'https://api-proxy-service-128315aa4d53.herokuapp.com/',
     mock: false,
     cnd: 'http://www.aliyun.com',
     mockAPI:

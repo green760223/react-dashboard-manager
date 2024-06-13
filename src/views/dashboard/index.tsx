@@ -4,12 +4,25 @@ import { useStore } from '@/store'
 import { formatSate, formatMoney, formatNum } from '@/utils'
 import { Dashboard } from '@/types/api'
 import { useCharts } from '@/hook/useCharts'
+import { useTranslation } from 'react-i18next'
 import styles from './index.module.less'
 import api from '@/api'
 
 function DashBoard() {
+  const { t } = useTranslation()
   const userInfo = useStore(state => state.userInfo)
   const [report, setReport] = useState<Dashboard.ReportData>()
+  const [pieChartDriverCityData, setPieChartDriverCityData] = useState()
+  const [pieChartDriverAgeData, setPieChartDriverAgeData] = useState()
+  const [lineChartData, setLineChartData] = useState({
+    label: [],
+    order: [],
+    money: []
+  })
+  const [radarChartData, setRadarChartData] = useState({
+    indicator: [],
+    data: []
+  })
 
   // 初始化折線圖
   const [lineRef, lineChart] = useCharts()
@@ -21,26 +34,53 @@ function DashBoard() {
   // 初始化雷達圖
   const [radarRef, radarChart] = useCharts()
 
+  // 初始化圖表
   useEffect(() => {
+    // Pie chart City
+    renderPieChartDriverCity()
+    // Pie chart Age
+    renderPieChartDriverAge()
     // Line chart
     renderLineChart()
-
-    // Pie chart City
-    renderPeiChart1()
-    // Pie chart Age
-    renderPeiChart2()
-
     // Radar chart
     renderRadarChart()
-  }, [lineChart, pieChart1, pieChart2, radarChart])
+  }, [t, pieChart1, pieChart2, lineChart, radarChart])
 
-  // Render pie chart data 1
-  const renderPeiChart1 = async () => {
+  // 更新圖表語言
+  useEffect(() => {
+    updatePieChartDriverCity()
+    updatePieChartDriverAge()
+    updateLineChart()
+    updateRadarChart()
+  }, [
+    t,
+    pieChartDriverCityData,
+    pieChartDriverAgeData,
+    lineChartData,
+    radarChartData
+  ])
+
+  useEffect(() => {
+    getReportData()
+  }, [])
+
+  // Render pie chart data for Driver City
+  const renderPieChartDriverCity = async () => {
     if (!pieChart1) return
-    const data = await api.getPieCityChartData()
+    const rawData = await api.getPieCityChartData()
+    const translationCities = rawData.map((item: any) => ({
+      ...item,
+      name: t(`cities.${item.name}`)
+    }))
+
+    setPieChartDriverCityData(translationCities as any)
+  }
+
+  // Update pie chart data for Driver City
+  const updatePieChartDriverCity = () => {
     pieChart1?.setOption({
       title: {
-        text: 'Driver City Distribution',
+        text: t('pieChart1.title'),
         left: 'center'
       },
       tooltip: {
@@ -52,22 +92,32 @@ function DashBoard() {
       },
       series: [
         {
-          name: 'City Distribution',
+          name: t('pieChart1.name'),
           type: 'pie',
           radius: '55%',
-          data: data
+          data: pieChartDriverCityData
         }
       ]
     })
   }
 
-  // Render pie chart data 2
-  const renderPeiChart2 = async () => {
+  // Render pie chart data for Driver Age
+  const renderPieChartDriverAge = async () => {
     if (!pieChart2) return
-    const data = await api.getPieAgeChartData()
+    const rawData = await api.getPieAgeChartData()
+    const translateAges = rawData.map((item: any) => ({
+      ...item,
+      name: t(`ages.${item.name}`)
+    }))
+
+    setPieChartDriverAgeData(translateAges as any)
+  }
+
+  // Update pie chart data for Driver Age
+  const updatePieChartDriverAge = () => {
     pieChart2?.setOption({
       title: {
-        text: 'Driver Age Distribution',
+        text: t('pieChart2.title'),
         left: 'center'
       },
       tooltip: {
@@ -79,11 +129,11 @@ function DashBoard() {
       },
       series: [
         {
-          name: 'Age Distribution',
+          name: t('pieChart2.name'),
           roseType: 'area',
           type: 'pie',
           radius: [50, 150],
-          data: data
+          data: pieChartDriverAgeData
         }
       ]
     })
@@ -92,19 +142,31 @@ function DashBoard() {
   // Render radar chart data
   const renderRadarChart = async () => {
     if (!renderRadarChart) return
-    const data = await api.getRadarChartData()
+    const rawData = await api.getRadarChartData()
+    const translatedData = {
+      ...rawData,
+      indicator: rawData.indicator.map(ind => ({
+        ...ind,
+        name: t(`diagnosis.${ind.name}`)
+      }))
+    }
+    setRadarChartData(translatedData as any)
+  }
+
+  // Update radar chart data
+  const updateRadarChart = () => {
     radarChart?.setOption({
       legend: {
-        data: ['Driver Radar Diagnosis']
+        data: [t('radarChart.legend')]
       },
       radar: {
-        indicator: data.indicator
+        indicator: radarChartData.indicator
       },
       series: [
         {
-          name: 'Model Diagnosis',
+          name: t('radarChart.name'),
           type: 'radar',
-          data: data.data
+          data: radarChartData.data
         }
       ]
     })
@@ -114,12 +176,17 @@ function DashBoard() {
   const renderLineChart = async () => {
     if (!lineChart) return
     const data = await api.getLineChartData()
+    setLineChartData(data as any)
+  }
+
+  // Update line chart data
+  const updateLineChart = () => {
     lineChart?.setOption({
       tooltip: {
         trigger: 'axis'
       },
       legend: {
-        data: ['Orders', 'Transactions']
+        data: [t('lineChart.Orders'), t('lineChart.Transactions')]
       },
       grid: {
         left: '5%',
@@ -127,29 +194,25 @@ function DashBoard() {
         bottom: '10%'
       },
       xAxis: {
-        data: data.label
+        data: lineChartData.label
       },
       yAxis: {
         type: 'value'
       },
       series: [
         {
-          name: 'Orders',
+          name: t('lineChart.Orders'),
           type: 'line',
-          data: data.order
+          data: lineChartData.order
         },
         {
-          name: 'Transactions',
+          name: t('lineChart.Transactions'),
           type: 'line',
-          data: data.money
+          data: lineChartData.money
         }
       ]
     })
   }
-
-  useEffect(() => {
-    getReportData()
-  }, [])
 
   // Get the report data
   const getReportData = async () => {
@@ -159,62 +222,66 @@ function DashBoard() {
 
   // Refresh the pie chart
   const handleRefresh = () => {
-    renderPeiChart1()
-    renderPeiChart2()
+    renderPieChartDriverCity()
+    renderPieChartDriverAge()
   }
 
   return (
     <div className={styles.dashboard}>
       <div className={styles.userInfo}>
-        <img src={userInfo.userImg} alt='User' className={styles.userImg} />
-        <Descriptions title={'Welcome back ' + userInfo.userName}>
-          <Descriptions.Item label='User ID'>
+        <img
+          src={userInfo.userImg ? userInfo.userImg : '/imgs/user.png'}
+          alt='User'
+          className={styles.userImg}
+        />
+        <Descriptions title={t('reportData.welcome') + userInfo.userName}>
+          <Descriptions.Item label={t('reportData.userId')}>
             {userInfo.userId}
           </Descriptions.Item>
-          <Descriptions.Item label='E-mail'>
+          <Descriptions.Item label={t('reportData.email')}>
             {userInfo.userEmail}
           </Descriptions.Item>
-          <Descriptions.Item label='Status'>
-            {formatSate(userInfo.state)}
+          <Descriptions.Item label={t('reportData.status')}>
+            {t(`reportData.${formatSate(userInfo.state)}`)}
           </Descriptions.Item>
-          <Descriptions.Item label='Cellphone'>
+          <Descriptions.Item label={t('reportData.cellphone')}>
             {userInfo.mobile}
           </Descriptions.Item>
-          <Descriptions.Item label='Occupation'>
+          <Descriptions.Item label={t('reportData.occupation')}>
             {userInfo.job}
           </Descriptions.Item>
-          <Descriptions.Item label='Departmant'>
+          <Descriptions.Item label={t('reportData.department')}>
             {userInfo.deptName}
           </Descriptions.Item>
         </Descriptions>
       </div>
       <div className={styles.report}>
         <div className={styles.card}>
-          <div className='title'>Number of Drivers</div>
+          <div className='title'>{t('reportData.drivers')}</div>
           <div className={styles.data}>{formatNum(report?.driverCount)}</div>
         </div>
 
         <div className={styles.card}>
-          <div className='title'>Total Inventory</div>
+          <div className='title'>{t('reportData.transactions')}</div>
           <div className={styles.data}>{formatMoney(report?.totalMoney)}</div>
         </div>
 
         <div className={styles.card}>
-          <div className='title'>Total Orders</div>
+          <div className='title'>{t('reportData.orders')}</div>
           <div className={styles.data}>{formatNum(report?.orderCount)}</div>
         </div>
 
         <div className={styles.card}>
-          <div className='title'>City Launch</div>
+          <div className='title'>{t('reportData.cities')}</div>
           <div className={styles.data}>{formatNum(report?.cityNum)}</div>
         </div>
       </div>
       <div className={styles.chart}>
         <Card
-          title='Order and Revenue Trend Chart'
+          title={t('reportData.trendChart')}
           extra={
             <Button type='primary' onClick={renderLineChart}>
-              Refresh
+              {t('reportData.refresh')}
             </Button>
           }
         >
@@ -223,10 +290,10 @@ function DashBoard() {
       </div>
       <div className={styles.chart}>
         <Card
-          title='Driver Distribution'
+          title={t('reportData.driverDistribution')}
           extra={
             <Button type='primary' onClick={handleRefresh}>
-              Refresh
+              {t('reportData.refresh')}
             </Button>
           }
         >
@@ -238,10 +305,10 @@ function DashBoard() {
       </div>
       <div className={styles.chart}>
         <Card
-          title='Model Diagnosis'
+          title={t('reportData.modelDiagnosis')}
           extra={
             <Button type='primary' onClick={renderRadarChart}>
-              Refresh
+              {t('reportData.refresh')}
             </Button>
           }
         >
