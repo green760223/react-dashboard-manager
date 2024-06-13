@@ -14,6 +14,7 @@ function DashBoard() {
   const [report, setReport] = useState<Dashboard.ReportData>()
   const [pieChartDriverCityData, setPieChartDriverCityData] = useState()
   const [pieChartDriverAgeData, setPieChartDriverAgeData] = useState()
+  const [imgSrc, setImgSrc] = useState(userInfo.userImg || '/imgs/user.png')
   const [lineChartData, setLineChartData] = useState({
     label: [],
     order: [],
@@ -23,6 +24,10 @@ function DashBoard() {
     indicator: [],
     data: []
   })
+
+  const handleImgError = () => {
+    setImgSrc('/imgs/user.png')
+  }
 
   // 初始化折線圖
   const [lineRef, lineChart] = useCharts()
@@ -230,9 +235,10 @@ function DashBoard() {
     <div className={styles.dashboard}>
       <div className={styles.userInfo}>
         <img
-          src={userInfo.userImg ? userInfo.userImg : '/imgs/user.png'}
-          alt='User'
+          src={imgSrc}
+          alt='User Icon'
           className={styles.userImg}
+          onError={handleImgError}
         />
         <Descriptions title={t('reportData.welcome') + userInfo.userName}>
           <Descriptions.Item label={t('reportData.userId')}>
