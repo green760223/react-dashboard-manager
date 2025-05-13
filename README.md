@@ -20,6 +20,12 @@ This project primarily focuses on building a robust backend management system us
 
 ---
 
+## 🖼 Preview
+
+Here’s a look at the dashboard homepage, showcasing chart visualizations, theme switching, and modular layout:
+
+![Dashboard Screenshot]()
+
 ## ✨ Key Features
 
 - 🔐 **User Authentication** – Secure login with access control
