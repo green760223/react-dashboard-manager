@@ -1,6 +1,6 @@
 # React Dashboard Manager
 
-[Welcome page](https://live.staticflickr.com/65535/54515174452_39d6b26d8c_b.jpg)  
+[Welcome page](https://i.imgur.com/R7hseoL.png)  
 
 A **React 18 + TypeScript-based dashboard management system** for enterprise-scale admin platforms. This project showcases full-stack frontend development skills through modular UI design, data visualization, map integration, and system role management.
 
