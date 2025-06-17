@@ -37,6 +37,7 @@ instance.interceptors.request.use(
       config.baseURL = env.mockAPI
     } else {
       config.baseURL = env.baseAPI
+      console.log('Base API:', config.baseURL)
     }
 
     return {
