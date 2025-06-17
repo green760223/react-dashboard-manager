@@ -6,28 +6,30 @@ type ENV = 'dev' | 'stg' | 'prod'
 
 const env = (document.documentElement.dataset.env as ENV) || 'stg'
 
+// console.log('Current environment:', env)
+
 const config = {
   dev: {
     baseAPI: '/api',
-    uploadAPI: 'http://api-driver-dev.marsview.cc',
+    uploadAPI: 'https://api-driver.marsview.com.cn',
     mock: false,
-    cnd: 'http://www.aliyun.com',
+    cdn: 'http://www.aliyun.com',
     mockAPI:
       'https://www.fastmock.site/mock/a5c0902ecbc737f8e4d65447420fe0d2/api'
   },
   stg: {
     baseAPI: '/api',
-    uploadAPI: 'http://api-driver-stg.marsview.cc',
+    uploadAPI: 'https://api-driver.marsview.com.cn',
     mock: false,
-    cnd: 'http://www.aliyun.com',
+    cdn: 'http://www.aliyun.com',
     mockAPI:
       'https://www.fastmock.site/mock/a5c0902ecbc737f8e4d65447420fe0d2/api'
   },
   prod: {
-    baseAPI: 'https://api-proxy-service-production.up.railway.app/api',
-    uploadAPI: 'https://api-proxy-service-production.up.railway.app/',
+    baseAPI: '/api',
+    uploadAPI: 'https://api-driver.marsview.com.cn',
     mock: false,
-    cnd: 'http://www.aliyun.com',
+    cdn: 'http://www.aliyun.com',
     mockAPI:
       'https://www.fastmock.site/mock/a5c0902ecbc737f8e4d65447420fe0d2/api'
   }
